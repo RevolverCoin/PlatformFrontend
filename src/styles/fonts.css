@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'DosisSemiBold';
+  src: url('./../fonts/DosisSemiBold/DosisSemiBold.ttf') format('truetype');
+  src: url('./../fonts/DosisSemiBold/DosisSemiBold.woff2') format('woff2'),
+  url('./../fonts/DosisSemiBold/DosisSemiBold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}

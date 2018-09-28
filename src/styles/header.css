@@ -1,0 +1,76 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.header-top {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: #ffffff;
+  border-bottom: 1px solid #a1a1a1;
+}
+
+.header-top .header-top-logo-wrap,
+.header-top .header-top-logo-descr {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.header-top .header-top-logo-descr {
+  padding-left: 5px;
+}
+
+.header-top .header-top-logo-descr > h2,
+.header-top .header-top-logo-descr > p {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-style: italic;
+  color: #172c42;
+}
+
+.header-top .header-top-logo-descr > h2 {
+  text-transform: uppercase;
+  padding-top: 8px;
+  font-size: 20px;
+}
+
+.header-top .header-top-signin-link,
+.header-top-logout-link {
+  text-transform: uppercase;
+  color: #000000;
+  text-decoration: none;
+}
+
+.header-top-logout-link {
+  font-size: 16px;
+}
+
+.header-top .header-top-signin-link:hover,
+.header-top .header-top-signin-link:active,
+.header-top .header-top-signin-link:focus {
+  color: #000000;
+  text-decoration: none;
+}
+
+.header-top .header-top-logo-descr > p {
+  line-height: 0.3;
+  font-size: 14px;
+}
+
+.nav-wrap {
+  line-height: 4.5;
+}
+
+.nav-item {
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-right: 25px;
+  color: #111111;
+}
+
+.nav-item.active {
+  color: #7d000f;
+}
+

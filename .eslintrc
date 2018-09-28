@@ -1,0 +1,27 @@
+{
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "airbnb"
+    ],
+    "rules": {
+      "semi": [1, "never"],
+      "max-len": 1,
+      "ecmaVersion": 2017,
+      "ecmaFeatures": {
+          "experimentalObjectRestSpread": true
+      },
+      "linebreak-style": 0,
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    },
+    "globals": {
+      "shallow": true,
+      "render": true,
+      "mount": true,
+      "sinon": true
+    },
+    "env": {
+      "browser": true,
+      "jest": true
+    }
+  }
