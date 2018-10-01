@@ -1,4 +1,4 @@
-"const url = 'http://127.0.0.1:5445'
+const url = 'http://127.0.0.1:5445'
 
 export const HTTPErrors = {
   Unauthorized: 'Unauthorized'
