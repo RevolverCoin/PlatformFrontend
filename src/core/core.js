@@ -24,6 +24,7 @@ export const INITIAL_STATE = fromJS({
       username: null,
       description: null,
       email: null,
+      address: null,
       // flag to show loading during logging in
       isLoading: false,
       // flag to store success auth
@@ -136,6 +137,7 @@ export function handleGetProfileInfoActionSuccess(state, data) {
     .setIn(['user', 'profile', 'username'], data.get('username'))
     .setIn(['user', 'profile', 'description'], data.get('desc'))
     .setIn(['user', 'profile', 'email'], data.get('email'))
+    .setIn(['user', 'profile', 'address'], data.get('address'))
 }
 
 export function handleGetProfileInfoActionFailure(state, err) {
@@ -151,6 +153,7 @@ export function handleUpdateProfileInfoActionSuccess(state, data) {
     .setIn(['user', 'profile', 'username'], data.getIn(['data', 'username']))
     .setIn(['user', 'profile', 'description'], data.getIn(['data', 'desc']))
     .setIn(['user', 'profile', 'email'], data.getIn(['data', 'email']))
+    .setIn(['user', 'profile', 'address'], data.getIn(['data', 'address']))
 }
 
 export function handleUpdateProfileInfoActionFailure(state, err) {

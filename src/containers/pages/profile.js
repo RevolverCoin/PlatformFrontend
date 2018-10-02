@@ -19,6 +19,7 @@ class ProfilePage extends BasePage {
       username={this.props.userProfileUsername}
       description={this.props.userProfileDescription}
       email={this.props.userProfileEmail}
+      address={this.props.userProfileAddress}
       userId={this.props.userProfileId}
     />
     )
@@ -30,6 +31,7 @@ ProfilePage.defaultProps = {
   userProfileUsername: '',
   userProfileDescription: '',
   userProfileEmail: '',
+  userProfileAddress: '',
   userProfileId: '',
   getProfileInfoAction: null,
 }
@@ -38,6 +40,7 @@ ProfilePage.propTypes = {
   userProfileUsername: PropTypes.string,
   userProfileDescription: PropTypes.string,
   userProfileEmail: PropTypes.string,
+  userProfileAddress: PropTypes.string,
   userProfileId: PropTypes.string,
   getProfileInfoAction: PropTypes.func,
 }
@@ -50,6 +53,7 @@ const mapStateToProps = (state) => {
     userProfileUsername: profile && profile.get('username'),
     userProfileDescription: profile && profile.get('description'),
     userProfileEmail: profile && profile.get('email'),
+    userProfileAddress: profile && profile.get('address'),
     userProfileId: profile && profile.get('id'),
   }
 }

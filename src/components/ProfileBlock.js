@@ -102,6 +102,16 @@ class ProfileBlock extends React.Component {
                 <p className="mui--text-left">{this.props.email}</p>
               </Col>
             </Row>
+
+            <Row className="m-t-md m-b-md">
+              <Col md="3" className="mui--text-left">
+                <label htmlFor="name">Address:</label>
+              </Col>
+              <Col md="9">
+                <p className="mui--text-left">{this.props.address}</p>
+              </Col>
+            </Row>
+
             <MainButton handleAction={this.onSubmit} text="Update" />
           </Container>
         </Form>
@@ -112,10 +122,12 @@ class ProfileBlock extends React.Component {
 
 ProfileBlock.defaultProps = {
   email: '',
+  address: ''
 }
 
 ProfileBlock.propTypes = {
   email: PropTypes.string,
+  address: PropTypes.string,
   updateProfileInfoAction: PropTypes.func.isRequired,
 }
 
