@@ -1,14 +1,21 @@
 import { push } from 'connected-react-router'
+import { fromJS } from 'immutable'
 import * as types from '../constants/ActionType'
 import emailRegExp from '../utils/misc'
-import { convertLoginData, convertMyPosts, convertNewPost, convertSignupData, convertProfileInfo, convertUpdatedProfileInfo } from './../core/convert'
-import { 
-  getMyPosts, 
-  logIn, 
-  logOut, 
-  signUp, 
-  submitPost, 
-  getProfileInfo, 
+import {
+  convertLoginData,
+  convertMyPosts,
+  convertNewPost,
+  convertSignupData,
+  convertUpdatedProfileInfo,
+} from './../core/convert'
+import {
+  getMyPosts,
+  logIn,
+  logOut,
+  signUp,
+  submitPost,
+  getUserInfo,
   updateProfileInfo,
   requestSearchProfiles,
   requestSearchPosts,
@@ -16,32 +23,41 @@ import {
   getUserProfile,
   requestSupportedList,
   requestSupportingList,
-  HTTPErrors } from './../core/api'
+  addSupport,
+  HTTPErrors,
+} from './../core/api'
 
+function handleAPIException(dispatch, error, type) {
+  if (error === HTTPErrors.Unauthorized) {
+    dispatch(push('/login'))
+  }
+
+  let actionType = type
+  if (typeof type !== 'undefined') {
+    actionType = types.API_CALL_FAILURE
+  }
+
+  dispatch({ type: actionType, payload: error })
+
+  return error
+}
 
 /**
- * getProfileInfoAction
+ * getUserInfoAction
  */
-export function getProfileInfoAction() {
-  return (dispatch) => {
-    dispatch({ type: types.GET_PROFILE_INFO_ACTION })
+export function getUserInfoAction() {
+  return async dispatch => {
+    try {
+      const result = await getUserInfo()
+      const userInfo = await result.json()
 
-    return getProfileInfo().then((response) => {
-      return response.json()
-    }).then((profile) => {
-      const converted = convertProfileInfo(profile.data)
       return dispatch({
-        type: types.GET_PROFILE_INFO_ACTION_SUCCESS,
-        payload: converted,
+        type: types.GET_USER_INFO_RESULT,
+        payload: fromJS(userInfo),
       })
-    }).catch(err => {
-
-      if (err === HTTPErrors.Unauthorized) {
-        dispatch(push('/login'));
-      }
-
-      dispatch({ type: types.GET_PROFILE_INFO_ACTION_FAILURE, payload: err })
-    })
+    } catch (error) {
+      return handleAPIException(dispatch, error, types.GET_USER_INFO_ACTION_FAILURE)
+    }
   }
 }
 
@@ -51,21 +67,14 @@ export function getProfileInfoAction() {
 export function requestSearchProfilesAction(query) {
   return async dispatch => {
     try {
-      const response  = await requestSearchProfiles(query)
-      const data      = await response.json(); 
-      
-      dispatch({ type: types.SEARCH_PROFILES_RESULTS, payload: data });      
-      return data;
+      const response = await requestSearchProfiles(query)
+      const data = await response.json()
 
+      dispatch({ type: types.SEARCH_PROFILES_RESULTS, payload: data })
+      return data
     } catch (error) {
-      
-      if (error === HTTPErrors.Unauthorized) {
-        dispatch(push('/login'));
-      }
-
-      dispatch({ type: types.API_CALL_FAILURE, error });
-      return error;
-    }    
+      return handleAPIException(dispatch, error)
+    }
   }
 }
 
@@ -75,120 +84,76 @@ export function requestSearchProfilesAction(query) {
 export function requestSearchPostsAction(query, pageId) {
   return async dispatch => {
     try {
-      const response  = await requestSearchPosts(query, pageId)
-      const data      = await response.json(); 
-      
-      dispatch({ type: types.SEARCH_POSTS_RESULTS, payload: data });      
-      return data;
+      const response = await requestSearchPosts(query, pageId)
+      const data = await response.json()
 
+      dispatch({ type: types.SEARCH_POSTS_RESULTS, payload: data })
+      return data
     } catch (error) {
-      
-      if (error === HTTPErrors.Unauthorized) {
-        dispatch(push('/login'));
-      }
-
-      dispatch({ type: types.API_CALL_FAILURE, error });
-      return error;
-    }    
+      return handleAPIException(dispatch, error)
+    }
   }
 }
 
-
-
-export function getUserPostsAction(userId, pageId)
-{
+export function getUserPostsAction(userId, pageId) {
   return async dispatch => {
     try {
-      const response  = await getUserPosts(userId, pageId)
-      const data      = await response.json(); 
-      
-      dispatch({ type: types.USER_POSTS_RESULT, payload: data });      
-      return data;
+      const response = await getUserPosts(userId, pageId)
+      const data = await response.json()
 
+      dispatch({ type: types.USER_POSTS_RESULT, payload: data })
+      return data
     } catch (error) {
-      
-      if (error === HTTPErrors.Unauthorized) {
-        dispatch(push('/login'));
-      }
-
-      dispatch({ type: types.API_CALL_FAILURE, error });
-      return error;
-    }    
-    
+      return handleAPIException(dispatch, error)
+    }
   }
 }
 
-export function getUserProfileAction(userId)
-{
+export function getUserProfileAction(userId) {
   return async dispatch => {
     try {
-      const response  = await getUserProfile(userId)
-      const data      = await response.json(); 
-      
-      dispatch({ type: types.USER_PROFILE_RESULT, payload: data });      
-      return data;
+      const response = await getUserProfile(userId)
+      const data = await response.json()
 
+      dispatch({ type: types.USER_PROFILE_RESULT, payload: data })
+      return data
     } catch (error) {
-      
-      if (error === HTTPErrors.Unauthorized) {
-        dispatch(push('/login'));
-      }
-
-      dispatch({ type: types.API_CALL_FAILURE, error });
-      return error;
-    }    
-    
-  }  
+      return handleAPIException(dispatch, error)
+    }
+  }
 }
 
-export function requestSupportedListAction(userId, pageId)
-{
+export function requestSupportedListAction(userId, pageId) {
   return async dispatch => {
     try {
-      const response  = await requestSupportedList(userId, pageId)
-      const data      = await response.json(); 
-      
-      dispatch({ type: types.SUPPORTED_LIST_RESULT, payload: data });      
-      return data;
+      const response = await requestSupportedList(userId, pageId)
+      const data = await response.json()
 
+      dispatch({ type: types.SUPPORTED_LIST_RESULT, payload: data })
+      return data
     } catch (error) {
-      
-      if (error === HTTPErrors.Unauthorized) {
-        dispatch(push('/login'));
-      }
-
-      dispatch({ type: types.API_CALL_FAILURE, error });
-      return error;
-    }    
-    
-  }  
+      return handleAPIException(dispatch, error)
+    }
+  }
 }
 
-export function requestSupportingListAction(userId, pageId)
-{
+export function requestSupportingListAction(userId, pageId) {
   return async dispatch => {
     try {
-      const response  = await requestSupportingList(userId, pageId)
-      const data      = await response.json(); 
-      
-      dispatch({ type: types.SUPPORTING_LIST_RESULT, payload: data });      
-      return data;
+      const response = await requestSupportingList(userId, pageId)
+      const data = await response.json()
 
+      dispatch({ type: types.SUPPORTING_LIST_RESULT, payload: data })
+      return data
     } catch (error) {
-      
-      if (error === HTTPErrors.Unauthorized) {
-        dispatch(push('/login'));
-      }
-
-      dispatch({ type: types.API_CALL_FAILURE, error });
-      return error;
-    }    
-    
-  }  
+      return handleAPIException(dispatch, error)
+    }
+  }
 }
 
-
-
+/**
+ * Login action
+ */
 
 export function loginAction(data) {
   let result = { type: types.LOGIN_ACTION, data }
@@ -197,17 +162,22 @@ export function loginAction(data) {
   } else if (!emailRegExp.test(data.email)) {
     result = { type: types.ERROR_ACTION, payload: 'Email is not valid!' }
   } else {
-    return (dispatch) => {
+    return dispatch => {
       dispatch({ type: types.LOGIN_ACTION })
-      return logIn(data).then(response => response.json())
-        .then((body) => {
+
+      return logIn(data)
+        .then(response => response.json())
+        .then(body => {
           const converted = convertLoginData(body)
+
           dispatch({ type: types.LOGIN_ACTION_SUCCESS, payload: converted })
-          dispatch(getProfileInfoAction())
+
+          dispatch(getUserInfoAction())
+
           localStorage.setItem('isLogged', true)
           dispatch(push('/'))
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err)
           dispatch({ type: types.LOGIN_ACTION_FAILURE })
         })
@@ -217,39 +187,49 @@ export function loginAction(data) {
 }
 
 export function logoutAction() {
-  return dispatch => logOut().then(() => {
-    dispatch({ type: types.LOGOUT_ACTION })
-    localStorage.removeItem('isLogged')
-    dispatch(push('/'))
-  })
-    .catch((err) => {
-      console.log(err)
-      dispatch(push('/'))
-    })
+  return dispatch =>
+    logOut()
+      .then(() => {
+        dispatch({ type: types.LOGOUT_ACTION })
+        localStorage.removeItem('isLogged')
+        dispatch(push('/'))
+      })
+      .catch(err => {
+        console.log(err)
+        dispatch(push('/'))
+      })
 }
 
 export function signupAction(data) {
   let result = { type: types.SIGNUP_ACTION, data }
-  if (data.username === '' || data.email === '' || data.password === '' || data.passwordConfirm === '') {
+  if (
+    data.username === '' ||
+    data.email === '' ||
+    data.password === '' ||
+    data.passwordConfirm === ''
+  ) {
     result = { type: types.ERROR_ACTION, payload: 'All fields must not be empty!' }
   } else if (!emailRegExp.test(data.email)) {
     result = { type: types.ERROR_ACTION, payload: 'Email is not valid!' }
   } else if (data.password !== data.passwordConfirm) {
     result = { type: types.ERROR_ACTION, payload: 'Passwords are not equal!' }
   } else {
-    return (dispatch) => {
-      dispatch({ type: types.SIGNUP_ACTION })
-      return signUp(data).then(response => response.json())
-        .then((body) => {
-          const converted = convertSignupData(body)
-          dispatch({ type: types.SIGNUP_ACTION_SUCCESS, payload: converted })
-          localStorage.setItem('isLogged', true)
-          dispatch(push('/'))
-        })
-        .catch((err) => {
-          console.log(err)
-          dispatch({ type: types.SIGNUP_ACTION_FAILURE })
-        })
+    return async dispatch => {
+      try {
+        await dispatch({ type: types.SIGNUP_ACTION })
+        let response = await signUp(data)
+        let body = await response.json()
+        const converted = convertSignupData(body)
+
+        await dispatch({ type: types.SIGNUP_ACTION_SUCCESS, payload: converted })
+
+        await dispatch(getUserInfoAction())
+
+        localStorage.setItem('isLogged', true)
+        dispatch(push('/'))
+      } catch (error) {
+        return handleAPIException(dispatch, error, types.SIGNUP_ACTION_FAILURE)
+      }
     }
   }
   return result
@@ -292,67 +272,81 @@ export function rewardReportAction() {
 }
 
 export function createNewPostAction(data) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch({ type: types.CREATE_NEW_POST_ACTION })
     return submitPost(data)
       .then(response => response.json())
-      .then((post) => {
+      .then(post => {
         const converted = convertNewPost(post)
         return dispatch({
           type: types.CREATE_NEW_POST_ACTION_SUCCESS,
           payload: converted,
         })
-      }).catch(err => dispatch({ type: types.CREATE_NEW_POST_ACTION_FAILURE, payload: err }))
+      })
+      .catch(err => dispatch({ type: types.CREATE_NEW_POST_ACTION_FAILURE, payload: err }))
   }
 }
 
 export function getMyPostsAction(pageId) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch({ type: types.GET_MY_POSTS_ACTION })
-    return getMyPosts(pageId).then((response) => {
-      return response.json()
-    }).then((posts) => {
-      const converted = convertMyPosts(posts.data)
-      return dispatch({
-        type: types.GET_MY_POSTS_ACTION_SUCCESS,
-        payload: converted,
+    return getMyPosts(pageId)
+      .then(response => {
+        return response.json()
       })
-    }).catch(err => {
-      if (err === HTTPErrors.Unauthorized) {
-        dispatch(push('/login'));
-      }
+      .then(posts => {
+        const converted = convertMyPosts(posts.data)
+        return dispatch({
+          type: types.GET_MY_POSTS_ACTION_SUCCESS,
+          payload: converted,
+        })
+      })
+      .catch(err => {
+        if (err === HTTPErrors.Unauthorized) {
+          dispatch(push('/login'))
+        }
 
-      dispatch({ type: types.GET_MY_POSTS_ACTION_FAILURE, payload: err })
-    })
+        dispatch({ type: types.GET_MY_POSTS_ACTION_FAILURE, payload: err })
+      })
   }
 }
 
 export function clearMyPrevPostsAction() {
-  return (dispatch) => {
+  return dispatch => {
     dispatch({ type: types.CLEAR_MY_PREV_POSTS_ACTION })
   }
 }
 
 export function updateProfileInfoAction(data) {
-  return (dispatch) => {
-    dispatch({ type: types.UPDATE_PROFILE_INFO_ACTION })
-    return updateProfileInfo(data).then((response) => {
-      return response.json()
-    }).then((updatedProfile) => {
-      const converted = convertUpdatedProfileInfo(updatedProfile)
-      return dispatch({
-        type: types.UPDATE_PROFILE_INFO_ACTION_SUCCESS,
-        payload: converted,
+  return dispatch => {
+    
+    return updateProfileInfo(data)
+      .then(response => {
+        return response.json()
       })
-    }).catch(err => {
-
-      if (err === HTTPErrors.Unauthorized) {
-        dispatch(push('/login'));
-      }
-
-      dispatch({ type: types.UPDATE_PROFILE_INFO_ACTION_FAILURE, payload: err })
-    })
+      .then(updatedProfile => {
+        const converted = convertUpdatedProfileInfo(updatedProfile)
+        return dispatch({
+          type: types.UPDATE_PROFILE_INFO_ACTION_SUCCESS,
+          payload: converted,
+        })
+      })
+      .catch(error => {
+        return handleAPIException(dispatch, error)
+      })
   }
 }
 
+export function addSupportAction(addressFrom, addressTo) {
+  return async dispatch => {
+    try {
+      const response = await addSupport(addressFrom, addressTo)
+      const data = await response.json()
 
+      dispatch({ type: types.ADD_SUPPORT_RESULT, payload: data })
+      return data
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}

@@ -5,12 +5,12 @@ import PropTypes from 'prop-types'
 import BasePage from './basepage'
 import MyPostsBlock from '../../containers/MyPostsBlock'
 
-import { getProfileInfoAction } from '../../actions/actions'
+import { getUserInfoAction } from '../../actions/actions'
 
 
 class HomePage extends BasePage {
   componentDidMount() {
-    this.props.getProfileInfoAction()
+    this.props.getUserInfoAction()
   }
   renderPage() {
     return (
@@ -26,7 +26,7 @@ HomePage.defaultProps = {
   userProfileDescription: '',
   userProfileEmail: '',
   userProfileId: '',
-  getProfileInfoAction: null,
+  getUserInfoAction: null,
 }
 
 HomePage.propTypes = {
@@ -34,7 +34,7 @@ HomePage.propTypes = {
   userProfileDescription: PropTypes.string,
   userProfileEmail: PropTypes.string,
   userProfileId: PropTypes.string,
-  getProfileInfoAction: PropTypes.func,
+  getUserInfoAction: PropTypes.func,
 }
 
 const mapStateToProps = (state) => {
@@ -50,8 +50,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getProfileInfoAction() {
-    dispatch(getProfileInfoAction())
+  getUserInfoAction() {
+    
+    dispatch(getUserInfoAction())
   },
 })
 

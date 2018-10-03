@@ -36,8 +36,13 @@ class UserBlock extends React.Component {
 
     return (
       <Panel>
-        <UserHeaderBlock username={this.props.username} description={this.props.description}/>
+        <UserHeaderBlock 
+          username={this.props.username} 
+          description={this.props.description} 
+          address={this.props.address}/>
+
         <PostsCaption> Posts </PostsCaption>
+        
         <UserPostListBlock userPosts={this.props.userPosts} username={this.props.username} />
       </Panel>
     )

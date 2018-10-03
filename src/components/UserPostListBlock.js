@@ -11,7 +11,6 @@ class UserPostListBlock extends React.Component {
 
   render() {
 
-    console.log(this.props.userPosts)
     const blocks = this.props.userPosts && this.props.userPosts.map((data)=>(
       <UserPostBlock key={data.id} username={this.props.username} text={data.text} date={data.timestamp}/>
     ));

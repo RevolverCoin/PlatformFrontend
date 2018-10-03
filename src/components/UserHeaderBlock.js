@@ -1,5 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+
 
 const Container = styled.div`
   text-align: left;
@@ -28,7 +30,7 @@ const Username = styled.h2`
 
 const Description = styled.p``
 
-const SupportInfo = styled.div`
+const SupportBlock = styled.div`
   margin-top: 20px;
 `
 
@@ -49,9 +51,20 @@ const Content = styled.div`
   cursor: pointer;
 `
 
+
+
 class UserHeaderBlock extends React.Component {
   constructor(props) {
     super(props)
+
+    this.handleSupport = this.handleSupport.bind(this);
+  }
+
+  handleSupport()
+  {
+    
+    this.props.addSupport(this.props.addressMy, this.props.address);
+    //window.location.reload()
   }
 
   render() {
@@ -64,7 +77,7 @@ class UserHeaderBlock extends React.Component {
             <Description>{this.props.description}</Description>
           </Info>
         </DescriptionBlock>
-        <SupportInfo>
+        <SupportBlock>
           <Row>
             <Header>Supporting</Header>
             <Content>9 Supports</Content>
@@ -73,7 +86,13 @@ class UserHeaderBlock extends React.Component {
             <Header>Supported</Header>
             <Content>12 Supports</Content>
           </Row>
-        </SupportInfo>
+          <Row>
+            <Header></Header>
+            <Content>
+              <div className="revolver-btn-main" onClick={this.handleSupport}>Support</div>
+            </Content>
+          </Row>
+        </SupportBlock>
       </Container>
     )
   }

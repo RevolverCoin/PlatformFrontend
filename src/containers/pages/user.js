@@ -24,6 +24,7 @@ class UserPage extends BasePage {
       <UserBlock
       username={this.props.userProfile.username}
       description={this.props.userProfile.desc}
+      address={this.props.userProfile.address}
       userPosts={this.props.userPosts}
     />
     )

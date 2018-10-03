@@ -23,6 +23,23 @@ const SupportsBlock = props => (
           <tr>
             <td className="mui--text-left">
               <p style={supportsBlockStyle.description}>
+                Supported
+              </p>
+            </td>
+            <td className="mui--text-right">
+              <p>
+                <Link
+                  to="/supported"
+                  style={supportsBlockStyle.supportsLink}
+                  onClick={() => props.getIncomingSupportsAction()}
+                >{props.userSupportedCount} supports
+                </Link>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td className="mui--text-left">
+              <p style={supportsBlockStyle.description}>
                 Supporting
               </p>
             </td>
@@ -31,25 +48,8 @@ const SupportsBlock = props => (
                 <Link
                   to="/supporting"
                   style={supportsBlockStyle.supportsLink}
-                  onClick={() => props.getIncomingSupportsAction()}
-                >{props.userSupportsIncoming} supports
-                </Link>
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td className="mui--text-left">
-              <p style={supportsBlockStyle.description}>
-                Supporters
-              </p>
-            </td>
-            <td className="mui--text-right">
-              <p>
-                <Link
-                  to="/supported"
-                  style={supportsBlockStyle.supportsLink}
                   onClick={() => props.getOutgoingSupportsAction()}
-                >{props.userSupportsOutgoing} supports
+                >{props.userSupportingCount} supports
                 </Link>
               </p>
             </td>
@@ -73,8 +73,8 @@ SupportsBlock.propTypes = {
   getOutgoingSupportsAction: PropTypes.func.isRequired,
   createSupportAction: PropTypes.func.isRequired,
   claimGeneratorAction: PropTypes.func.isRequired,
-  userSupportsIncoming: PropTypes.number.isRequired,
-  userSupportsOutgoing: PropTypes.number.isRequired,
+  userSupportedCount: PropTypes.number.isRequired,
+  userSupportingCount: PropTypes.number.isRequired,
 }
 
 export default SupportsBlock

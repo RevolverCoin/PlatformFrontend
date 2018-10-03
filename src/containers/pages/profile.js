@@ -5,14 +5,9 @@ import PropTypes from 'prop-types'
 import BasePage from './basepage'
 import ProfileBlock from '../../containers/ProfileBlock'
 
-import { getProfileInfoAction } from '../../actions/actions'
-
 
 class ProfilePage extends BasePage {
   
-  componentDidMount() {
-    this.props.getProfileInfoAction()
-  }
   renderPage() {
     return (
       <ProfileBlock
@@ -33,7 +28,6 @@ ProfilePage.defaultProps = {
   userProfileEmail: '',
   userProfileAddress: '',
   userProfileId: '',
-  getProfileInfoAction: null,
 }
 
 ProfilePage.propTypes = {
@@ -42,12 +36,11 @@ ProfilePage.propTypes = {
   userProfileEmail: PropTypes.string,
   userProfileAddress: PropTypes.string,
   userProfileId: PropTypes.string,
-  getProfileInfoAction: PropTypes.func,
 }
 
 const mapStateToProps = (state) => {
   const { root } = state
-  const profile = root.hasIn(['user', 'profile']) && root.getIn(['user', 'profile'])
+  const profile = root.getIn(['user', 'profile'])
 
   return {
     userProfileUsername: profile && profile.get('username'),
@@ -59,9 +52,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getProfileInfoAction() {
-    dispatch(getProfileInfoAction())
-  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage)

@@ -103,32 +103,23 @@ export function submitPost(text) {
   })
 }
 
-// getProfileInfo
+// getUserInfo
 // { 
 //   "success": boolean, 
-//   "data": { 
+//   "profile": { 
 //     "id": "", 
 //     "desc": "", 
 //     "email": "", 
 //     "avatar": "", 
 //     "username": "" 
-//   } 
+//   },
+//   supportingCount: 0,
+//   supportedCount: 0 
 // }
-
-export function getProfileInfo() {
-  return HTTPErrorHandler(
-    fetch(`${url}/profile`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }))
-}
 
 export function getUserInfo() {
   return HTTPErrorHandler(
-    fetch(`${url}/profile`, {
+    fetch(`${url}/info`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -194,3 +185,15 @@ export function requestSupportingList(userId, pageId) {
     }))
 }
 
+export function addSupport(addressFrom,addressTo) {
+  return HTTPErrorHandler(
+    fetch(`${url}/support`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({addressFrom,addressTo})
+    }))
+
+}

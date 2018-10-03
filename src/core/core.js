@@ -13,6 +13,8 @@ export const INITIAL_STATE = fromJS({
     supports: {
       supported: null,
       supporting: null,
+      supportingCount: 0,
+      supportedCount: 0,
     },
     balance: {
       total: 1400,
@@ -25,6 +27,7 @@ export const INITIAL_STATE = fromJS({
       description: null,
       email: null,
       address: null,
+  
       // flag to show loading during logging in
       isLoading: false,
       // flag to store success auth
@@ -128,32 +131,29 @@ export function handleClearMyPrevPostsAction(state) {
   return state.setIn(['user', 'posts', 'postsList'], List([]))
 }
 
-export function handleGetProfileInfoAction(state) {
-  return state
+/**
+ * data = {
+    success,
+    profile,
+    supportingCount,
+    supportedCount
+ }  
+ */
+export function handleGetUserInfoResult(state, data) {
+
+  return state.updateIn(['user', 'profile'], info => info.merge(data.get('profile')))
+        .setIn(['user', 'profile', 'description'], data.getIn(['profile','desc']))
+        .setIn(['user', 'supports', 'supportingCount'], data.get('supportingCount'))
+        .setIn(['user', 'supports', 'supportedCount'], data.get('supportedCount'))
 }
 
-export function handleGetProfileInfoActionSuccess(state, data) {
-  return state.setIn(['user', 'profile', 'id'], data.get('id'))
-    .setIn(['user', 'profile', 'username'], data.get('username'))
-    .setIn(['user', 'profile', 'description'], data.get('desc'))
-    .setIn(['user', 'profile', 'email'], data.get('email'))
-    .setIn(['user', 'profile', 'address'], data.get('address'))
-}
-
-export function handleGetProfileInfoActionFailure(state, err) {
+export function handleGetUserInfoActionFailure(state, err) {
   return state.setIn(['error', 'msg'], `Unable to get profile info, ${err}`)
 }
 
-export function handleUpdateProfileInfoAction(state) {
-  return state
-}
-
 export function handleUpdateProfileInfoActionSuccess(state, data) {
-  return state.setIn(['user', 'profile', 'id'], data.getIn(['data', 'id']))
-    .setIn(['user', 'profile', 'username'], data.getIn(['data', 'username']))
-    .setIn(['user', 'profile', 'description'], data.getIn(['data', 'desc']))
-    .setIn(['user', 'profile', 'email'], data.getIn(['data', 'email']))
-    .setIn(['user', 'profile', 'address'], data.getIn(['data', 'address']))
+  return state.updateIn(['user', 'profile'], info => info.merge(data.get('profile')))
+        .setIn(['user', 'profile', 'description'], data.getIn(['profile','desc']))
 }
 
 export function handleUpdateProfileInfoActionFailure(state, err) {

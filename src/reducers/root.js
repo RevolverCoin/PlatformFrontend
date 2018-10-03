@@ -38,15 +38,11 @@ export default (state = core.INITIAL_STATE, action) => {
     case types.GET_MY_POSTS_ACTION_FAILURE:
       return core.handleGetMyPostsFailure(state, action.payload)
 
-    case types.GET_PROFILE_INFO_ACTION:
-      return core.handleGetProfileInfoAction(state)
-    case types.GET_PROFILE_INFO_ACTION_SUCCESS:
-      return core.handleGetProfileInfoActionSuccess(state, action.payload)
-    case types.GET_PROFILE_INFO_ACTION_FAILURE:
-      return core.handleGetProfileInfoActionFailure(state, action.payload)
+    case types.GET_USER_INFO_RESULT:
+      return core.handleGetUserInfoResult(state, action.payload)
+    case types.GET_USER_INFO_ACTION_FAILURE:
+      return core.handleGetUserInfoActionFailure(state, action.payload)
 
-    case types.UPDATE_PROFILE_INFO_ACTION:
-      return core.handleUpdateProfileInfoAction(state)
     case types.UPDATE_PROFILE_INFO_ACTION_SUCCESS:
       return core.handleUpdateProfileInfoActionSuccess(state, action.payload)
     case types.UPDATE_PROFILE_INFO_ACTION_FAILURE:
