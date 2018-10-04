@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import BasePage from './basepage'
-import UserBlock from '../../containers/UserBlock'
+import BasePage from '../basepage'
+import UserBlock from './UserBlock'
 
-import { getUserPostsAction, getUserProfileAction } from '../../actions/actions'
+import { getUserPostsAction, getUserProfileAction } from '../../../actions/actions'
 
 
 class UserPage extends BasePage {

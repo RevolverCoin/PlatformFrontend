@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import UserListItem from '../components/UserListItem'
+import UserListItem from '../../../components/UserPage/UserListItem'
 
 
 

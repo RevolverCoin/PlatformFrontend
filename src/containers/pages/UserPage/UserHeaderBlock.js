@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
-import UserHeaderBlock from '../components/UserHeaderBlock'
-import {addSupportAction} from '../actions/actions'
+import UserHeaderBlock from '../../../components/UserPage/UserHeaderBlock'
+import {addSupportAction} from '../../../actions/actions'
 
 const mapStateToProps = state => {
 

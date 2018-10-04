@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import UserBlock from '../components/UserBlock'
+import UserBlock from '../../../components/UserPage/UserBlock'
 
 
 

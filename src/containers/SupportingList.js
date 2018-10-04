@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components';
-import UserListItem from './UserListItem'
+import UserListItem from './pages/UserPage/UserListItem'
 
 const Panel = styled.div`
   background-color:white;

@@ -62,13 +62,21 @@ class UserHeaderBlock extends React.Component {
   }
 
   handleSupport()
-  {
-    
+  {    
     this.props.addSupport(this.props.addressMy, this.props.address);
-    //window.location.reload()
+    window.location.reload()
   }
 
   render() {
+
+    const supporting = false;
+    let SupportingButton = null;
+    if (!supporting) {
+      SupportingButton = <div className="revolver-btn-main" onClick={this.handleSupport}>Support</div>
+    } else {
+      SupportingButton = <div className="revolver-btn-main" onClick={this.handleSupport}>Unsupport</div>
+    }
+
     return (
       <Container>
         <DescriptionBlock>
@@ -90,7 +98,8 @@ class UserHeaderBlock extends React.Component {
           <Row>
             <Header></Header>
             <Content>
-              <div className="revolver-btn-main" onClick={this.handleSupport}>Support</div>
+              
+              {SupportingButton}
             </Content>
           </Row>
         </SupportBlock>
