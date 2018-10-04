@@ -1,4 +1,5 @@
 import React from 'react'
+import Avatar from 'react-avatar';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -71,7 +72,7 @@ class UserHeaderBlock extends React.Component {
     return (
       <Container>
         <DescriptionBlock>
-          <ProfileImage src="/images/profileImage.png" />
+          <Avatar name={this.props.username} size='140px'/>
           <Info>
             <Username>{this.props.username}</Username>
             <Description>{this.props.description}</Description>

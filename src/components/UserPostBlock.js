@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
+import Avatar from 'react-avatar';
+
 
 const Container = styled.div`
     padding: 5px;
@@ -51,7 +53,7 @@ class UserPostBlock extends React.Component {
     return (
       <Container>
           <LeftColumn> 
-              <UserAvatar src='/images/profileImage.png' width='50px'/>
+            <Avatar name={this.props.username} size='50'/>
           </LeftColumn>
           <RightColumn> 
               <Header>

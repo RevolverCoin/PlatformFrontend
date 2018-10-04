@@ -4,15 +4,9 @@ import Col from 'muicss/lib/react/col'
 import Container from 'muicss/lib/react/container'
 import Row from 'muicss/lib/react/row'
 import PropTypes from 'prop-types'
-import avatar from './../img/avatar.png'
+import Avatar from 'react-avatar';
 import MainButton from './MainButton'
 
-const createNewPostStyle = {
-  avatar: {
-    width: '60px',
-    height: '60px',
-  },
-}
 
 class CreateNewPostBlock extends React.Component {
   constructor(props) {
@@ -46,7 +40,7 @@ class CreateNewPostBlock extends React.Component {
         <Row>
           <form onSubmit={this.onSubmit}>
             <Col md="2">
-              <img style={createNewPostStyle.avatar} src={avatar} alt="avatar" />
+              <Avatar name={this.props.username} size='60'/>
             </Col>
             <Col md="10">
               <Textarea

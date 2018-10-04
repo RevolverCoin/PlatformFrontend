@@ -82,7 +82,7 @@ class MyPostsBlock extends React.Component {
           </Link>
         </Caption>
         <div className="m-b-sm">
-          <CreateNewPostBlock />
+          <CreateNewPostBlock username={this.props.username} />
           {this.props.userPostsFetchingNewPost === true ? loader : null}
         </div>
         <div style={myPostsBlockStyle}>

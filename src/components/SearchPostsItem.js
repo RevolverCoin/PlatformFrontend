@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Avatar from 'react-avatar';
 import { Link } from 'react-router-dom'
 
 const Container = styled.div`
@@ -51,8 +52,8 @@ class SearchPostsItem extends React.Component {
       <Container>
         <LeftColumn>
           <Link to={'/posts/' + this.props.id}>
-            <UserAvatar src="/images/profileImage.png" width="50px" />
-            </Link>
+            <Avatar name={this.props.username} size='50'/>
+          </Link>
         </LeftColumn>
         <RightColumn>
           <Header>

@@ -5,7 +5,7 @@ import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import avatar from './../img/avatar.png'
+import Avatar from 'react-avatar';
 
 const mySinglePostBlockStyle = {
   postBlock: {
@@ -36,7 +36,7 @@ const MySinglePostBlock = props => (
       <Row>
         <Col md="2" style={mySinglePostBlockStyle.avatarWrapper}>
           <div>
-            <img style={mySinglePostBlockStyle.avatar} src={avatar} alt="avatar" />
+            <Avatar name={props.username} size='60'/>
           </div>
         </Col>
         <Col md="10">

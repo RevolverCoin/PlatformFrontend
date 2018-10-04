@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Avatar from 'react-avatar';
 import { Link } from 'react-router-dom'
 
 const Container = styled.div`
@@ -46,7 +47,7 @@ class UserListItem extends React.Component {
       <Container>
         <LeftColumn>
           <Link to={'/posts/' + this.props.id}>
-            <UserAvatar src="/images/profileImage.png" width="90px" />
+            <Avatar name={this.props.username} size='90'/>      
           </Link>
         </LeftColumn>
         <RightColumn>

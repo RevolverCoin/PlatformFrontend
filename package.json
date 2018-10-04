@@ -17,6 +17,7 @@
     "muicss": "0.9.39",
     "prop-types": "15.6.1",
     "react": "16.3.2",
+    "react-avatar": "3.4.4",
     "react-dom": "16.3.2",
     "react-icons": "2.2.7",
     "react-redux": "5.0.7",

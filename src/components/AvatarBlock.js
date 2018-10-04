@@ -1,8 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Avatar from 'react-avatar';
 import Panel from 'muicss/lib/react/panel'
 import PropTypes from 'prop-types'
-import avatar from './../img/avatar.png'
+import styled from 'styled-components';
+
+
+
 
 const avatarBlockStyles = {
   avatar: {
@@ -18,7 +22,8 @@ const avatarBlockStyles = {
 const AvatarBlock = props => (
   <Panel className="m-t-md">
     <div style={avatarBlockStyles.avatar} className="m-b">
-      <img src={avatar} alt="avatar" />
+      
+      <Avatar name={props.userProfileUsername} size='150px'/>
     </div>
     <p>{props.userProfileUsername}</p>
     <p>{props.userProfileDescription}</p>
