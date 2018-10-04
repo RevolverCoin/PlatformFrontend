@@ -20,10 +20,11 @@ import {
   requestSearchProfiles,
   requestSearchPosts,
   getUserPosts,
-  getUserProfile,
+  getVisitedUserInfo,
   requestSupportedList,
   requestSupportingList,
   addSupport,
+  removeSupport,
   HTTPErrors,
 } from './../core/api'
 
@@ -33,7 +34,7 @@ function handleAPIException(dispatch, error, type) {
   }
 
   let actionType = type
-  if (typeof type !== 'undefined') {
+  if (typeof type === 'undefined') {
     actionType = types.API_CALL_FAILURE
   }
 
@@ -109,10 +110,13 @@ export function getUserPostsAction(userId, pageId) {
   }
 }
 
-export function getUserProfileAction(userId) {
+/**
+ * get info for some user (userId) 
+ */
+export function getVisitedUserInfoAction(userId) {
   return async dispatch => {
     try {
-      const response = await getUserProfile(userId)
+      const response = await getVisitedUserInfo(userId)
       const data = await response.json()
 
       dispatch({ type: types.USER_PROFILE_RESULT, payload: data })
@@ -172,8 +176,6 @@ export function loginAction(data) {
 
           dispatch({ type: types.LOGIN_ACTION_SUCCESS, payload: converted })
 
-          dispatch(getUserInfoAction())
-
           localStorage.setItem('isLogged', true)
           dispatch(push('/'))
         })
@@ -222,8 +224,6 @@ export function signupAction(data) {
         const converted = convertSignupData(body)
 
         await dispatch({ type: types.SIGNUP_ACTION_SUCCESS, payload: converted })
-
-        await dispatch(getUserInfoAction())
 
         localStorage.setItem('isLogged', true)
         dispatch(push('/'))
@@ -344,6 +344,20 @@ export function addSupportAction(addressFrom, addressTo) {
       const data = await response.json()
 
       dispatch({ type: types.ADD_SUPPORT_RESULT, payload: data })
+      return data
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}
+
+export function removeSupportAction(addressFrom, addressTo) {
+  return async dispatch => {
+    try {
+      const response = await removeSupport(addressFrom, addressTo)
+      const data = await response.json()
+
+      dispatch({ type: types.REMOVE_SUPPORT_RESULT, payload: data })
       return data
     } catch (error) {
       return handleAPIException(dispatch, error)

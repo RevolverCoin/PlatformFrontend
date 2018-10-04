@@ -49,7 +49,8 @@ export const INITIAL_STATE = fromJS({
     searchProfiles: null,
     searchPosts: null,
     posts: {
-    }
+    },
+    supports: {}
   }
 
 
@@ -176,7 +177,9 @@ export function handleUserPostsResults(state, data)
 
 export function handleUserProfileResults(state, data)
 {
-  return state.setIn(['current','userProfile'], fromJS(data.data))
+  console.log(data);
+  return state.setIn(['current','userProfile'], fromJS(data.data.profile))
+         .setIn(['current','supports'], fromJS(data.data.supports))
 }
 
 export function handleSupportedListResults(state, data)

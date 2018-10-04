@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import UserListItem from '../containers/pages/UserPage/UserListItem'
+import UserListItem from '../containers/pages/VisitedUserPage/UserListItem'
 import SearchPostsItem from '../containers/SearchPostsItem'
 
 

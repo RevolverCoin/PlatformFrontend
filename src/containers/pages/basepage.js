@@ -4,7 +4,7 @@ import React from 'react'
 import Container from 'muicss/lib/react/container'
 import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
-import AsideUserBlock from '../../components/AsideUserBlock'
+import AsideUserBlock from '../../containers/AsideUserBlock'
 import HeaderBlock from '../../containers/HeaderBlock'
 import FooterBlock from '../../components/FooterBlock'
 

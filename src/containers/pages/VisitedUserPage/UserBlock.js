@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import UserBlock from '../../../components/UserPage/UserBlock'
+import UserBlock from '../../../components/VisitedUserPage/UserBlock'
 
 
 
@@ -11,3 +11,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserBlock)
+

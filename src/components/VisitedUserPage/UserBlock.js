@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
-import UserHeaderBlock from '../../containers/pages/UserPage/UserHeaderBlock'
-import UserPostListBlock from '../../containers/pages/UserPage/UserPostListBlock'
+import UserHeaderBlock from '../../containers/pages/VisitedUserPage/UserHeaderBlock'
+import UserPostListBlock from '../../containers/pages/VisitedUserPage/UserPostListBlock'
 
 
 const Panel = styled.div`

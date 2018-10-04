@@ -3,15 +3,28 @@ import AvatarBlock from '../containers/AvatarBlock'
 import SupportsBlock from '../containers/SupportsBlock'
 import BalanceBlock from '../containers/BalanceBlock'
 
-const AsideUserBlockStyle = {
-}
 
-const AsideUserBlock = () => (
-  <div style={AsideUserBlockStyle}>
-    <AvatarBlock />
-    <SupportsBlock />
-    <BalanceBlock />
-  </div>
-)
+class AsideUserBlock extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount()
+  {
+    if (!this.props.userId) {
+      this.props.getUserInfo()
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <AvatarBlock />
+        <SupportsBlock />
+        <BalanceBlock />
+      </div>
+    )
+  }
+}
 
 export default AsideUserBlock

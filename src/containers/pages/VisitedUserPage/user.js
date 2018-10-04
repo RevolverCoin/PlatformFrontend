@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import BasePage from '../basepage'
 import UserBlock from './UserBlock'
 
-import { getUserPostsAction, getUserProfileAction } from '../../../actions/actions'
+import { getUserPostsAction, getVisitedUserInfoAction } from '../../../actions/actions'
 
 
 class UserPage extends BasePage {
@@ -16,7 +16,7 @@ class UserPage extends BasePage {
     this.props.getUserPosts(userId, 0)
 
     // load profile
-    this.props.getUserProfile(userId)
+    this.props.getVisitedUserInfo(userId)
   }
 
   renderPage() {
@@ -26,6 +26,7 @@ class UserPage extends BasePage {
       description={this.props.userProfile.desc}
       address={this.props.userProfile.address}
       userPosts={this.props.userPosts}
+      supports={this.props.supports}
     />
     )
   }
@@ -55,12 +56,19 @@ function prepareUserProfileData(state)
   return data.toJS();
 }
 
+function prepareSupportsData(state)
+{
+  const data = state && state.root && state.root.hasIn(['current','supports']) && state.root.getIn(['current','supports']);
+  if (!data) return null;
+  return data.toJS();
+}
 
 const mapStateToProps = (state) => {
   
    return {
      userPosts: prepareUserPostsData(state),
-     userProfile: prepareUserProfileData(state)
+     userProfile: prepareUserProfileData(state),
+     supports: prepareSupportsData(state)
   }
 }
 
@@ -69,8 +77,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(getUserPostsAction(userId, pageId))
   },
 
-  getUserProfile(userId) {
-    dispatch(getUserProfileAction(userId))
+  getVisitedUserInfo(userId) {
+    dispatch(getVisitedUserInfoAction(userId))
   }
 })
 

@@ -47,7 +47,7 @@ export function getUserPosts(userId, pageId) {
     }))
 }
 
-export function getUserProfile(userId)
+export function getVisitedUserInfo(userId)
 {
   return HTTPErrorHandler(
     fetch(`${url}/users/${userId}`, {
@@ -197,3 +197,17 @@ export function addSupport(addressFrom,addressTo) {
     }))
 
 }
+
+export function removeSupport(addressFrom,addressTo) {
+  return HTTPErrorHandler(
+    fetch(`${url}/support`, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({addressFrom,addressTo})
+    }))
+
+}
+

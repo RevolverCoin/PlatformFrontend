@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import UserPostBlock from '../../containers/pages/UserPage/UserPostBlock'
+import UserPostBlock from '../../containers/pages/VisitedUserPage/UserPostBlock'
 
 
 

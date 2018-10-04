@@ -59,6 +59,7 @@ class UserHeaderBlock extends React.Component {
     super(props)
 
     this.handleSupport = this.handleSupport.bind(this);
+    this.handleUnsupport = this.handleUnsupport.bind(this);
   }
 
   handleSupport()
@@ -67,14 +68,33 @@ class UserHeaderBlock extends React.Component {
     window.location.reload()
   }
 
+  handleUnsupport()
+  {    
+    this.props.removeSupport(this.props.addressMy, this.props.address);
+    window.location.reload()
+  }
+
   render() {
 
-    const supporting = false;
+    let supportingCount = this.props.supports && this.props.supports.supporting && this.props.supports.supporting.length
+    let supportedCount = this.props.supports && this.props.supports.supported && this.props.supports.supported.length
+
+    if (!supportingCount) supportingCount = 0;
+    if (!supportedCount) supportedCount = 0;
+
+    console.log("SUPPORTS", this.props.supports)
+
+    let supported = false;
+    if (this.props.supports && this.props.supports.supported) {
+      const result = this.props.supports.find(this.props.addressMy)
+      supported = (result !== 'undefined');
+    }
+
     let SupportingButton = null;
-    if (!supporting) {
+    if (!supported) {
       SupportingButton = <div className="revolver-btn-main" onClick={this.handleSupport}>Support</div>
     } else {
-      SupportingButton = <div className="revolver-btn-main" onClick={this.handleSupport}>Unsupport</div>
+      SupportingButton = <div className="revolver-btn-main" onClick={this.handleUnsupport}>Unsupport</div>
     }
 
     return (
@@ -89,11 +109,11 @@ class UserHeaderBlock extends React.Component {
         <SupportBlock>
           <Row>
             <Header>Supporting</Header>
-            <Content>9 Supports</Content>
+            <Content>{supportingCount} Supports</Content>
           </Row>
           <Row>
             <Header>Supported</Header>
-            <Content>12 Supports</Content>
+            <Content>{supportedCount} Supports</Content>
           </Row>
           <Row>
             <Header></Header>
