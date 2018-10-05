@@ -86,8 +86,8 @@ class UserHeaderBlock extends React.Component {
 
     let supported = false;
     if (this.props.supports && this.props.supports.supported) {
-      const result = this.props.supports.find(this.props.addressMy)
-      supported = (result !== 'undefined');
+      const result = this.props.supports.supported.find(val => (val.addressFrom === this.props.addressMy))
+      supported = (typeof result !== 'undefined');
     }
 
     let SupportingButton = null;

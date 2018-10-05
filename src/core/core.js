@@ -12,9 +12,7 @@ export const INITIAL_STATE = fromJS({
   user: {
     supports: {
       supported: null,
-      supporting: null,
-      supportingCount: 0,
-      supportedCount: 0,
+      supporting: null
     },
     balance: {
       total: 1400,
@@ -50,7 +48,8 @@ export const INITIAL_STATE = fromJS({
     searchPosts: null,
     posts: {
     },
-    supports: {}
+    supports: {},
+    supportList: null
   }
 
 
@@ -136,16 +135,13 @@ export function handleClearMyPrevPostsAction(state) {
  * data = {
     success,
     profile,
-    supportingCount,
-    supportedCount
- }  
+    supports }  
  */
 export function handleGetUserInfoResult(state, data) {
 
-  return state.updateIn(['user', 'profile'], info => info.merge(data.get('profile')))
-        .setIn(['user', 'profile', 'description'], data.getIn(['profile','desc']))
-        .setIn(['user', 'supports', 'supportingCount'], data.get('supportingCount'))
-        .setIn(['user', 'supports', 'supportedCount'], data.get('supportedCount'))
+  return state.updateIn(['user', 'profile'], info => info.merge(fromJS(data.data.profile)))
+        .setIn(['user', 'profile', 'description'], fromJS(data.data.profile.desc))
+        .setIn(['user','supports'], fromJS(data.data.supports))
 }
 
 export function handleGetUserInfoActionFailure(state, err) {
@@ -153,8 +149,8 @@ export function handleGetUserInfoActionFailure(state, err) {
 }
 
 export function handleUpdateProfileInfoActionSuccess(state, data) {
-  return state.updateIn(['user', 'profile'], info => info.merge(data.get('profile')))
-        .setIn(['user', 'profile', 'description'], data.getIn(['profile','desc']))
+  return state.updateIn(['user', 'profile'], info => info.merge(fromJS(data.profile)))
+        .setIn(['user', 'profile', 'description'], fromJS(data.profile.desc))
 }
 
 export function handleUpdateProfileInfoActionFailure(state, err) {
@@ -177,18 +173,16 @@ export function handleUserPostsResults(state, data)
 
 export function handleUserProfileResults(state, data)
 {
-  console.log(data);
   return state.setIn(['current','userProfile'], fromJS(data.data.profile))
          .setIn(['current','supports'], fromJS(data.data.supports))
 }
 
 export function handleSupportedListResults(state, data)
 {
-  return state.setIn(['user','supports', 'supported'], fromJS(data.data))
+  return state.setIn(['current','supportList'], fromJS(data))
 }
 
 export function handleSupportingListResults(state, data)
 {
-  console.log(data)
-  return state.setIn(['user','supports', 'supporting'], fromJS(data.data))
+  return state.setIn(['current','supportList'], fromJS(data))
 }

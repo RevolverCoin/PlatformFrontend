@@ -12,10 +12,10 @@ const mapStateToProps = state => {
   const { root } = state
   const supports = root.hasIn(['user', 'supports']) && root.getIn(['user', 'supports'])
 
-  let supportedCount = supports && supports.get('supportedCount')
+  let supportedCount = supports && supports.get('supported') && supports.get('supported').size
   if (!supportedCount) supportedCount = 0
 
-  let supportingCount = supports && supports.get('supportingCount')
+  let supportingCount = supports && supports.get('supporting') && supports.get('supporting').size
   if (!supportingCount) supportingCount = 0
 
   return {

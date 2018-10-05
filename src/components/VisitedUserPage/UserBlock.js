@@ -39,7 +39,9 @@ class UserBlock extends React.Component {
         <UserHeaderBlock 
           username={this.props.username} 
           description={this.props.description} 
-          address={this.props.address}/>
+          address={this.props.address}
+          supports={this.props.supports}
+          />
 
         <PostsCaption> Posts </PostsCaption>
         

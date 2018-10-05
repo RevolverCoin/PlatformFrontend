@@ -1,13 +1,12 @@
 import { push } from 'connected-react-router'
 import { fromJS } from 'immutable'
 import * as types from '../constants/ActionType'
-import emailRegExp from '../utils/misc'
+import emailRegExp, {promiseChainify} from '../utils/misc'
 import {
   convertLoginData,
   convertMyPosts,
   convertNewPost,
-  convertSignupData,
-  convertUpdatedProfileInfo,
+  convertSignupData
 } from './../core/convert'
 import {
   getMyPosts,
@@ -21,6 +20,7 @@ import {
   requestSearchPosts,
   getUserPosts,
   getVisitedUserInfo,
+  getVisitedUserInfoByAddress,
   requestSupportedList,
   requestSupportingList,
   addSupport,
@@ -54,7 +54,7 @@ export function getUserInfoAction() {
 
       return dispatch({
         type: types.GET_USER_INFO_RESULT,
-        payload: fromJS(userInfo),
+        payload: userInfo,
       })
     } catch (error) {
       return handleAPIException(dispatch, error, types.GET_USER_INFO_ACTION_FAILURE)
@@ -133,7 +133,18 @@ export function requestSupportedListAction(userId, pageId) {
       const response = await requestSupportedList(userId, pageId)
       const data = await response.json()
 
-      dispatch({ type: types.SUPPORTED_LIST_RESULT, payload: data })
+      let requests = []
+      data.supports.forEach(support => {
+        requests.push(getVisitedUserInfoByAddress(support.addressFrom));
+      })
+      
+      const infos = await promiseChainify(requests);
+      const jsonResponses = infos.map(info => (info.json()));
+      const finalResponses = await promiseChainify(jsonResponses);
+      
+      const result = finalResponses.map(item => ({...item.data}))
+
+      dispatch({ type: types.SUPPORTED_LIST_RESULT, payload: result })
       return data
     } catch (error) {
       return handleAPIException(dispatch, error)
@@ -144,12 +155,25 @@ export function requestSupportedListAction(userId, pageId) {
 export function requestSupportingListAction(userId, pageId) {
   return async dispatch => {
     try {
+
       const response = await requestSupportingList(userId, pageId)
       const data = await response.json()
 
-      dispatch({ type: types.SUPPORTING_LIST_RESULT, payload: data })
+      let requests = []
+      data.supports.forEach(support => {
+        requests.push(getVisitedUserInfoByAddress(support.addressTo));
+      })
+      
+      const infos = await promiseChainify(requests);
+      const jsonResponses = infos.map(info => (info.json()));
+      const finalResponses = await promiseChainify(jsonResponses);
+      
+      const result = finalResponses.map(item => ({...item.data}))
+
+      dispatch({ type: types.SUPPORTING_LIST_RESULT, payload: result })
       return data
     } catch (error) {
+      console.log(error)
       return handleAPIException(dispatch, error)
     }
   }
@@ -325,10 +349,9 @@ export function updateProfileInfoAction(data) {
         return response.json()
       })
       .then(updatedProfile => {
-        const converted = convertUpdatedProfileInfo(updatedProfile)
         return dispatch({
           type: types.UPDATE_PROFILE_INFO_ACTION_SUCCESS,
-          payload: converted,
+          payload: updatedProfile,
         })
       })
       .catch(error => {

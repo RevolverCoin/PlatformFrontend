@@ -40,6 +40,3 @@ export function convertNewPost(data) {
 }
 
 
-export function convertUpdatedProfileInfo(data) {
-  return fromJS(data)
-}

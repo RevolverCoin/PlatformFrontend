@@ -60,6 +60,19 @@ export function getVisitedUserInfo(userId)
   
 }
 
+export function getVisitedUserInfoByAddress(address)
+{
+  return HTTPErrorHandler(
+    fetch(`${url}/address/${address}`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }))
+  
+}
+
 export function logIn(data) {
   return fetch(`${url}/login`, {
     method: 'POST',

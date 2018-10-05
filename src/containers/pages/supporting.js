@@ -10,16 +10,15 @@ import {requestSupportingListAction} from '../../actions/actions'
 class SupportingPage extends BasePage {
 
   componentDidMount() {
-    this.props.requestSupportingList(this.props.userId, 1)
+    this.props.requestSupportingList(this.props.userProfile.id, 1)
   }
 
   renderPage() {
     return (
-        <SupportingList data={this.props.data}/>
+        <SupportingList userProfile={this.props.userProfile} data={this.props.data}/>
     )
   }
 }
-
 
 
 SupportingPage.defaultProps = {
@@ -30,20 +29,29 @@ SupportingPage.propTypes = {
   
 }
 
-
-function prepareData(state)
+function prepareSupports(state)
 {
-  const data = state.root.getIn(['user','supports','supporting']);
-  if (!data) return null;
+  // get profiles of supporting 
+  const data = state.root && state.root.getIn(['current','supportList']);
+  if (!data)
+    return null;
 
-  console.log("DATA", data)
   return data.toJS();
 }
 
+function prepareProfile(state)
+{
+  const data = state.root.getIn(['user','profile']);
+  if (!data)
+    return null;
+
+
+  return data.toJS();
+}
 
 const mapStateToProps = (state) => ({
-  userId: state.root.getIn(['user','profile','id']),
-  data: prepareData(state)
+  data: prepareSupports(state),
+  userProfile: prepareProfile(state)
 })
 
 const mapDispatchToProps = dispatch => ({
