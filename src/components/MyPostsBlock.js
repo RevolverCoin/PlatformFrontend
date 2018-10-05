@@ -80,6 +80,10 @@ class MyPostsBlock extends React.Component {
           <Link to='/timeline/'>
             <Category>My Timeline</Category>
           </Link>
+          
+          <Link to='/discover/'>
+            <Category>Discover</Category>
+          </Link>          
         </Caption>
         <div className="m-b-sm">
           <CreateNewPostBlock username={this.props.username} />

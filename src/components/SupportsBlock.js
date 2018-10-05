@@ -23,7 +23,7 @@ const SupportsBlock = props => (
           <tr>
             <td className="mui--text-left">
               <p style={supportsBlockStyle.description}>
-                Supported
+                My supporters
               </p>
             </td>
             <td className="mui--text-right">
@@ -40,7 +40,7 @@ const SupportsBlock = props => (
           <tr>
             <td className="mui--text-left">
               <p style={supportsBlockStyle.description}>
-                Supporting
+                I support
               </p>
             </td>
             <td className="mui--text-right">

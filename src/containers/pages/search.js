@@ -32,7 +32,6 @@ class SearchPage extends BasePage {
   } 
   renderPage() {
 
-    console.log(this.props.searchProfilesResults);
     return (
       <SearchBlock searchProfilesResults={this.props.searchProfilesResults} searchPostsResults={this.props.searchPostsResults}/>
     )

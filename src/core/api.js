@@ -221,6 +221,19 @@ export function removeSupport(addressFrom,addressTo) {
       },
       body: JSON.stringify({addressFrom,addressTo})
     }))
-
 }
+
+export function getTimelinePosts() {
+  return HTTPErrorHandler(
+    fetch(`${url}/timeline`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }))
+}
+
+
+
 

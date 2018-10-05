@@ -16,6 +16,9 @@ import SearchPage from './containers/pages/search'
 import SupportingPage from './containers/pages/supporting'
 import SupportedPage from './containers/pages/supported'
 
+import DiscoverPage from './containers/pages/discover'
+import TimelinePage from './containers/pages/timeline'
+
 const App = () => {
 
   const loggedIn = localStorage.getItem('isLogged');
@@ -33,12 +36,15 @@ const App = () => {
 
         <Route path="/myposts" key="my-posts" component={HomePage} />
         <Route path="/profile" key="profile" component={ProfilePage} />
+        
         <Route path="/posts/:userId" key="user-posts" component={UserPage} />
         <Route path="/search" key="search" component={SearchPage} />
 
         <Route path="/supporting" key="supporting" component={SupportingPage} />
         <Route path="/supported" key="supported" component={SupportedPage} />
 
+        <Route path="/timeline" key="timeline" component={TimelinePage} />
+        <Route path="/discover" key="discover" component={DiscoverPage} />
 
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignupPage} />

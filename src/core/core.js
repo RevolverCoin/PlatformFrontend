@@ -46,8 +46,7 @@ export const INITIAL_STATE = fromJS({
     userProfile: {},
     searchProfiles: null,
     searchPosts: null,
-    posts: {
-    },
+    posts: null,
     supports: {},
     supportList: null
   }
@@ -185,4 +184,14 @@ export function handleSupportedListResults(state, data)
 export function handleSupportingListResults(state, data)
 {
   return state.setIn(['current','supportList'], fromJS(data))
+}
+
+/*
+* id 
+* text
+* timestamp
+*/
+export function handleGetTimelinePostsResults(state, data)
+{
+  return state.setIn(['current', 'posts'], fromJS(data.data))
 }

@@ -123,11 +123,6 @@ class HeaderBlock extends React.Component {
             </Col>
             <Col md="2">
               {isLoggedIn ?
-                // <div className="nav-wrap">
-                //   <NavLink className="nav-item" to="/myposts">My posts</NavLink>
-                //   <NavLink className="nav-item" to="/mytimeline">My timeline</NavLink>
-                //   <NavLink className="nav-item" to="/search">Search</NavLink>
-                // </div>
                 <DivSearch>
                   <SearchIcon icon='search' onClick={this.handleSearch}/>
                   <form onSubmit={this.handleSearch}>

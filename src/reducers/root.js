@@ -66,7 +66,10 @@ export default (state = core.INITIAL_STATE, action) => {
     case types.SUPPORTING_LIST_RESULT:
       return core.handleSupportingListResults(state, action.payload)
 
+    case types.GET_TIMELINE_POSTS_RESULT:
+      return core.handleGetTimelinePostsResults(state, action.payload)
 
+      
     default:
       // console.error("Unknown action", action)
       return state

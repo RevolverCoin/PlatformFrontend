@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import UserListItem from '../containers/pages/VisitedUserPage/UserListItem'
-import SearchPostsItem from '../containers/SearchPostsItem'
+import UserPostsItem from '../containers/UserPostsItem'
 
 
 const Panel = styled.div`
@@ -33,7 +33,7 @@ class SearchBlock extends React.Component {
     ))
 
     let searchPostsList = this.props.searchPostsResults && this.props.searchPostsResults.map( (post) => (
-      <SearchPostsItem  username={post.user.username} date={post.timestamp} key={post.id} text={post.text} id={post.user.id}/>
+      <UserPostsItem  username={post.user.username} date={post.timestamp} key={post.id} text={post.text} id={post.user.id}/>
     ))
 
     if (!searchProfilesList) searchProfilesList = [];

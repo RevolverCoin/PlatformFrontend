@@ -25,6 +25,7 @@ import {
   requestSupportingList,
   addSupport,
   removeSupport,
+  getTimelinePosts,
   HTTPErrors,
 } from './../core/api'
 
@@ -387,3 +388,23 @@ export function removeSupportAction(addressFrom, addressTo) {
     }
   }
 }
+
+/**
+ * requestTimelinePostsAction
+ */
+export function requestTimelinePostsAction() {
+  return async dispatch => {
+    try {
+      const result = await getTimelinePosts()
+      const data = await result.json()
+
+      return dispatch({
+        type: types.GET_TIMELINE_POSTS_RESULT,
+        payload: data,
+      })
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}
+

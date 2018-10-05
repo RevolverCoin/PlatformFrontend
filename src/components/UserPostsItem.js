@@ -40,7 +40,7 @@ const StyledLink = styled(Link) `
 `
 const Content = styled.p``
 
-class SearchPostsItem extends React.Component {
+class UserPostsItem extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -69,4 +69,4 @@ class SearchPostsItem extends React.Component {
   }
 }
 
-export default SearchPostsItem
+export default UserPostsItem
