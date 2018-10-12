@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
 
-import SupportsBlock from '../components/SupportsBlock'
+import SupportsBlock from '../../components/sideblocks/SupportsBlock'
 import {
   getIncomingSupportsAction,
   getOutgoingSupportsAction,
   createSupportAction,
   claimGeneratorAction,
-} from '../actions/actions'
+} from '../../actions/actions'
 
 const mapStateToProps = state => {
   const { root } = state

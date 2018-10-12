@@ -1,7 +1,7 @@
 import React from 'react'
-import AvatarBlock from '../containers/AvatarBlock'
-import SupportsBlock from '../containers/SupportsBlock'
-import BalanceBlock from '../containers/BalanceBlock'
+import AvatarBlock from '../../containers/sideblocks/AvatarBlock'
+import SupportsBlock from '../../containers/sideblocks/SupportsBlock'
+import BalanceBlock from '../../containers/sideblocks/BalanceBlock'
 
 
 class AsideUserBlock extends React.Component {

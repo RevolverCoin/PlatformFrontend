@@ -2,7 +2,7 @@ import React from 'react'
 import Panel from 'muicss/lib/react/panel'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import MainButton from './MainButton'
+import MainButton from './../MainButton'
 
 const supportsBlockStyle = {
   supportsLink: {

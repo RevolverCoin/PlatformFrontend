@@ -6,8 +6,8 @@ import Container from 'muicss/lib/react/container'
 import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
 import PropTypes from 'prop-types'
-import './../styles/header.css'
-import logo from './../img/logo.png'
+import './../../styles/header.css'
+import logo from './../../img/logo.png'
 import styled from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

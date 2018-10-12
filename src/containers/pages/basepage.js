@@ -4,11 +4,11 @@ import React from 'react'
 import Container from 'muicss/lib/react/container'
 import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
-import AsideUserBlock from '../../containers/AsideUserBlock'
-import HeaderBlock from '../../containers/HeaderBlock'
-import FooterBlock from '../../components/FooterBlock'
+import AsideUserBlock from '../sideblocks/AsideUserBlock'
+import HeaderBlock from '../../containers/sideblocks/HeaderBlock'
+import FooterBlock from '../../components/sideblocks/FooterBlock'
 
-import NetworkStatsBlock from '../../containers/NetworkStatsBlock'
+import NetworkStatsBlock from '../../containers/sideblocks/NetworkStatsBlock'
 
 
 const tabPageLayout = {

@@ -15,8 +15,8 @@ export const INITIAL_STATE = fromJS({
       supporting: null
     },
     balance: {
-      total: 1400,
-      locked: 120,
+      total: 0,
+      locked: 0,
     },
     profile: {
       id: null,
@@ -134,13 +134,15 @@ export function handleClearMyPrevPostsAction(state) {
  * data = {
     success,
     profile,
-    supports }  
+    supports,
+    balance }  
  */
 export function handleGetUserInfoResult(state, data) {
 
   return state.updateIn(['user', 'profile'], info => info.merge(fromJS(data.data.profile)))
         .setIn(['user', 'profile', 'description'], fromJS(data.data.profile.desc))
         .setIn(['user','supports'], fromJS(data.data.supports))
+        .setIn(['user','balance','total'], fromJS(data.data.balance))
 }
 
 export function handleGetUserInfoActionFailure(state, err) {

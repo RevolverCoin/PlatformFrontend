@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import AsideUserBlock from '../components/AsideUserBlock'
-import {getUserInfoAction} from '../actions/actions' 
+import AsideUserBlock from '../../components/sideblocks/AsideUserBlock'
+import {getUserInfoAction} from '../../actions/actions' 
 
 const mapStateToProps = (state) => {
 

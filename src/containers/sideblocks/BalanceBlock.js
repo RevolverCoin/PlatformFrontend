@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
-import BalanceBlock from '../components/BalanceBlock'
-import { sendTokenAction, receiveTokenAction, getTransactionsAction, rewardReportAction } from '../actions/actions'
+import BalanceBlock from '../../components/sideblocks/BalanceBlock'
+import { sendTokenAction, receiveTokenAction, getTransactionsAction, rewardReportAction } from '../../actions/actions'
 
 
 const mapStateToProps = (state) => {

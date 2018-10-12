@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import NetworkStatsBlock from '../components/NetworkStatsBlock'
+import NetworkStatsBlock from '../../components/sideblocks/NetworkStatsBlock'
 
 
 const mapStateToProps = (state) => {

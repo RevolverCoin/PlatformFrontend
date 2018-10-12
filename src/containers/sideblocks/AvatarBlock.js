@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import AvatarBlock from '../components/AvatarBlock'
+import AvatarBlock from '../../components/sideblocks/AvatarBlock'
 
 
 const mapStateToProps = (state) => {

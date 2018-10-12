@@ -2,10 +2,10 @@ import React from 'react'
 import Container from 'muicss/lib/react/container'
 import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
-import './../styles/footer.css'
-import logo from './../img/logo.png'
-import twitterLogo from './../img/twitter.svg'
-import discordLogo from './../img/discord.svg'
+import './../../styles/footer.css'
+import logo from './../../img/logo.png'
+import twitterLogo from './../../img/twitter.svg'
+import discordLogo from './../../img/discord.svg'
 
 const FooterBlock = () => (
   <Container fluid className="footer">

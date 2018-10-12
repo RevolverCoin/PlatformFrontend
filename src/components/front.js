@@ -8,8 +8,8 @@ import supportsThumb from './../img/supports-thumb.png'
 import rewardsThumb from './../img/rewards-thumb.png'
 import fansThumb from './../img/fans-thumb.png'
 import nodesImg from './../img/nodes.png'
-import HeaderBlock from './../containers/HeaderBlock'
-import FooterBlock from './FooterBlock'
+import HeaderBlock from './../containers/sideblocks/HeaderBlock'
+import FooterBlock from './sideblocks/FooterBlock'
 
 const FrontPage = props => (
   <Container fluid className="front-page-wrapper">

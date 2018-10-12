@@ -389,9 +389,9 @@ export function removeSupportAction(addressFrom, addressTo) {
   }
 }
 
-/**
+/******************************************************
  * requestTimelinePostsAction
- */
+ ******************************************************/
 export function requestTimelinePostsAction() {
   return async dispatch => {
     try {
