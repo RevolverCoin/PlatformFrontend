@@ -1,7 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Panel from 'muicss/lib/react/panel'
 import PropTypes from 'prop-types'
 import MainButton from '../MainButton'
+
 
 const balanceBlockStyle = {
   bordered: {
@@ -42,7 +44,7 @@ const BalanceBlock = props => (
         </tbody>
       </table>
       <div style={balanceBlockStyle.bordered}>
-        <MainButton className="m-r-sm" handleAction={props.sendTokenAction} text="Send" />
+        <Link className="revolver-btn-main" to="/send">Send</Link>
         <MainButton handleAction={props.receiveTokenAction} text="Receive" />
       </div>
       <div className="m-t-md">

@@ -19,6 +19,8 @@ import SupportedPage from './containers/pages/supported'
 import DiscoverPage from './containers/pages/discover'
 import TimelinePage from './containers/pages/timeline'
 
+import SendPage from './containers/pages/send'
+
 const App = () => {
 
   const loggedIn = localStorage.getItem('isLogged');
@@ -45,6 +47,8 @@ const App = () => {
 
         <Route path="/timeline" key="timeline" component={TimelinePage} />
         <Route path="/discover" key="discover" component={DiscoverPage} />
+
+        <Route path="/send" key="send" component={SendPage} />
 
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignupPage} />

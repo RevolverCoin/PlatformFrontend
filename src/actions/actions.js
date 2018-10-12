@@ -26,6 +26,8 @@ import {
   addSupport,
   removeSupport,
   getTimelinePosts,
+  getDiscoverPosts,
+  send,
   HTTPErrors,
 } from './../core/api'
 
@@ -407,4 +409,43 @@ export function requestTimelinePostsAction() {
     }
   }
 }
+
+
+/******************************************************
+ * requestDiscoverPostsAction
+ ******************************************************/
+export function requestDiscoverPostsAction() {
+  return async dispatch => {
+    try {
+      const result = await getDiscoverPosts()
+      const data = await result.json()
+
+      return dispatch({
+        type: types.GET_DISCOVER_POSTS_RESULT,
+        payload: data,
+      })
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}
+
+/******************************************************
+ * sendAction
+ ******************************************************/
+export function sendAction(addressFrom, addressTo, amount) {
+  return async dispatch => {
+    try {
+
+      console.log(addressFrom,addressTo,amount)
+
+      const result = await send(addressFrom, addressTo, amount)
+      const data = await result.json()
+
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}
+
 

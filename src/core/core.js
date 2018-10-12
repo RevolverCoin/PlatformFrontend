@@ -197,3 +197,9 @@ export function handleGetTimelinePostsResults(state, data)
 {
   return state.setIn(['current', 'posts'], fromJS(data.data))
 }
+
+export function handleGetDiscoverPostsResults(state, data)
+{
+  return state.setIn(['current', 'posts'], fromJS(data.data))
+}
+

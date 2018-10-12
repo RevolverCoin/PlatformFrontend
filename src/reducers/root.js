@@ -69,6 +69,10 @@ export default (state = core.INITIAL_STATE, action) => {
     case types.GET_TIMELINE_POSTS_RESULT:
       return core.handleGetTimelinePostsResults(state, action.payload)
 
+    case types.GET_DISCOVER_POSTS_RESULT:
+      return core.handleGetDiscoverPostsResults(state, action.payload)
+
+      
       
     default:
       // console.error("Unknown action", action)

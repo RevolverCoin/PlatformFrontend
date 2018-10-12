@@ -234,6 +234,31 @@ export function getTimelinePosts() {
     }))
 }
 
+export function getDiscoverPosts() {
+  return HTTPErrorHandler(
+    fetch(`${url}/discover`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }))
+}
+
+
+export function send(addressFrom,addressTo,amount) {
+ 
+  return HTTPErrorHandler(
+    fetch(`${url}/send`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({addressFrom,addressTo,amount})
+    }))
+}
+
 
 
 
