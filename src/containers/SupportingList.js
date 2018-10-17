@@ -30,6 +30,7 @@ class SupportingList extends React.Component {
       this.props.data.map(user => (
         <UserListItem
           username={user.profile.username}
+          avatar={user.profile.avatar}
           description={user.profile.desc}
           key={user.profile.id}
           id={user.profile.id}

@@ -1,11 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
-import Avatar from 'react-avatar';
+import Avatar from 'react-avatar'
 import { Link } from 'react-router-dom'
+
+import Linkify from 'react-linkify'
+
+import { promiseChainify, testImage, urlRegex } from '../utils/misc'
 
 const Container = styled.div`
   padding: 5px;
   border-bottom: 1px solid #a1a1a1;
+  text-align: left;
 `
 const LeftColumn = styled.div`
   display: inline-block;
@@ -14,7 +19,6 @@ const LeftColumn = styled.div`
   padding: 10px;
 `
 
-const UserAvatar = styled.img``
 
 const RightColumn = styled.div`
   display: inline-block;
@@ -35,14 +39,43 @@ const PostDate = styled.span`
   margin-left: 30px;
 `
 
-const StyledLink = styled(Link) `
+const StyledLink = styled(Link)`
   color: #1f363d;
 `
-const Content = styled.p``
+
+const Text = styled.p`
+  word-wrap: break-word;
+`
 
 class UserPostsItem extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      imageUrl: null,
+      text: this.props.text,
+    }
+
+    if (this.props.text) this.parseText(this.props.text)
+  }
+
+  async parseText(text) {
+    let urls = []
+    text.replace(urlRegex, url => {
+      urls.push(testImage(url))
+    })
+
+    if (urls.length === 0) return
+
+    const results = await promiseChainify(urls)
+    if (!results || results.length === 0) return
+
+    const validUrl = results.find(result => result != null)
+
+    if (validUrl && typeof validUrl !== 'undefined') {
+      const updatedText = text.replace(validUrl, '')
+      this.setState({ imageUrl: validUrl, text: updatedText })
+    }
   }
 
   render() {
@@ -52,17 +85,29 @@ class UserPostsItem extends React.Component {
       <Container>
         <LeftColumn>
           <Link to={'/posts/' + this.props.id}>
-            <Avatar name={this.props.username} size='50'/>
+            {this.props.avatar ? (
+              <img src={this.props.avatar} width="50" />
+            ) : (
+              <Avatar name={this.props.username} size="50" />
+            )}
           </Link>
         </LeftColumn>
         <RightColumn>
           <Header>
             <StyledLink to={'/posts/' + this.props.id}>
               <UserName>{this.props.username}</UserName>
-              </StyledLink>
+            </StyledLink>
             <PostDate>{postTime}</PostDate>
           </Header>
-          <Content>{this.props.text}</Content>
+          <Linkify>
+            <Text>{this.props.text}</Text>
+          </Linkify>
+
+              {this.state.imageUrl ? (
+                <img src={this.state.imageUrl} width='100%'/>
+              ) : ('')}
+
+
         </RightColumn>
       </Container>
     )

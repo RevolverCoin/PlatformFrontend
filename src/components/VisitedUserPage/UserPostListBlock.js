@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import UserPostBlock from '../../containers/pages/VisitedUserPage/UserPostBlock'
+import UserPostsItem from '../../containers/UserPostsItem'
 
 
 
@@ -12,10 +12,15 @@ class UserPostListBlock extends React.Component {
   render() {
 
     const blocks = this.props.userPosts && this.props.userPosts.map((data)=>(
-      <UserPostBlock key={data.id} username={this.props.username} text={data.text} date={data.timestamp}/>
+      <UserPostsItem 
+        key={data.id} 
+        username={data.user.username}
+        avatar={data.user.avatar} 
+        text={data.text} 
+        date={data.timestamp}/>
     ));
 
-    // const blocks = null;
+    
     return (
       <div>
         {blocks}         

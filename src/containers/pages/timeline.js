@@ -41,7 +41,8 @@ class TimelinePage extends BasePage {
       this.props.postsResults &&
       this.props.postsResults.map(post => (
         <UserPostsItem
-          username={post.userId.username}
+          username={post.userId[0].username}
+          avatar={post.userId[0].avatar}
           date={post.createdAt}
           key={post._id}
           text={post.text}

@@ -4,15 +4,13 @@ import Panel from 'muicss/lib/react/panel'
 import PropTypes from 'prop-types'
 import Immutable from 'immutable'
 import CreateNewPostBlock from './../containers/CreateNewPostBlock'
-import MySinglePostBlock from './MySinglePostBlock'
+import UserPostsItem from '../containers/UserPostsItem'
+
 import styled from 'styled-components'
 
-const myPostsBlockStyle = {
-  marginTop: '10px',
-  myPostsPanel: {
-    padding: 0,
-  },
-}
+const PanelRoot = styled(Panel)`
+  padding:0;
+`
 
 const Caption = styled.div`
   background-color: #fafafa;
@@ -72,7 +70,7 @@ class MyPostsBlock extends React.Component {
     )
 
     return (
-      <Panel style={myPostsBlockStyle.myPostsPanel}>
+      <PanelRoot >
         <Caption>
           <Link to='/myposts/'>
             <Category active>My Posts</Category>
@@ -89,19 +87,21 @@ class MyPostsBlock extends React.Component {
           <CreateNewPostBlock username={this.props.username} avatar={this.props.avatar}/>
           {this.props.userPostsFetchingNewPost === true ? loader : null}
         </div>
-        <div style={myPostsBlockStyle}>
+        <div>
+          
           {this.props.userPostsList.map(post => (
-            <MySinglePostBlock
-              avatar={post.avatar}
-              username={this.props.username}
-              date={post.timestamp}
-              text={post.text}
-              key={post.id}
+            <UserPostsItem 
+              username={post.username}
+              avatar={post.avatar} 
+              date={post.timestamp} 
+              key={post.id} 
+              text={post.text} 
+              id={post.id}
             />
           ))}
           {this.props.userPostsFetchingPosts === true ? loader : null}
         </div>
-      </Panel>
+      </PanelRoot>
     )
   }
 }

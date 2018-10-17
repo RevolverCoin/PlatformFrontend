@@ -37,15 +37,17 @@ class DiscoverPage extends BasePage {
   }
 
   renderPage() {
+
     let postsList =
       this.props.postsResults &&
       this.props.postsResults.map(post => (
         <UserPostsItem
-          username={post.userId.username}
+          username={post.userId[0].username}
+          avatar={post.userId[0].avatar}
           date={post.createdAt}
           key={post._id}
           text={post.text}
-          id={post.userId._id}
+          id={post.userId[0]._id}
         />
       ))
 
@@ -78,7 +80,6 @@ const mapStateToProps = state => {
   const data = state.root && state.root.getIn(['current', 'posts'])
   if (!data) return null
 
-  console.log(data.toJS())
   return {
     postsResults: data.toJS()
   }

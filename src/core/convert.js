@@ -22,7 +22,7 @@ export function convertMyPosts(data) {
       text: post.text,
       avatar: post.user.avatar,
       username: post.user.username,
-      timestamp: convertTime(post.timestamp),
+      timestamp: post.timestamp,
       id: post.id,
     })),
   }
@@ -33,7 +33,7 @@ export function convertNewPost(data) {
     text: data.data.text,
     username: data.data.user.username,
     avatar: data.data.user.avatar,
-    timestamp: convertTime(data.data.timestamp),
+    timestamp: data.data.timestamp,
     id: data.data.id,
     userId: data.data.userId,
   }
