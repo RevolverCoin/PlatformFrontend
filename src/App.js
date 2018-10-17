@@ -7,7 +7,7 @@ import './styles/media.css'
 
 import LoginPage from './containers/pages/login'
 import SignupPage from './containers/pages/signup'
-import HomePage from './containers/pages/home'
+import MyPostsPage from './containers/pages/myposts'
 import FrontPage from './containers/pages/front'
 import NotFoundPage from './containers/pages/404'
 import UserPage from './containers/pages/VisitedUserPage/user'
@@ -36,7 +36,7 @@ const App = () => {
             )
         )} />
 
-        <Route path="/myposts" key="my-posts" component={HomePage} />
+        <Route path="/myposts" key="my-posts" component={MyPostsPage} />
         <Route path="/profile" key="profile" component={ProfilePage} />
         
         <Route path="/posts/:userId" key="user-posts" component={UserPage} />

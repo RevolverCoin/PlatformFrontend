@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  updateProfileInfoAction(data) {
+  updateProfileInfo(data) {
     return dispatch(updateProfileInfoAction(data))
   },
 })

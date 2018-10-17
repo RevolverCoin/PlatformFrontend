@@ -7,10 +7,12 @@ const mapStateToProps = (state) => {
   const { root } = state
   const posts = root.hasIn(['user', 'posts']) && root.getIn(['user', 'posts'])
 
-  const username = root.getIn(['user', 'profile', 'username']);
+  const username = root && root.getIn(['user', 'profile', 'username']);
+  const avatar = root && root.getIn(['user', 'profile', 'avatar']);
 
   return {
     username, 
+    avatar,
     userPostsList: posts && posts.get('postsList'),
     userPostsError: posts && posts.get('error'),
     userPostsFetchingNewPost: posts && posts.get('fetchingNewPost'),

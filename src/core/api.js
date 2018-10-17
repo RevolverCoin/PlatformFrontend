@@ -142,14 +142,15 @@ export function getUserInfo() {
 }
 
 
-export function updateProfileInfo({ description, username }) {
+export function updateProfileInfo({ description, username, avatar }) {
+
   return fetch(`${url}/profile`, {
     method: 'PATCH',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ desc: description, username }),
+    body: JSON.stringify({ desc: description, username, avatar }),
   })
 }
 

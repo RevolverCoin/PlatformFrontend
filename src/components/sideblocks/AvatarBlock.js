@@ -22,8 +22,11 @@ const avatarBlockStyles = {
 const AvatarBlock = props => (
   <Panel className="m-t-md">
     <div style={avatarBlockStyles.avatar} className="m-b">
-      
-      <Avatar name={props.userProfileUsername} size='150px'/>
+      {props.userProfileAvatar ? 
+        <img src={props.userProfileAvatar} width='150'/>
+        :
+        <Avatar name={props.userProfileUsername} size='150px'/>
+      }
     </div>
     <p>{props.userProfileUsername}</p>
     <p>{props.userProfileDescription}</p>

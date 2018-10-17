@@ -40,7 +40,13 @@ class CreateNewPostBlock extends React.Component {
         <Row>
           <form onSubmit={this.onSubmit}>
             <Col md="2">
-              <Avatar name={this.props.username} size='60'/>
+              {this.props.avatar ? 
+                <img src={this.props.avatar} width='60'/>
+                :
+                <Avatar name={this.props.username} size='60'/>
+              }
+
+              
             </Col>
             <Col md="10">
               <Textarea

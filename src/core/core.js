@@ -20,7 +20,7 @@ export const INITIAL_STATE = fromJS({
     },
     profile: {
       id: null,
-      avatar: 'Avatar',
+      avatar: null,
       username: null,
       description: null,
       email: null,
@@ -150,6 +150,7 @@ export function handleGetUserInfoActionFailure(state, err) {
 }
 
 export function handleUpdateProfileInfoActionSuccess(state, data) {
+
   return state.updateIn(['user', 'profile'], info => info.merge(fromJS(data.profile)))
         .setIn(['user', 'profile', 'description'], fromJS(data.profile.desc))
 }

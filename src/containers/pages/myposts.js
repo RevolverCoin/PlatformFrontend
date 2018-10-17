@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import BasePage from './basepage'
-import MyPostsBlock from '../../containers/MyPostsBlock'
+import MyPostsBlock from '../MyPostsBlock'
 
 
 
-class HomePage extends BasePage {
+class MyPostsPage extends BasePage {
 
   renderPage() {
     return (
@@ -18,7 +18,7 @@ class HomePage extends BasePage {
 
 
 
-HomePage.defaultProps = {
+MyPostsPage.defaultProps = {
   userProfileUsername: '',
   userProfileDescription: '',
   userProfileEmail: '',
@@ -26,7 +26,7 @@ HomePage.defaultProps = {
 
 }
 
-HomePage.propTypes = {
+MyPostsPage.propTypes = {
   userProfileUsername: PropTypes.string,
   userProfileDescription: PropTypes.string,
   userProfileEmail: PropTypes.string,
@@ -49,4 +49,4 @@ const mapDispatchToProps = dispatch => ({
 
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default connect(mapStateToProps, mapDispatchToProps)(MyPostsPage)
