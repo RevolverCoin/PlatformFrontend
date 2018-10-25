@@ -29,11 +29,11 @@ class SearchBlock extends React.Component {
 
 
     let searchProfilesList = this.props.searchProfilesResults && this.props.searchProfilesResults.map( (user) => (
-      <UserListItem  username={user.username} description={user.desc} key={user.id} id={user.id}/>
+      <UserListItem  username={user.username} description={user.desc} avatar={user.avatar} key={user.id} id={user.id}/>
     ))
 
     let searchPostsList = this.props.searchPostsResults && this.props.searchPostsResults.map( (post) => (
-      <UserPostsItem  username={post.user.username} date={post.timestamp} key={post.id} text={post.text} id={post.user.id}/>
+      <UserPostsItem  username={post.user.username} date={post.timestamp} key={post.id} text={post.text} id={post.user.id} avatar={post.user.avatar}/>
     ))
 
     if (!searchProfilesList) searchProfilesList = [];

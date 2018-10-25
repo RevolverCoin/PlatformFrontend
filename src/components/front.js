@@ -85,8 +85,8 @@ const FrontPage = props => (
               <span className="description-block-title-accent">revolver platform</span>. It is easy
               to support your favorite author and share the rewards
             </h2>
-            <Link to="/login" className="front-signin-btn-disabled" onClick={e => e.preventDefault()}>
-              Sign In Coming Soon
+            <Link to="/login" className="front-signin-btn">
+              Sign In
             </Link>
           </Col>
           <Col md="6">

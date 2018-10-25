@@ -1,12 +1,12 @@
 import { push } from 'connected-react-router'
 import { fromJS } from 'immutable'
 import * as types from '../constants/ActionType'
-import emailRegExp, {promiseChainify} from '../utils/misc'
+import emailRegExp, { promiseChainify } from '../utils/misc'
 import {
   convertLoginData,
   convertMyPosts,
   convertNewPost,
-  convertSignupData
+  convertSignupData,
 } from './../core/convert'
 import {
   getMyPosts,
@@ -115,7 +115,7 @@ export function getUserPostsAction(userId, pageId) {
 }
 
 /**
- * get info for some user (userId) 
+ * get info for some user (userId)
  */
 export function getVisitedUserInfoAction(userId) {
   return async dispatch => {
@@ -139,14 +139,14 @@ export function requestSupportedListAction(userId, pageId) {
 
       let requests = []
       data.supports.forEach(support => {
-        requests.push(getVisitedUserInfoByAddress(support.addressFrom));
+        requests.push(getVisitedUserInfoByAddress(support.addressFrom))
       })
-      
-      const infos = await promiseChainify(requests);
-      const jsonResponses = infos.map(info => (info.json()));
-      const finalResponses = await promiseChainify(jsonResponses);
-      
-      const result = finalResponses.map(item => ({...item.data}))
+
+      const infos = await promiseChainify(requests)
+      const jsonResponses = infos.map(info => info.json())
+      const finalResponses = await promiseChainify(jsonResponses)
+
+      const result = finalResponses.map(item => ({ ...item.data }))
 
       dispatch({ type: types.SUPPORTED_LIST_RESULT, payload: result })
       return data
@@ -159,20 +159,19 @@ export function requestSupportedListAction(userId, pageId) {
 export function requestSupportingListAction(userId, pageId) {
   return async dispatch => {
     try {
-
       const response = await requestSupportingList(userId, pageId)
       const data = await response.json()
 
       let requests = []
       data.supports.forEach(support => {
-        requests.push(getVisitedUserInfoByAddress(support.addressTo));
+        requests.push(getVisitedUserInfoByAddress(support.addressTo))
       })
-      
-      const infos = await promiseChainify(requests);
-      const jsonResponses = infos.map(info => (info.json()));
-      const finalResponses = await promiseChainify(jsonResponses);
-      
-      const result = finalResponses.map(item => ({...item.data}))
+
+      const infos = await promiseChainify(requests)
+      const jsonResponses = infos.map(info => info.json())
+      const finalResponses = await promiseChainify(jsonResponses)
+
+      const result = finalResponses.map(item => ({ ...item.data }))
 
       dispatch({ type: types.SUPPORTING_LIST_RESULT, payload: result })
       return data
@@ -255,6 +254,7 @@ export function signupAction(data) {
 
         localStorage.setItem('isLogged', true)
         dispatch(push('/'))
+        dispatch(getUserInfoAction())
       } catch (error) {
         return handleAPIException(dispatch, error, types.SIGNUP_ACTION_FAILURE)
       }
@@ -316,26 +316,31 @@ export function createNewPostAction(data) {
 }
 
 export function getMyPostsAction(pageId) {
-  return dispatch => {
-    dispatch({ type: types.GET_MY_POSTS_ACTION })
-    return getMyPosts(pageId)
-      .then(response => {
-        return response.json()
-      })
-      .then(posts => {
+  return async dispatch => {
+    try {
+      dispatch({ type: types.GET_MY_POSTS_ACTION })
+
+      const response = await getMyPosts(pageId)
+      const posts = await response.json()
+      if (posts.data) {
         const converted = convertMyPosts(posts.data)
-        return dispatch({
+
+        dispatch({
           type: types.GET_MY_POSTS_ACTION_SUCCESS,
           payload: converted,
         })
-      })
-      .catch(err => {
-        if (err === HTTPErrors.Unauthorized) {
-          dispatch(push('/login'))
-        }
 
-        dispatch({ type: types.GET_MY_POSTS_ACTION_FAILURE, payload: err })
-      })
+      } else {
+        // TODO: in case there is no posts - do not send FAILURE 
+        dispatch({ type: types.GET_MY_POSTS_ACTION_FAILURE, payload: null })
+      }
+    } catch (err) {
+      if (err === HTTPErrors.Unauthorized) {
+        dispatch(push('/login'))
+      }
+      
+      dispatch({ type: types.GET_MY_POSTS_ACTION_FAILURE, payload: err })
+    }
   }
 }
 
@@ -347,7 +352,6 @@ export function clearMyPrevPostsAction() {
 
 export function updateProfileInfoAction(data) {
   return dispatch => {
-    
     return updateProfileInfo(data)
       .then(response => {
         return response.json()
@@ -411,7 +415,6 @@ export function requestTimelinePostsAction() {
   }
 }
 
-
 /******************************************************
  * requestDiscoverPostsAction
  ******************************************************/
@@ -437,11 +440,8 @@ export function requestDiscoverPostsAction() {
 export function sendAction(addressFrom, addressTo, amount) {
   return async dispatch => {
     try {
-
-
       const result = await send(addressFrom, addressTo, amount)
       const data = await result.json()
-
     } catch (error) {
       return handleAPIException(dispatch, error)
     }
@@ -454,10 +454,9 @@ export function sendAction(addressFrom, addressTo, amount) {
 export function requestTransactionsAction() {
   return async dispatch => {
     try {
-
       const result = await getTransactions()
       const data = await result.json()
-      
+
       return dispatch({
         type: types.GET_TRANSACTIONS_RESULT,
         payload: data,
@@ -467,6 +466,3 @@ export function requestTransactionsAction() {
     }
   }
 }
-
-
-

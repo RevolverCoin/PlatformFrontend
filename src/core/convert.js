@@ -14,6 +14,7 @@ export function convertSignupData(data) {
 }
 
 export function convertMyPosts(data) {
+
   return {
     hasNextPage: data.hasNextPage,
     nextPageId: data.nextPageId,

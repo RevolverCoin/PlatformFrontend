@@ -77,8 +77,8 @@ DiscoverPage.propTypes = {}
 
 const mapStateToProps = state => {
   // get profiles of supporting
-  const data = state.root && state.root.getIn(['current', 'posts'])
-  if (!data) return null
+  const data = state.root && state.root.getIn(['current', 'discover'])
+  if (!data) return {}
 
   return {
     postsResults: data.toJS()

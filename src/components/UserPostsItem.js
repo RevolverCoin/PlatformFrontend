@@ -100,7 +100,7 @@ class UserPostsItem extends React.Component {
             <PostDate>{postTime}</PostDate>
           </Header>
           <Linkify>
-            <Text>{this.props.text}</Text>
+            <Text>{this.state.text}</Text>
           </Linkify>
 
               {this.state.imageUrl ? (

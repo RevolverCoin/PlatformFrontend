@@ -47,6 +47,7 @@ export const INITIAL_STATE = fromJS({
     searchProfiles: null,
     searchPosts: null,
     posts: null,
+    discover: null,
     supports: {},
     supportList: null,
     data: null
@@ -202,7 +203,7 @@ export function handleGetTimelinePostsResults(state, data)
 
 export function handleGetDiscoverPostsResults(state, data)
 {
-  return state.setIn(['current', 'posts'], fromJS(data.data))
+  return state.setIn(['current', 'discover'], fromJS(data.data))
 }
 
 export function handleGetTransactionsResults(state, data)
