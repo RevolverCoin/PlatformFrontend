@@ -20,6 +20,8 @@ import DiscoverPage from './containers/pages/discover'
 import TimelinePage from './containers/pages/timeline'
 
 import SendPage from './containers/pages/send'
+import RewardReportPage from './containers/pages/rewardreport'
+import TransactionsPage from './containers/pages/transactions'
 
 const App = () => {
 
@@ -49,6 +51,8 @@ const App = () => {
         <Route path="/discover" key="discover" component={DiscoverPage} />
 
         <Route path="/send" key="send" component={SendPage} />
+        <Route path="/reward-report" key="reward-report" component={RewardReportPage} />
+        <Route path="/transactions" key="transactions" component={TransactionsPage} />
 
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignupPage} />

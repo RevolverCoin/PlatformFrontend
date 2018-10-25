@@ -48,7 +48,8 @@ export const INITIAL_STATE = fromJS({
     searchPosts: null,
     posts: null,
     supports: {},
-    supportList: null
+    supportList: null,
+    data: null
   }
 
 
@@ -204,3 +205,7 @@ export function handleGetDiscoverPostsResults(state, data)
   return state.setIn(['current', 'posts'], fromJS(data.data))
 }
 
+export function handleGetTransactionsResults(state, data)
+{
+  return state.setIn(['current', 'data'], fromJS(data.data))
+}

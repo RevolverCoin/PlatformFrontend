@@ -22,10 +22,7 @@ body {
   background-size: cover;
 }
 
-.front-banner .front-banner-text-wrap {
-  margin-top: 130px;
-  margin-bottom: 130px;
-}
+
 
 .front-banner h1,
 .front-banner h3 {
@@ -74,8 +71,13 @@ body {
 }
 
 .description-block {
-  padding: 70px 0;
+  padding: 60px 0;
 }
+
+.description-block img {
+  margin: 20px;
+}
+
 
 .description-block .description-block-title {
   text-transform: uppercase;
@@ -108,4 +110,17 @@ body {
 
 .front-signin-btn:visited {
   color: #ffffff;
+}
+
+.front-signin-btn-disabled {
+  background: #999;
+  border-radius: 15px;
+  border: 1px solid black;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  color: #ffffff;
+  font-size: 18px;
+  padding: 8px 60px;
+  text-transform: uppercase;
+  text-decoration: none;
 }

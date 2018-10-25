@@ -1,12 +1,14 @@
 .footer {
   background: #ffffff;
   border-top: 1px solid #a1a1a1;
+  padding-bottom:20px;
 }
 
 .footer h3 {
   color: #494949;
   font-family: DosisSemiBold, 'Open Sans', sans-serif;
   text-transform: uppercase;
+  margin-bottom:0;
 }
 
 .footer .footer-logo-wrap,
@@ -43,7 +45,7 @@
 }
 
 .footer .footer-logos-wrap {
-  margin-top: 45px;
+  margin-top: 35px;
 }
 
 .footer .footer-logos-wrap img:first-child {

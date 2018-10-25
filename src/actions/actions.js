@@ -29,6 +29,7 @@ import {
   getDiscoverPosts,
   send,
   HTTPErrors,
+  getTransactions,
 } from './../core/api'
 
 function handleAPIException(dispatch, error, type) {
@@ -437,7 +438,6 @@ export function sendAction(addressFrom, addressTo, amount) {
   return async dispatch => {
     try {
 
-      console.log(addressFrom,addressTo,amount)
 
       const result = await send(addressFrom, addressTo, amount)
       const data = await result.json()
@@ -447,5 +447,26 @@ export function sendAction(addressFrom, addressTo, amount) {
     }
   }
 }
+
+/******************************************************
+ * requestTransactionsAction
+ ******************************************************/
+export function requestTransactionsAction() {
+  return async dispatch => {
+    try {
+
+      const result = await getTransactions()
+      const data = await result.json()
+      
+      return dispatch({
+        type: types.GET_TRANSACTIONS_RESULT,
+        payload: data,
+      })
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}
+
 
 

@@ -70,7 +70,7 @@ class MyPostsBlock extends React.Component {
     )
 
     return (
-      <PanelRoot >
+      <PanelRoot>
         <Caption>
           <Link to='/myposts/'>
             <Category active>My Posts</Category>

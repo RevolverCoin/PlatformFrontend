@@ -142,7 +142,7 @@ class HeaderBlock extends React.Component {
                     onClick={() => this.props.logoutAction()}
                   >Logout
                   </Link> :
-                  <Link className="header-top-signin-link" to="/login">Sign In</Link>}
+                  <Link className="header-top-signin-link-disabled" to="/login" onClick={e => e.preventDefault()}>Sign In</Link>}
               </h3>
             </Col>
           </Row>

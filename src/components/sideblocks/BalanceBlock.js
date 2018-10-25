@@ -49,10 +49,10 @@ const BalanceBlock = props => (
       </div>
       <div className="m-t-md">
         <p className="mui--text-center">
-          <MainButton handleAction={props.getTransactionsAction} text="Transactions" />
+        <Link className="revolver-btn-main" to="/transactions">Transactions</Link>
         </p>
         <p className="mui--text-center">
-          <MainButton handleAction={props.rewardReportAction} text="Reward Report" />
+          <Link className="revolver-btn-main" to="/reward-report">Reward Report</Link>
         </p>
       </div>
     </div>

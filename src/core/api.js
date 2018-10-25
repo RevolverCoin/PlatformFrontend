@@ -260,6 +260,16 @@ export function send(addressFrom,addressTo,amount) {
     }))
 }
 
-
+export function getTransactions()
+{
+  return HTTPErrorHandler(
+    fetch(`${url}/transactions`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }))
+}
 
 

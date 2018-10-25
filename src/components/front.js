@@ -1,4 +1,6 @@
 import React from 'react'
+import styled from 'styled-components'
+
 import Container from 'muicss/lib/react/container'
 import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
@@ -11,19 +13,29 @@ import nodesImg from './../img/nodes.png'
 import HeaderBlock from './../containers/sideblocks/HeaderBlock'
 import FooterBlock from './sideblocks/FooterBlock'
 
+const ComingSoon = styled.div`
+  margin-top:30px
+  font-size: 30px;
+  color:#ffdf49;
+`
+const BannerText =styled.div`
+  margin-top: 80px;
+  margin-bottom: 80px;
+`
+
 const FrontPage = props => (
   <Container fluid className="front-page-wrapper">
-
     <HeaderBlock />
 
     <Container fluid className="front-banner">
       <Row>
         <Col md="4" md-offset="4">
-          <div className="front-banner-text-wrap">
+          <BannerText>
             <h1>Decentralized</h1>
             <h1>Reward platform</h1>
             <h3>be rewarder by your creations</h3>
-          </div>
+            <ComingSoon>#COMINGSOON</ComingSoon>
+          </BannerText>
         </Col>
       </Row>
     </Container>
@@ -37,7 +49,7 @@ const FrontPage = props => (
               <img src={supportsThumb} alt="supports" />
               <h3>
                 <span>Support your</span>
-                <span>favourite author</span>
+                <span>favorite author</span>
               </h3>
             </div>
           </Col>
@@ -68,19 +80,17 @@ const FrontPage = props => (
         <Row>
           <Col md="6">
             <h2 className="description-block-title">
-              <span className="description-block-title-accent">
-                Revolver support hub
-              </span>
-              is a simple social network
-              that demonstrates the support functionality of the <span className="description-block-title-accent">
-              revolver platform
-              </span>
-              . It is easy to support your favourite author and share the rewards
+              <span className="description-block-title-accent">Revolver support hub </span>
+              is a simple social network that demonstrates the support functionality of the{' '}
+              <span className="description-block-title-accent">revolver platform</span>. It is easy
+              to support your favorite author and share the rewards
             </h2>
-            <Link to="/login" className="front-signin-btn">Sign In</Link>
+            <Link to="/login" className="front-signin-btn-disabled" onClick={e => e.preventDefault()}>
+              Sign In Coming Soon
+            </Link>
           </Col>
           <Col md="6">
-            <img src={nodesImg} alt="nodes" />
+            <img src={nodesImg} alt="nodes" width='220' />
           </Col>
         </Row>
       </Container>
