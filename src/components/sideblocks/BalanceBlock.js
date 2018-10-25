@@ -29,7 +29,7 @@ const BalanceBlock = props => (
             <td className="mui--text-left"><p style={balanceBlockStyle.description}>Available Balance</p></td>
             <td className="mui--text-right"><p
               style={balanceBlockStyle.currency}
-            >{props.userBalanceTotal}<span> XRE</span>
+            >{Number.parseFloat(props.userBalanceTotal).toPrecision(4)}<span> XRE</span>
             </p>
             </td>
           </tr>
@@ -37,7 +37,7 @@ const BalanceBlock = props => (
             <td className="mui--text-left"><p style={balanceBlockStyle.description}>Locked</p></td>
             <td className="mui--text-right"><p
               style={balanceBlockStyle.currency}
-            >{props.userBalanceLocked}<span> XRE</span>
+            >{Number.parseFloat(props.userBalanceLocked).toPrecision(4)}<span> XRE</span>
             </p>
             </td>
           </tr>
