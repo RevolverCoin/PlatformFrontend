@@ -30,6 +30,7 @@ import {
   send,
   HTTPErrors,
   getTransactions,
+  getRewardTransactions
 } from './../core/api'
 
 function handleAPIException(dispatch, error, type) {
@@ -466,3 +467,25 @@ export function requestTransactionsAction() {
     }
   }
 }
+
+/******************************************************
+ * requestRewardTransactionsAction
+ ******************************************************/
+export function requestRewardTransactionsAction() {
+  return async dispatch => {
+    try {
+      const result = await getRewardTransactions()
+      const data = await result.json()
+
+      return dispatch({
+        type: types.GET_REWARD_TRANSACTIONS_RESULT,
+        payload: data,
+      })
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}
+
+
+

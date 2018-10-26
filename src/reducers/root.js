@@ -73,7 +73,10 @@ export default (state = core.INITIAL_STATE, action) => {
       return core.handleGetDiscoverPostsResults(state, action.payload)
 
     case types.GET_TRANSACTIONS_RESULT:
-    return core.handleGetTransactionsResults(state, action.payload)
+      return core.handleGetTransactionsResults(state, action.payload)
+
+    case types.GET_REWARD_TRANSACTIONS_RESULT: 
+      return core.handleGetRewardTransactionsResults(state, action.payload)
       
     default:
       // console.error("Unknown action", action)

@@ -33,4 +33,8 @@ export const testImage = (url, timeoutT) => {
   })
 }
 
+export const toCurrencyAmount = (val, precision) => {
+  return Number.parseFloat(val).toPrecision(precision)
+}
+
 export default emailRexExp

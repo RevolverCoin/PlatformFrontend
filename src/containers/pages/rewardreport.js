@@ -10,6 +10,10 @@ import Form from 'muicss/lib/react/form'
 
 import BasePage from './basepage'
 
+import { requestRewardTransactionsAction } from '../../actions/actions'
+
+import {toCurrencyAmount} from '../../utils/misc'
+
 const RowHeader = styled(Row)`
     border: 1px solid #999
     background-color: #eee;
@@ -27,9 +31,20 @@ class RewardReportPage extends BasePage {
 
   componentDidMount() {
     window.scrollTo(0, 0)
+
+    this.props.requestRewardTransactions()
   }
 
   renderPage() {
+    const data =
+      this.props.data &&
+      this.props.data.map(item => (
+        <RowItem key={item.id}>
+          <Col md="5">{item.blockHeight}</Col>
+          <Col md="7">{toCurrencyAmount(item.amount, 8)}</Col>
+        </RowItem>
+      ))
+
     return (
       <Panel>
         <Form>
@@ -39,10 +54,9 @@ class RewardReportPage extends BasePage {
               <Col md="5">Block</Col>
               <Col md="7">Reward</Col>
             </RowHeader>
-            <RowItem>
-              <Col md="5">235</Col>
-              <Col md="7">0.0923</Col>
-            </RowItem>
+
+            {data}
+
           </Container>
         </Form>
       </Panel>
@@ -51,10 +65,16 @@ class RewardReportPage extends BasePage {
 }
 
 const mapStateToProps = state => {
-  return {}
+  const { root } = state
+  const data = root.getIn(['current', 'data'])
+  return { data: data && data.toJS().data }
 }
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  requestRewardTransactions() {
+    dispatch(requestRewardTransactionsAction())
+  },
+})
 
 export default connect(
   mapStateToProps,

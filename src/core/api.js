@@ -272,4 +272,16 @@ export function getTransactions()
     }))
 }
 
+export function getRewardTransactions()
+{
+  return HTTPErrorHandler(
+    fetch(`${url}/rewardtransactions`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }))
+}
+
 

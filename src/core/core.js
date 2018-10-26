@@ -210,3 +210,9 @@ export function handleGetTransactionsResults(state, data)
 {
   return state.setIn(['current', 'data'], fromJS(data.data))
 }
+
+export function handleGetRewardTransactionsResults(state, data)
+{
+  return state.setIn(['current', 'data'], fromJS(data.data))
+}
+
