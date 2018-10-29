@@ -30,8 +30,15 @@ import {
   send,
   HTTPErrors,
   getTransactions,
-  getRewardTransactions
+  getRewardTransactions,
+  getServiceInfo
 } from './../core/api'
+
+
+let intervalFetchServiceInfo = null
+const periodFetchServiceInfo = 5000;
+
+
 
 function handleAPIException(dispatch, error, type) {
   if (error === HTTPErrors.Unauthorized) {
@@ -486,6 +493,49 @@ export function requestRewardTransactionsAction() {
     }
   }
 }
+
+
+/****************************************************************************************
+ * Fetch Service Info
+ ****************************************************************************************/
+function getServiceInfoAction()
+{
+  return async dispatch => {
+    try {
+      const result = await getServiceInfo()
+      const data = await result.json()
+
+      return dispatch({
+        type: types.GET_SERVICE_INFO_RESULT,
+        payload: data,
+      })
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}
+
+export function startFetchServiceInfoAction() {
+  return async dispatch => {
+    dispatch({
+      type: types.START_FETCH_SERVICE_INFO
+    })
+
+    intervalFetchServiceInfo = setInterval(()=>{dispatch(getServiceInfoAction())}, periodFetchServiceInfo)  
+    dispatch(getServiceInfoAction()) 
+  }
+}
+
+export function stopFetchServiceInfoAction() {
+  return dispatch => {
+    dispatch({
+      type: types.STOP_FETCH_SERVICE_INFO
+    })
+    
+    clearInterval (intervalFetchServiceInfo)
+  }
+}
+/****************************************************************************************/
 
 
 

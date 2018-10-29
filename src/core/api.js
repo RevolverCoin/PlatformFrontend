@@ -284,4 +284,14 @@ export function getRewardTransactions()
     }))
 }
 
-
+export function getServiceInfo()
+{
+  return HTTPErrorHandler(
+    fetch(`${url}/service/info`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }))
+} 

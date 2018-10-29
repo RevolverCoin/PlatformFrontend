@@ -5,9 +5,13 @@ export const INITIAL_STATE = fromJS({
     msg: null,
   },
   stats: {
-    authors: null,
-    supporters: null,
-    generator: null,
+    blockHeight: null,
+    lastBlockTime: null,
+    users: null, 
+    supports: null, 
+    supporting: null,
+    supported: null,
+    generators: null,
   },
   user: {
     supports: {
@@ -216,3 +220,17 @@ export function handleGetRewardTransactionsResults(state, data)
   return state.setIn(['current', 'data'], fromJS(data.data))
 }
 
+export function handleGetServiceInfoResults(state, data)
+{
+  const info = {
+    blockHeight: data.data.blockHeight,
+    lastBlockTime: data.data.lastBlockTime,
+    users: data.data.addresses, 
+    supports: data.data.supports, 
+    supporting: data.data.sing,
+    supported: data.data.sed,
+    generators: data.data.generators
+  }
+
+  return state.set('stats', fromJS(info));
+}
