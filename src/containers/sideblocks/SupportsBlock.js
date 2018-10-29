@@ -5,7 +5,7 @@ import {
   getIncomingSupportsAction,
   getOutgoingSupportsAction,
   createSupportAction,
-  claimGeneratorAction,
+
 } from '../../actions/actions'
 
 const mapStateToProps = state => {
@@ -18,9 +18,12 @@ const mapStateToProps = state => {
   let supportingCount = supports && supports.get('supporting') && supports.get('supporting').size
   if (!supportingCount) supportingCount = 0
 
+  const type = root.hasIn(['user', 'type']) && root.getIn(['user', 'type'])
+
   return {
     userSupportedCount: supportedCount,
-    userSupportingCount: supportingCount
+    userSupportingCount: supportingCount,
+    type   
   }
 }
 
@@ -34,9 +37,7 @@ const mapDispatchToProps = dispatch => ({
   createSupportAction() {
     dispatch(createSupportAction())
   },
-  claimGeneratorAction() {
-    dispatch(claimGeneratorAction())
-  },
+
 })
 
 export default connect(

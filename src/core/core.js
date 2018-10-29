@@ -22,6 +22,7 @@ export const INITIAL_STATE = fromJS({
       total: 0,
       locked: 0,
     },
+    type: null, 
     profile: {
       id: null,
       avatar: null,
@@ -149,6 +150,8 @@ export function handleGetUserInfoResult(state, data) {
         .setIn(['user', 'profile', 'description'], fromJS(data.data.profile.desc))
         .setIn(['user','supports'], fromJS(data.data.supports))
         .setIn(['user','balance','total'], fromJS(data.data.balance))
+        .setIn(['user','balance','locked'], fromJS(data.data.lockedBalance))
+        .setIn(['user','type'], fromJS(data.data.type))
 }
 
 export function handleGetUserInfoActionFailure(state, err) {

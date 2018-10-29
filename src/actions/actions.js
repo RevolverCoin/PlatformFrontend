@@ -31,7 +31,8 @@ import {
   HTTPErrors,
   getTransactions,
   getRewardTransactions,
-  getServiceInfo
+  getServiceInfo,
+  claimGenerator
 } from './../core/api'
 
 
@@ -287,9 +288,6 @@ export function createSupportAction() {
   return { type: types.CREATE_SUPPORT_ACTION }
 }
 
-export function claimGeneratorAction() {
-  return { type: types.CLAIM_GENERATOR_ACTION }
-}
 
 export function sendTokenAction() {
   return { type: types.SEND_TOKEN_ACTION }
@@ -538,4 +536,22 @@ export function stopFetchServiceInfoAction() {
 /****************************************************************************************/
 
 
+/******************************************************
+ * claimGeneratorAction
+ ******************************************************/
+export function claimGeneratorAction(claim)
+{
+  return async dispatch => {
+    try {
+      const result = await claimGenerator(claim)
+      const data = await result.json()
+
+      dispatch(getUserInfoAction())
+      
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+
+}
 

@@ -18,6 +18,7 @@ import SupportedPage from './containers/pages/supported'
 
 import DiscoverPage from './containers/pages/discover'
 import TimelinePage from './containers/pages/timeline'
+import GeneratorPage from './containers/pages/generator'
 
 import SendPage from './containers/pages/send'
 import RewardReportPage from './containers/pages/rewardreport'
@@ -46,6 +47,7 @@ const App = () => {
 
         <Route path="/supporting" key="supporting" component={SupportingPage} />
         <Route path="/supported" key="supported" component={SupportedPage} />
+        <Route path="/generator" key="generator" component={GeneratorPage} />
 
         <Route path="/timeline" key="timeline" component={TimelinePage} />
         <Route path="/discover" key="discover" component={DiscoverPage} />
@@ -53,6 +55,7 @@ const App = () => {
         <Route path="/send" key="send" component={SendPage} />
         <Route path="/reward-report" key="reward-report" component={RewardReportPage} />
         <Route path="/transactions" key="transactions" component={TransactionsPage} />
+        
 
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignupPage} />

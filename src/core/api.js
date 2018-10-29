@@ -295,3 +295,17 @@ export function getServiceInfo()
       }
     }))
 } 
+
+export function claimGenerator(claim)
+{
+  const claimUrl = claim ? 'claimgenerator' : 'unclaimgenerator' 
+
+  return HTTPErrorHandler(
+    fetch(`${url}/${claimUrl}`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }))
+}

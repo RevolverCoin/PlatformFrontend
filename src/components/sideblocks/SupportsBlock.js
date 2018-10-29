@@ -22,9 +22,7 @@ const SupportsBlock = props => (
         <tbody>
           <tr>
             <td className="mui--text-left">
-              <p style={supportsBlockStyle.description}>
-                My supporters
-              </p>
+              <p style={supportsBlockStyle.description}>My supporters</p>
             </td>
             <td className="mui--text-right">
               <p>
@@ -32,16 +30,15 @@ const SupportsBlock = props => (
                   to="/supported"
                   style={supportsBlockStyle.supportsLink}
                   onClick={() => props.getIncomingSupportsAction()}
-                >{props.userSupportedCount} supports
+                >
+                  {props.userSupportedCount} supports
                 </Link>
               </p>
             </td>
           </tr>
           <tr>
             <td className="mui--text-left">
-              <p style={supportsBlockStyle.description}>
-                I support
-              </p>
+              <p style={supportsBlockStyle.description}>I support</p>
             </td>
             <td className="mui--text-right">
               <p>
@@ -49,21 +46,28 @@ const SupportsBlock = props => (
                   to="/supporting"
                   style={supportsBlockStyle.supportsLink}
                   onClick={() => props.getOutgoingSupportsAction()}
-                >{props.userSupportingCount} supports
+                >
+                  {props.userSupportingCount} supports
                 </Link>
               </p>
+            </td>
+          </tr>
+          <tr>
+            <td className="mui--text-left">
+              Type
+            </td>
+            <td className="mui--text-right">
+              {props.type}
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+
     <div>
-      <p>
-        <MainButton handleAction={props.createSupportAction} text="Create" />
-      </p>
-      <p>
-        <MainButton handleAction={props.claimGeneratorAction} text="Claim generator" />
-      </p>
+      <Link to="/generator" className="revolver-btn-main">
+        Generator
+      </Link>
     </div>
   </Panel>
 )
@@ -72,7 +76,7 @@ SupportsBlock.propTypes = {
   getIncomingSupportsAction: PropTypes.func.isRequired,
   getOutgoingSupportsAction: PropTypes.func.isRequired,
   createSupportAction: PropTypes.func.isRequired,
-  claimGeneratorAction: PropTypes.func.isRequired,
+  
   userSupportedCount: PropTypes.number.isRequired,
   userSupportingCount: PropTypes.number.isRequired,
 }
