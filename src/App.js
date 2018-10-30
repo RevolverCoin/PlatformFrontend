@@ -11,6 +11,12 @@ import MyPostsPage from './containers/pages/myposts'
 import FrontPage from './containers/pages/front'
 import NotFoundPage from './containers/pages/404'
 import UserPage from './containers/pages/VisitedUserPage/user'
+import UserPageByAddress from './containers/pages/VisitedUserPage/UserByAddress'
+
+import UserSupportedListPage from './containers/pages/VisitedUserPage/UserSupportedList'
+import UserSupportingListPage from './containers/pages/VisitedUserPage/UserSupportingList'
+
+
 import ProfilePage from './containers/pages/profile'
 import SearchPage from './containers/pages/search'
 import SupportingPage from './containers/pages/supporting'
@@ -43,6 +49,12 @@ const App = () => {
         <Route path="/profile" key="profile" component={ProfilePage} />
         
         <Route path="/posts/:userId" key="user-posts" component={UserPage} />
+        <Route path="/address/:address" key="user-posts-by-address" component={UserPageByAddress} />
+        
+        <Route path="/supports/:userId/supported" key="user-supported" component={UserSupportedListPage} />
+        <Route path="/supports/:userId/supporting" key="user-supporting" component={UserSupportingListPage} />
+
+
         <Route path="/search" key="search" component={SearchPage} />
 
         <Route path="/supporting" key="supporting" component={SupportingPage} />

@@ -101,7 +101,7 @@ class UserHeaderBlock extends React.Component {
       )
     }
 
-    return (
+      return (
       <Container>
         <DescriptionBlock>
           {this.props.avatar ? (
@@ -118,11 +118,11 @@ class UserHeaderBlock extends React.Component {
         <SupportBlock>
           <Row>
             <Header>Supporting</Header>
-            <Content>{supportingCount} Supports</Content>
+            <Content><Link to={`/supports/${this.props.userId}/supporting`}>{supportingCount} Supports</Link></Content>
           </Row>
           <Row>
             <Header>Supported</Header>
-            <Content>{supportedCount} Supports</Content>
+            <Content><Link to={`/supports/${this.props.userId}/supported`}>{supportedCount} Supports </Link></Content>
           </Row>
           <Row>
             <Header />

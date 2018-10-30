@@ -28,6 +28,7 @@ class UserPage extends BasePage {
       address={this.props.userProfile.address}
       userPosts={this.props.userPosts}
       supports={this.props.supports}
+      userId={this.props.match.params.userId} 
     />
     )
   }

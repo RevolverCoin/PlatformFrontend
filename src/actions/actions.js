@@ -555,3 +555,21 @@ export function claimGeneratorAction(claim)
 
 }
 
+/******************************************************
+ * getUserInfoByAddressAction
+ ******************************************************/
+export function getUserInfoByAddressAction(address)
+{
+  return async dispatch => {
+    try {
+      const result = await getVisitedUserInfoByAddress(address)
+      const data = await result.json()
+
+
+      dispatch(push(`/posts/${data.data.profile.id}`))
+      
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}

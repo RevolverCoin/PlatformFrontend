@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Container from 'muicss/lib/react/container'
@@ -12,7 +13,7 @@ import BasePage from './basepage'
 
 import { requestRewardTransactionsAction } from '../../actions/actions'
 
-import {toCurrencyAmount} from '../../utils/misc'
+import { toCurrencyAmount } from '../../utils/misc'
 
 const RowHeader = styled(Row)`
     border: 1px solid #999
@@ -40,8 +41,13 @@ class RewardReportPage extends BasePage {
       this.props.data &&
       this.props.data.map(item => (
         <RowItem key={item.id}>
-          <Col md="5">{item.blockHeight}</Col>
-          <Col md="7">{toCurrencyAmount(item.amount, 8)}</Col>
+          <Col md="2">{item.blockHeight}</Col>
+          <Col md="2">{toCurrencyAmount(item.amount, 8)}</Col>
+          <Col md="8">
+            {item.addressFrom ? (
+              <Link to={'/address/' + item.addressFrom}>{item.addressFrom}</Link>
+            ) : null}
+          </Col>
         </RowItem>
       ))
 
@@ -51,12 +57,12 @@ class RewardReportPage extends BasePage {
           <Container className="mui--text-left">
             <legend>Reward Report</legend>
             <RowHeader>
-              <Col md="5">Block</Col>
-              <Col md="7">Reward</Col>
+              <Col md="2">Block</Col>
+              <Col md="2">Reward</Col>
+              <Col md="8">Generator</Col>
             </RowHeader>
 
             {data}
-
           </Container>
         </Form>
       </Panel>
@@ -66,7 +72,7 @@ class RewardReportPage extends BasePage {
 
 const mapStateToProps = state => {
   const { root } = state
-  const data = root.getIn(['current', 'data'])
+  const data = root.getIn(['rewards', 'data'])
   return { data: data && data.toJS().data }
 }
 

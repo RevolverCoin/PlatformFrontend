@@ -47,6 +47,9 @@ export const INITIAL_STATE = fromJS({
       postsList: List([]),
     }
   },
+  rewards: {
+    data: null
+  },
   current: {
     userProfile: {},
     searchProfiles: null,
@@ -220,7 +223,7 @@ export function handleGetTransactionsResults(state, data)
 
 export function handleGetRewardTransactionsResults(state, data)
 {
-  return state.setIn(['current', 'data'], fromJS(data.data))
+  return state.setIn(['rewards','data'], fromJS(data.data))
 }
 
 export function handleGetServiceInfoResults(state, data)
