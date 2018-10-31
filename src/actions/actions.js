@@ -308,7 +308,8 @@ export function rewardReportAction() {
 export function createNewPostAction(data) {
   return dispatch => {
     dispatch({ type: types.CREATE_NEW_POST_ACTION })
-    return submitPost(data)
+
+    return submitPost(data.hexEncode())
       .then(response => response.json())
       .then(post => {
         const converted = convertNewPost(post)
@@ -374,28 +375,32 @@ export function updateProfileInfoAction(data) {
   }
 }
 
-export function addSupportAction(addressFrom, addressTo) {
+export function addSupportAction(addressFrom, addressTo, userId) {
   return async dispatch => {
     try {
       const response = await addSupport(addressFrom, addressTo)
       const data = await response.json()
 
-      dispatch({ type: types.ADD_SUPPORT_RESULT, payload: data })
-      return data
+      await dispatch({ type: types.ADD_SUPPORT_RESULT, payload: data })
+      await dispatch(getUserInfoAction())
+      await dispatch(getVisitedUserInfoAction(userId))
+
     } catch (error) {
       return handleAPIException(dispatch, error)
     }
   }
 }
 
-export function removeSupportAction(addressFrom, addressTo) {
+export function removeSupportAction(addressFrom, addressTo, userId) {
   return async dispatch => {
     try {
       const response = await removeSupport(addressFrom, addressTo)
       const data = await response.json()
 
-      dispatch({ type: types.REMOVE_SUPPORT_RESULT, payload: data })
-      return data
+      await dispatch({ type: types.REMOVE_SUPPORT_RESULT, payload: data })
+      await dispatch(getUserInfoAction())
+      await dispatch(getVisitedUserInfoAction(userId))
+
     } catch (error) {
       return handleAPIException(dispatch, error)
     }

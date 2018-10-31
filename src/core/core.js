@@ -50,6 +50,9 @@ export const INITIAL_STATE = fromJS({
   rewards: {
     data: null
   },
+  timeline: {
+    posts: null
+  },
   current: {
     userProfile: {},
     searchProfiles: null,
@@ -208,7 +211,7 @@ export function handleSupportingListResults(state, data)
 */
 export function handleGetTimelinePostsResults(state, data)
 {
-  return state.setIn(['current', 'posts'], fromJS(data.data))
+  return state.setIn(['timeline', 'posts'], fromJS(data.data))
 }
 
 export function handleGetDiscoverPostsResults(state, data)

@@ -41,8 +41,8 @@ class TimelinePage extends BasePage {
       this.props.postsResults &&
       this.props.postsResults.map(post => (
         <UserPostsItem
-          username={post.userId[0].username}
-          avatar={post.userId[0].avatar}
+          username={post.userId.username}
+          avatar={post.userId.avatar}
           date={post.createdAt}
           key={post._id}
           text={post.text}
@@ -76,12 +76,9 @@ TimelinePage.propTypes = {}
 
 const mapStateToProps = state => {
   // get profiles of supporting
-  const data = state.root && state.root.getIn(['current', 'posts'])
-  if (!data) return null
-
-  console.log(data.toJS())
+  const data = state.root && state.root.getIn(['timeline', 'posts'])
   return {
-    postsResults: data.toJS()
+    postsResults: data && data.toJS()
   }
 }
 

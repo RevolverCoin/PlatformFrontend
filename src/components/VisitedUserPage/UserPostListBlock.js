@@ -17,7 +17,8 @@ class UserPostListBlock extends React.Component {
         username={data.user.username}
         avatar={data.user.avatar} 
         text={data.text} 
-        date={data.timestamp}/>
+        date={data.timestamp}
+        id={data.user.id}/>
     ));
 
     

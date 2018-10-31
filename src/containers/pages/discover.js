@@ -42,12 +42,12 @@ class DiscoverPage extends BasePage {
       this.props.postsResults &&
       this.props.postsResults.map(post => (
         <UserPostsItem
-          username={post.userId[0].username}
-          avatar={post.userId[0].avatar}
+          username={post.userId.username}
+          avatar={post.userId.avatar}
           date={post.createdAt}
           key={post._id}
           text={post.text}
-          id={post.userId[0]._id}
+          id={post.userId._id}
         />
       ))
 

@@ -43,8 +43,9 @@ const StyledLink = styled(Link)`
   color: #1f363d;
 `
 
-const Text = styled.p`
+const Text = styled.div`
   word-wrap: break-word;
+  white-space: pre-wrap;
 `
 
 class UserPostsItem extends React.Component {
@@ -53,13 +54,16 @@ class UserPostsItem extends React.Component {
 
     this.state = {
       imageUrl: null,
-      text: this.props.text,
+      text: this.props.text.hexDecode(),
     }
 
     if (this.props.text) this.parseText(this.props.text)
   }
 
   async parseText(text) {
+
+    text = text.hexDecode()
+
     let urls = []
     text.replace(urlRegex, url => {
       urls.push(testImage(url))

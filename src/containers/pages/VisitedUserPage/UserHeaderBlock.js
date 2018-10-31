@@ -14,11 +14,11 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    addSupport(addressFrom, addressTo){
-        dispatch(addSupportAction(addressFrom, addressTo))
+    addSupport(addressFrom, addressTo, userId){
+        dispatch(addSupportAction(addressFrom, addressTo, userId))
     },
-    removeSupport(addressFrom, addressTo) {
-        dispatch(removeSupportAction(addressFrom, addressTo))
+    removeSupport(addressFrom, addressTo, userId) {
+        dispatch(removeSupportAction(addressFrom, addressTo, userId))
     }
 })
 

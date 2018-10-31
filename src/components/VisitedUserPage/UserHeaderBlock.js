@@ -51,6 +51,18 @@ const Content = styled.div`
   cursor: pointer;
 `
 
+
+const AddressBlock = styled.div`
+
+`
+const ContentAddress = styled(Content)`
+  text-transform:none;
+  text-decoration: none;
+  color: #1f363d;
+  cursor:auto;
+`
+
+
 class UserHeaderBlock extends React.Component {
   constructor(props) {
     super(props)
@@ -60,13 +72,11 @@ class UserHeaderBlock extends React.Component {
   }
 
   handleSupport() {
-    this.props.addSupport(this.props.addressMy, this.props.address)
-    window.location.reload()
+    this.props.addSupport(this.props.addressMy, this.props.address, this.props.userId)
   }
 
   handleUnsupport() {
-    this.props.removeSupport(this.props.addressMy, this.props.address)
-    window.location.reload()
+    this.props.removeSupport(this.props.addressMy, this.props.address,this.props.userId)
   }
 
   render() {
@@ -115,6 +125,14 @@ class UserHeaderBlock extends React.Component {
             <Description>{this.props.description}</Description>
           </Info>
         </DescriptionBlock>
+
+        <AddressBlock>
+        <Row>
+            <Header>Address</Header>
+            <ContentAddress><div>{this.props.address}</div></ContentAddress>
+          </Row>
+        </AddressBlock>
+
         <SupportBlock>
           <Row>
             <Header>Supporting</Header>

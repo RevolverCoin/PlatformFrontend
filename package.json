@@ -40,7 +40,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:autofix": "eslint --fix .",
-    "forever": "forever start -c 'npm start' ./"
+    "forever": "forever --uid PlatformFrontend start -c 'npm start' ./"
   },
   "devDependencies": {
     "eslint": "4.16.0",

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Panel from 'muicss/lib/react/panel'
+
 import PropTypes from 'prop-types'
 import Immutable from 'immutable'
 import CreateNewPostBlock from './../containers/CreateNewPostBlock'
@@ -8,18 +8,21 @@ import UserPostsItem from '../containers/UserPostsItem'
 
 import styled from 'styled-components'
 
-const PanelRoot = styled(Panel)`
-  padding:0;
+const Panel = styled.div`
+  background-color:white;
+  text-align:left;
+  border: 1px solid #a1a1a1;
 `
 
 const Caption = styled.div`
   background-color: #fafafa;
   border-bottom: 1px solid #a1a1a1;
-  text-transform: uppercase;
-  font-size: 14px;
-  padding: 10px 0 8px 15px;
-  text-align: left;
+  color: #832e55;
+  text-transform:uppercase;
+  font-size:14px;
+  padding:8px 0 8px 15px;
 `
+
 const Category = styled.div`
   display: inline-block;
   padding: 0 5px;
@@ -70,7 +73,7 @@ class MyPostsBlock extends React.Component {
     )
 
     return (
-      <PanelRoot>
+      <Panel>
         <Caption>
           <Link to='/myposts/'>
             <Category active>My Posts</Category>
@@ -101,7 +104,7 @@ class MyPostsBlock extends React.Component {
           ))}
           {this.props.userPostsFetchingPosts === true ? loader : null}
         </div>
-      </PanelRoot>
+      </Panel>
     )
   }
 }
