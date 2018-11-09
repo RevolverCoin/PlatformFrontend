@@ -9,70 +9,75 @@ const networkStatsBlockStyles = {
 }
 
 class NetworkStatsBlock extends React.Component {
-  constructor(props)
-  {
+  constructor(props) {
     super(props)
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.startFetchServiceInfo()
   }
 
-  componentWillUnmount()
-  {
+  componentWillUnmount() {
     this.props.stopFetchServiceInfo()
   }
- 
 
   render() {
+    let blockTime = ''
+    let blockTimeAgo = ''
 
-    let blockTime = '';
-    
     if (this.props.stats) {
-      const date = (new Date(this.props.stats.lastBlockTime))
-      blockTime = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+      const date = new Date(this.props.stats.lastBlockTime)
+
+      const currentTime = new Date(this.props.stats.currentTime)
+      blockTime = date.toLocaleTimeString()
+
+      const delta = currentTime - date
+      blockTimeAgo = delta / 1000
+
+      if (delta / 1000 < 60) {
+        blockTimeAgo = '< 1 min'
+      } else {
+        const mins = delta / 1000 / 60
+        blockTimeAgo = Math.floor(mins) + ' min' 
+      }
+
     }
 
-    
     return (
-      <Panel className="m-t-md" style={networkStatsBlockStyles}>
+      <Panel>
         <h3 className="mui--text-center m-t-none block-title">Network stats</h3>
         <table className="m-b-md full-width">
           <tbody>
-    
             <tr>
               <td className="mui--text-left">
-                <p style={networkStatsBlockStyles.description}>
-                  Last Block
-                </p>
+                <p>Last Block</p>
               </td>
               <td className="mui--text-right">
-                <p style={networkStatsBlockStyles.description}>
-                  {this.props.stats.blockHeight}
-                </p>
-              </td>
-            </tr>
-    
-            <tr>
-    
-              <td className="mui--text-left">
-                <p style={networkStatsBlockStyles.description}>
-                  Block Time
-                </p>
-              </td>
-              <td className="mui--text-right">
-                <p style={networkStatsBlockStyles.description}>
-                  {blockTime}
-                </p>
+                <p>{this.props.stats.blockHeight}</p>
               </td>
             </tr>
 
+            <tr>
+              <td className="mui--text-left">
+                <p>Last Block Time</p>
+              </td>
+              <td className="mui--text-right">
+                <p>{blockTime}</p>
+              </td>
+            </tr>
 
             <tr>
               <td className="mui--text-left">
-                <p style={networkStatsBlockStyles.description}>
-                  Total rewards
-                </p>
+                <p>Ago</p>
+              </td>
+              <td className="mui--text-right">
+                <p>{blockTimeAgo}</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td className="mui--text-left">
+                <p>Total rewards</p>
               </td>
               <td className="mui--text-right">
                 <p style={networkStatsBlockStyles.description}>
@@ -81,89 +86,60 @@ class NetworkStatsBlock extends React.Component {
               </td>
             </tr>
 
-    
-    
             <tr>
-    
               <td className="mui--text-left">
-                <p style={networkStatsBlockStyles.description}>
-                  Users
-                </p>
+                <p style={networkStatsBlockStyles.description}>Users</p>
               </td>
               <td className="mui--text-right">
-                <p style={networkStatsBlockStyles.description}>
-                  {this.props.stats.users}
-                </p>
+                <p style={networkStatsBlockStyles.description}>{this.props.stats.users}</p>
               </td>
             </tr>
 
             <tr>
               <td className="mui--text-left">
-                <p style={networkStatsBlockStyles.description}>
-                  Generators
-                </p>
+                <p style={networkStatsBlockStyles.description}>Generators</p>
               </td>
               <td className="mui--text-right">
-                <p style={networkStatsBlockStyles.description}>
-                  {this.props.stats.generators}
-                </p>
-              </td>
-            </tr>
-    
-            <tr>
-    
-              <td className="mui--text-left">
-                <p style={networkStatsBlockStyles.description}>
-                  Total Supports
-                </p>
-              </td>
-              <td className="mui--text-right">
-                <p style={networkStatsBlockStyles.description}>
-                  {this.props.stats.supports}
-                </p>
+                <p style={networkStatsBlockStyles.description}>{this.props.stats.generators}</p>
               </td>
             </tr>
 
             <tr>
               <td className="mui--text-left">
-                <p style={networkStatsBlockStyles.description}>
-                  Supporting
-                </p>
+                <p style={networkStatsBlockStyles.description}>Total Supports</p>
               </td>
               <td className="mui--text-right">
-                <p style={networkStatsBlockStyles.description}>
-                  {this.props.stats.supporting}
-                </p>
+                <p style={networkStatsBlockStyles.description}>{this.props.stats.supports}</p>
               </td>
             </tr>
-    
+
             <tr>
               <td className="mui--text-left">
-                <p style={networkStatsBlockStyles.description}>
-                  Supported
-                </p>
+                <p style={networkStatsBlockStyles.description}>Supporting</p>
               </td>
               <td className="mui--text-right">
-                <p style={networkStatsBlockStyles.description}>
-                  {this.props.stats.supported}
-                </p>
+                <p style={networkStatsBlockStyles.description}>{this.props.stats.supporting}</p>
               </td>
             </tr>
-    
-    
-    
+
+            <tr>
+              <td className="mui--text-left">
+                <p style={networkStatsBlockStyles.description}>Supported</p>
+              </td>
+              <td className="mui--text-right">
+                <p style={networkStatsBlockStyles.description}>{this.props.stats.supported}</p>
+              </td>
+            </tr>
           </tbody>
         </table>
       </Panel>
     )
-    
   }
-}  
+}
 NetworkStatsBlock.propTypes = {
   stats: PropTypes.object.isRequired,
-  startFetchServiceInfo: PropTypes.func.isRequired, 
-  stopFetchServiceInfo: PropTypes.func.isRequired
-
+  startFetchServiceInfo: PropTypes.func.isRequired,
+  stopFetchServiceInfo: PropTypes.func.isRequired,
 }
 
 export default NetworkStatsBlock

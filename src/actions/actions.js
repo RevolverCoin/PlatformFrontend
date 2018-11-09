@@ -32,14 +32,11 @@ import {
   getTransactions,
   getRewardTransactions,
   getServiceInfo,
-  claimGenerator
+  claimGenerator,
 } from './../core/api'
 
-
 let intervalFetchServiceInfo = null
-const periodFetchServiceInfo = 5000;
-
-
+const periodFetchServiceInfo = 5000
 
 function handleAPIException(dispatch, error, type) {
   if (error === HTTPErrors.Unauthorized) {
@@ -288,7 +285,6 @@ export function createSupportAction() {
   return { type: types.CREATE_SUPPORT_ACTION }
 }
 
-
 export function sendTokenAction() {
   return { type: types.SEND_TOKEN_ACTION }
 }
@@ -336,16 +332,15 @@ export function getMyPostsAction(pageId) {
           type: types.GET_MY_POSTS_ACTION_SUCCESS,
           payload: converted,
         })
-
       } else {
-        // TODO: in case there is no posts - do not send FAILURE 
+        // TODO: in case there is no posts - do not send FAILURE
         dispatch({ type: types.GET_MY_POSTS_ACTION_FAILURE, payload: null })
       }
     } catch (err) {
       if (err === HTTPErrors.Unauthorized) {
         dispatch(push('/login'))
       }
-      
+
       dispatch({ type: types.GET_MY_POSTS_ACTION_FAILURE, payload: err })
     }
   }
@@ -358,20 +353,18 @@ export function clearMyPrevPostsAction() {
 }
 
 export function updateProfileInfoAction(data) {
-  return dispatch => {
-    return updateProfileInfo(data)
-      .then(response => {
-        return response.json()
+  return async dispatch => {
+    try {
+      
+      const updatedProfile = await updateProfileInfo(data)
+
+      return dispatch({
+        type: types.UPDATE_PROFILE_INFO_ACTION_SUCCESS,
+        payload: updatedProfile,
       })
-      .then(updatedProfile => {
-        return dispatch({
-          type: types.UPDATE_PROFILE_INFO_ACTION_SUCCESS,
-          payload: updatedProfile,
-        })
-      })
-      .catch(error => {
-        return handleAPIException(dispatch, error)
-      })
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
   }
 }
 
@@ -384,7 +377,6 @@ export function addSupportAction(addressFrom, addressTo, userId) {
       await dispatch({ type: types.ADD_SUPPORT_RESULT, payload: data })
       await dispatch(getUserInfoAction())
       await dispatch(getVisitedUserInfoAction(userId))
-
     } catch (error) {
       return handleAPIException(dispatch, error)
     }
@@ -400,7 +392,6 @@ export function removeSupportAction(addressFrom, addressTo, userId) {
       await dispatch({ type: types.REMOVE_SUPPORT_RESULT, payload: data })
       await dispatch(getUserInfoAction())
       await dispatch(getVisitedUserInfoAction(userId))
-
     } catch (error) {
       return handleAPIException(dispatch, error)
     }
@@ -497,12 +488,10 @@ export function requestRewardTransactionsAction() {
   }
 }
 
-
 /****************************************************************************************
  * Fetch Service Info
  ****************************************************************************************/
-function getServiceInfoAction()
-{
+function getServiceInfoAction() {
   return async dispatch => {
     try {
       const result = await getServiceInfo()
@@ -521,58 +510,53 @@ function getServiceInfoAction()
 export function startFetchServiceInfoAction() {
   return async dispatch => {
     dispatch({
-      type: types.START_FETCH_SERVICE_INFO
+      type: types.START_FETCH_SERVICE_INFO,
     })
 
-    intervalFetchServiceInfo = setInterval(()=>{dispatch(getServiceInfoAction())}, periodFetchServiceInfo)  
-    dispatch(getServiceInfoAction()) 
+    intervalFetchServiceInfo = setInterval(() => {
+      dispatch(getServiceInfoAction())
+    }, periodFetchServiceInfo)
+    dispatch(getServiceInfoAction())
   }
 }
 
 export function stopFetchServiceInfoAction() {
   return dispatch => {
     dispatch({
-      type: types.STOP_FETCH_SERVICE_INFO
+      type: types.STOP_FETCH_SERVICE_INFO,
     })
-    
-    clearInterval (intervalFetchServiceInfo)
+
+    clearInterval(intervalFetchServiceInfo)
   }
 }
 /****************************************************************************************/
 
-
 /******************************************************
  * claimGeneratorAction
  ******************************************************/
-export function claimGeneratorAction(claim)
-{
+export function claimGeneratorAction(claim) {
   return async dispatch => {
     try {
       const result = await claimGenerator(claim)
       const data = await result.json()
 
       dispatch(getUserInfoAction())
-      
     } catch (error) {
       return handleAPIException(dispatch, error)
     }
   }
-
 }
 
 /******************************************************
  * getUserInfoByAddressAction
  ******************************************************/
-export function getUserInfoByAddressAction(address)
-{
+export function getUserInfoByAddressAction(address) {
   return async dispatch => {
     try {
       const result = await getVisitedUserInfoByAddress(address)
       const data = await result.json()
 
-
       dispatch(push(`/posts/${data.data.profile.id}`))
-      
     } catch (error) {
       return handleAPIException(dispatch, error)
     }

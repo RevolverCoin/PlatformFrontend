@@ -1,6 +1,6 @@
 //const emailRexExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 const emailRexExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+export default emailRexExp;
 
 export const urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
@@ -39,7 +39,29 @@ export const toCurrencyAmount = (val, precision) => {
   return Number.parseFloat(val).toPrecision(precision)
 }
 
-export default emailRexExp
+
+export const UrlMatcher = {
+  
+  regexYoutube: /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/igm,
+  regexFacebook: /^(http(s)?:\/\/)?(www\.)?facebook.com\/[a-zA-Z0-9(\.\?)?]/igm,
+  regexReddit: /^(http(s)?:\/\/)?(www\.)?reddit.com\/[a-zA-Z0-9(\.\?)?]/igm,
+  regexTwitter: /^(http(s)?:\/\/)?(www\.)?twitter.com\/[a-zA-Z0-9(\.\?)?]/igm,
+  regexBitcointalk: /^(http(s)?:\/\/)?(www\.)?bitcointalk.org\/[a-zA-Z0-9(\.\?)?]/igm,
+  regexInstagram: /^(http(s)?:\/\/)?(www\.)?instagram.com\/[a-zA-Z0-9(\.\?)?]/igm,
+  regexGithub: /^(http(s)?:\/\/)?(www\.)?github.com\/[a-zA-Z0-9(\.\?)?]/igm,
+
+  
+  isUrlYoutube(url) {return url.match(this.regexYoutube)},
+  isUrlFacebook(url) {return url.match(this.regexFacebook)},
+  isUrlReddit(url) {return url.match(this.regexReddit)},
+  isUrlTwitter(url) {return url.match(this.regexTwitter)},
+  isUrlBitcointalk(url) {return url.match(this.regexBitcointalk)},
+  isUrlInstagram(url) {return url.match(this.regexInstagram)},
+  isUrlGithub(url) {return url.match(this.regexGithub)},
+
+
+}
+
 
 
 String.prototype.hexEncode = function(){

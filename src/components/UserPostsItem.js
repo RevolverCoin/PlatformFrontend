@@ -54,32 +54,53 @@ class UserPostsItem extends React.Component {
 
     this.state = {
       imageUrl: null,
+      videoUrl: null,
       text: this.props.text.hexDecode(),
     }
 
     if (this.props.text) this.parseText(this.props.text)
+
   }
 
-  async parseText(text) {
-
-    text = text.hexDecode()
-
+  async processImage(text) {
     let urls = []
     text.replace(urlRegex, url => {
       urls.push(testImage(url))
     })
 
-    if (urls.length === 0) return
+    if (urls.length === 0) return false
+   
 
     const results = await promiseChainify(urls)
-    if (!results || results.length === 0) return
+    if (!results || results.length === 0) return false
 
     const validUrl = results.find(result => result != null)
 
     if (validUrl && typeof validUrl !== 'undefined') {
       const updatedText = text.replace(validUrl, '')
       this.setState({ imageUrl: validUrl, text: updatedText })
+      return true;
     }
+    
+    return false
+  }
+
+  processVideo(text) {
+    let regExp = /(?:[?&]vi?=|\/embed\/|\/\d\d?\/|\/vi?\/|https?:\/\/(?:www\.)?youtu\.be\/)([^&\n?#]+)/i;
+    const match = text.match(regExp);
+
+    if (match) {
+
+      const updatedText = text.replace(match[0], '')
+      this.setState({ videoUrl: `http://www.youtube.com/embed/${match[1]}`, text: updatedText})
+    }
+  }
+
+  async parseText(text) {
+    text = text.hexDecode()
+
+    await this.processImage(text)
+    this.processVideo(text)
   }
 
   render() {
@@ -103,14 +124,20 @@ class UserPostsItem extends React.Component {
             </StyledLink>
             <PostDate>{postTime}</PostDate>
           </Header>
-          <Linkify>
+          <Linkify properties={{target: '_blank'}}>
             <Text>{this.state.text}</Text>
           </Linkify>
 
-              {this.state.imageUrl ? (
-                <img src={this.state.imageUrl} width='100%'/>
-              ) : ('')}
+          {this.state.imageUrl ? (
+            <img src={this.state.imageUrl} width='100%'/>
+          ) : ('')}
 
+          {this.state.videoUrl ? (
+              <iframe width="400" height="300"
+              src={this.state.videoUrl}>
+              </iframe>
+            ) : ('')}
+              
 
         </RightColumn>
       </Container>

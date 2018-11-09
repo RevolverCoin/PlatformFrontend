@@ -7,6 +7,7 @@ export const INITIAL_STATE = fromJS({
   stats: {
     blockHeight: null,
     lastBlockTime: null,
+    currentTime: null,
     users: null, 
     supports: null, 
     supporting: null,
@@ -30,6 +31,8 @@ export const INITIAL_STATE = fromJS({
       description: null,
       email: null,
       address: null,
+      website: null,
+      links: [],
   
       // flag to show loading during logging in
       isLoading: false,
@@ -234,6 +237,7 @@ export function handleGetServiceInfoResults(state, data)
   const info = {
     blockHeight: data.data.blockHeight,
     lastBlockTime: data.data.lastBlockTime,
+    currentTime: data.data.currentTime,
     users: data.data.addresses, 
     supports: data.data.supports, 
     supporting: data.data.sing,

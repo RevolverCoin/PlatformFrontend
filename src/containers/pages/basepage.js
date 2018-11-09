@@ -1,9 +1,9 @@
 import React from 'react'
-
+import styled from 'styled-components';
 
 import Container from 'muicss/lib/react/container'
 import Row from 'muicss/lib/react/row'
-import Col from 'muicss/lib/react/col'
+import ColMUI from 'muicss/lib/react/col'
 import AsideUserBlock from '../sideblocks/AsideUserBlock'
 import HeaderBlock from '../../containers/sideblocks/HeaderBlock'
 import FooterBlock from '../../components/sideblocks/FooterBlock'
@@ -11,14 +11,19 @@ import FooterBlock from '../../components/sideblocks/FooterBlock'
 import NetworkStatsBlock from '../../containers/sideblocks/NetworkStatsBlock'
 
 
-const tabPageLayout = {
-    background: '#e2e2e2',
-    marginTop: '20px',
-}
+const SiteContainer = styled.div`
+    background: #e3e3e3;
+`
 
-const homePageStyle = {
-    background: '#e3e3e3',
-}
+const PageContainer = styled(Container)`
+    font-family: 'Open Sans', sans-serif;
+    margin-top:10px;
+`
+const Col = styled(ColMUI)`
+    padding-left:10px;
+    padding-right:10px;
+`
+
 
 class BasePage extends React.Component {
 
@@ -29,27 +34,25 @@ class BasePage extends React.Component {
 
         return (
 
-            <div style={homePageStyle}>
+            <SiteContainer>
                 <HeaderBlock />
-                <Container>
+                <PageContainer>
                     <Row>
                         <Col md="3" sm="12">
                             <AsideUserBlock />
                         </Col>
                         <Col md="6" sm="12">
-                            <div style={tabPageLayout}>
-
+                            <div>
                                 {this.renderPage()}
-
                             </div>
                         </Col>
                         <Col md="3" sm="12">
                             <NetworkStatsBlock />
                         </Col>
                     </Row>
-                </Container>
+                </PageContainer>
                 <FooterBlock />
-            </div>
+            </SiteContainer>
         )
     }
 }

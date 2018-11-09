@@ -11,6 +11,9 @@ const mapStateToProps = (state) => {
     userProfileAvatar: profile && profile.get('avatar'),
     userProfileUsername: profile && profile.get('username'),
     userProfileDescription: profile && profile.get('description'),
+    userProfileWebsite: profile && profile.get('website'),
+    userProfileLinks: profile && profile.has('links') && profile.get('links').toJS(),
+   
   }
 }
 

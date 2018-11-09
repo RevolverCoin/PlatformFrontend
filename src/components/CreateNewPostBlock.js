@@ -28,9 +28,10 @@ class CreateNewPostBlock extends React.Component {
   }
 
   handleInputChange(e) {
+
     this.setState({
       textInput: e.target.value,
-      disableSubmitBtn: !e.target.value.length,
+      disableSubmitBtn: !e.target.value.trim().length,
     })
   }
 

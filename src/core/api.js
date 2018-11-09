@@ -143,7 +143,7 @@ export function getUserInfo() {
 }
 
 
-export function updateProfileInfo({ description, username, avatar }) {
+export function updateProfileInfo(data) {
 
   return fetch(`${url}/profile`, {
     method: 'PATCH',
@@ -151,8 +151,8 @@ export function updateProfileInfo({ description, username, avatar }) {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ desc: description, username, avatar }),
-  })
+    body: JSON.stringify({...data}),
+  }).then(res => res.json())
 }
 
 export function requestSearchProfiles(query) {
