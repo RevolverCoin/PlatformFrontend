@@ -115,9 +115,9 @@ class UserHeaderBlock extends React.Component {
       <Container>
         <DescriptionBlock>
           {this.props.avatar ? (
-            <img src={this.props.avatar} width="140" />
+            <img src={this.props.avatar} width="140" style={{'border-radius': '50%'}} />
           ) : (
-            <Avatar name={this.props.username} size="140" />
+            <Avatar name={this.props.username} size="140" round={true} />
           )}
 
           <Info>

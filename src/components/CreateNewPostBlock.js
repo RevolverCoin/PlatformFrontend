@@ -42,9 +42,9 @@ class CreateNewPostBlock extends React.Component {
           <form onSubmit={this.onSubmit}>
             <Col md="2">
               {this.props.avatar ? 
-                <img src={this.props.avatar} width='60'/>
+                <img src={this.props.avatar} width='60' style={{'border-radius': '50%'}}/>
                 :
-                <Avatar name={this.props.username} size='60'/>
+                <Avatar name={this.props.username} size='60' round={true} />
               }
 
               
@@ -56,7 +56,7 @@ class CreateNewPostBlock extends React.Component {
                 value={this.state.textInput}
               />
               <div className="mui--text-right">
-                <MainButton disabled={this.state.disableSubmitBtn} handleAction={this.onSubmit} text="Post" />
+                <MainButton className="revolver-btn-main" disabled={this.state.disableSubmitBtn} handleAction={this.onSubmit} text="Post" />
               </div>
             </Col>
           </form>

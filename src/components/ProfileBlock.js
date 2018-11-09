@@ -51,8 +51,9 @@ const TextArea = styled(TextAreaMUI)`
 `
 const Panel = styled.div`
   background-color:white;
-  text-align:left;
+  text-align:center;
   border: 1px solid #a1a1a1;
+  padding: 20px 10px;
 `
 
 const Caption = styled.div`
@@ -384,7 +385,7 @@ class ProfileBlock extends React.Component {
               </Col>
             </Row>
 
-            <MainButton handleAction={this.onSubmit} text="Update" />
+            <MainButton className="revolver-btn-main" handleAction={this.onSubmit} text="Update" />
           </Form>
         </Panel>
       </div>

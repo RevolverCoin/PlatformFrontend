@@ -89,7 +89,7 @@ class SendPage extends BasePage {
               </Col>
             </Row>
 
-            <MainButton handleAction={this.onSend} text="Send" />
+            <MainButton className="revolver-btn-main" handleAction={this.onSend} text="Send" />
 
             
           </Container>

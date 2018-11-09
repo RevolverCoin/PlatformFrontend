@@ -111,9 +111,9 @@ class UserPostsItem extends React.Component {
         <LeftColumn>
           <Link to={'/posts/' + this.props.id}>
             {this.props.avatar ? (
-              <img src={this.props.avatar} width="50" />
+              <img src={this.props.avatar} width="50" style={{'border-radius': '50%'}} />
             ) : (
-              <Avatar name={this.props.username} size="50" />
+              <Avatar name={this.props.username} size="50" round={true} />
             )}
           </Link>
         </LeftColumn>

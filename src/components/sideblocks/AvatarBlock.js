@@ -37,8 +37,12 @@ const Wrapper = styled.div`
     border-radius: 50%;
   }
 `
-const Panel = styled(PanelMUI)`
+const Panel = styled.div`
   background: #fafafa;
+  text-align:left;
+  border: 1px solid #a1a1a1;
+  text-align: center;
+  padding: 20px;
 `
 const Name = styled.div`
   font-size: 16px;
@@ -104,7 +108,7 @@ class AvatarBlock extends React.Component {
         <Wrapper className="m-b">
           <Link to="/myposts">
           {this.props.userProfileAvatar ? (
-            <img src={this.props.userProfileAvatar} width="150" />
+            <img src={this.props.userProfileAvatar} width="150" style={{'border-radius': '50%'}} />
           ) : (
             <Avatar name={this.props.userProfileUsername} size="150px" round={true} />
           )}
