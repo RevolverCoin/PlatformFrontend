@@ -1,17 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 import BasePage from './basepage'
 import UserPostsItem from '../UserPostsItem'
 import { Link } from 'react-router-dom'
 
-import { requestTimelinePostsAction } from '../../actions/actions'
+import { requestTopRatingAction } from '../../actions/actions'
 
 const Panel = styled.div`
-  background-color:white;
-  text-align:left;
+  background-color: white;
+  text-align: left;
   border: 1px solid #a1a1a1;
 `
 
@@ -19,9 +19,9 @@ const Caption = styled.div`
   background-color: #fafafa;
   border-bottom: 1px solid #a1a1a1;
   color: #832e55;
-  text-transform:uppercase;
-  font-size:14px;
-  padding:8px 0 8px 15px;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 8px 0 8px 15px;
 `
 const Category = styled.div`
   display: inline-block;
@@ -31,9 +31,9 @@ const Category = styled.div`
   color: ${props => (props.active ? '#832e55' : '#333')};
 `
 
-class TimelinePage extends BasePage {
+class TopRatingPage extends BasePage {
   componentDidMount() {
-    this.props.requestTimelinePosts(0)
+    this.props.requestTopRating(0)
   }
 
   renderPage() {
@@ -51,47 +51,48 @@ class TimelinePage extends BasePage {
       ))
 
     return (
-        <Panel>
+      <Panel>
         <Caption>
-          <Link to='/myposts/'>
+          <Link to="/myposts/">
             <Category>My Posts</Category>
           </Link>
-          <Link to='/timeline/'>
-            <Category active>My Timeline</Category>
+          <Link to="/timeline/">
+            <Category>My Timeline</Category>
+          </Link>
+
+          <Link to="/discover/">
+            <Category>Discover</Category>
           </Link>
           
-          <Link to='/discover/'>
-            <Category>Discover</Category>
-          </Link>          
           <Link to="/top">
-            <Category>Top 100</Category>
+            <Category active>Top 100</Category>
           </Link>
+
         </Caption>
         {postsList}
-      </Panel>        
+      </Panel>
     )
   }
 }
 
-TimelinePage.defaultProps = {}
+TopRatingPage.defaultProps = {}
 
-TimelinePage.propTypes = {}
+TopRatingPage.propTypes = {}
 
 const mapStateToProps = state => {
-  // get profiles of supporting
-  const data = state.root && state.root.getIn(['timeline', 'posts'])
+  const data = state.root && state.root.getIn(['top100'])
   return {
-    postsResults: data && data.toJS()
+    postsResults: data && data.toJS(),
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  requestTimelinePosts() {
-    dispatch(requestTimelinePostsAction())
+  requestTopRating() {
+    dispatch(requestTopRatingAction())
   },
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(TimelinePage)
+)(TopRatingPage)

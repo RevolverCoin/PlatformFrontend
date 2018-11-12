@@ -2,27 +2,30 @@ const url = 'http://127.0.0.1:5445'
 //const url = 'http://46.101.154.157:5445'
 
 export const HTTPErrors = {
-  Unauthorized: 'Unauthorized'
+  Unauthorized: 'Unauthorized',
 }
 
 /**  100 posts per page */
-const PAGE_SIZE = 100;
+const PAGE_SIZE = 100
 
 /**
- * Wrapper for all HTTP calls that handles HTTP errors and passes as a promise reject 
+ * Wrapper for all HTTP calls that handles HTTP errors and passes as a promise reject
  */
-function HTTPErrorHandler(funcPromise) {
+function HTTPErrorHandler(fetchFunc) {
   return new Promise((resolve, reject) => {
+    fetchFunc
+      .then(response => {
+        if (response.status === 401) {
+          localStorage.removeItem('isLogged')
 
-    funcPromise.then(response => {
-      if (response.status === 401) {
-
-        localStorage.removeItem('isLogged')
-
-        reject(HTTPErrors.Unauthorized);
-      } else
-        resolve(response);
-    })
+          reject(HTTPErrors.Unauthorized)
+        } else {
+          return response.json()
+        }
+      })
+      .then(data => {
+        resolve(data)
+      })
   })
 }
 
@@ -34,7 +37,8 @@ export function getMyPosts(pageId) {
       headers: {
         'Content-Type': 'application/json',
       },
-    }))
+    }),
+  )
 }
 
 export function getUserPosts(userId, pageId) {
@@ -45,11 +49,11 @@ export function getUserPosts(userId, pageId) {
       headers: {
         'Content-Type': 'application/json',
       },
-    }))
+    }),
+  )
 }
 
-export function getVisitedUserInfo(userId)
-{
+export function getVisitedUserInfo(userId) {
   return HTTPErrorHandler(
     fetch(`${url}/users/${userId}`, {
       method: 'GET',
@@ -57,12 +61,11 @@ export function getVisitedUserInfo(userId)
       headers: {
         'Content-Type': 'application/json',
       },
-    }))
-  
+    }),
+  )
 }
 
-export function getVisitedUserInfoByAddress(address)
-{
+export function getVisitedUserInfoByAddress(address) {
   return HTTPErrorHandler(
     fetch(`${url}/address/${address}`, {
       method: 'GET',
@@ -70,8 +73,8 @@ export function getVisitedUserInfoByAddress(address)
       headers: {
         'Content-Type': 'application/json',
       },
-    }))
-  
+    }),
+  )
 }
 
 export function logIn(data) {
@@ -82,13 +85,11 @@ export function logIn(data) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
-  })
+  }).then(res => res.json())
 }
 
 // TODO pass to backend only email and confirmPassword for now
-export function signUp({
-  username, email, password, passwordConfirm,
-}) {
+export function signUp({ username, email, password, passwordConfirm }) {
   return fetch(`${url}/signup`, {
     method: 'POST',
     credentials: 'include',
@@ -96,39 +97,41 @@ export function signUp({
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ username, email, password: passwordConfirm }),
-  })
+  }).then(res => res.json())
 }
 
 export function logOut() {
   return fetch(`${url}/logout`, {
     method: 'POST',
     credentials: 'include',
-  })
+  }).then(res => res.json())
 }
 
 export function submitPost(text) {
-  return fetch(`${url}/post/add`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ text, expanded: true }),
-  })
+  return HTTPErrorHandler(
+    fetch(`${url}/post/add`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text, expanded: true }),
+    }),
+  )
 }
 
 // getUserInfo
-// { 
-//   "success": boolean, 
-//   "profile": { 
-//     "id": "", 
-//     "desc": "", 
-//     "email": "", 
-//     "avatar": "", 
-//     "username": "" 
+// {
+//   "success": boolean,
+//   "profile": {
+//     "id": "",
+//     "desc": "",
+//     "email": "",
+//     "avatar": "",
+//     "username": ""
 //   },
 //   supportingCount: 0,
-//   supportedCount: 0 
+//   supportedCount: 0
 // }
 
 export function getUserInfo() {
@@ -139,20 +142,21 @@ export function getUserInfo() {
       headers: {
         'Content-Type': 'application/json',
       },
-    }))
+    }),
+  )
 }
 
-
 export function updateProfileInfo(data) {
-
-  return fetch(`${url}/profile`, {
-    method: 'PATCH',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({...data}),
-  }).then(res => res.json())
+  return HTTPErrorHandler(
+    fetch(`${url}/profile`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...data }),
+    }),
+  )
 }
 
 export function requestSearchProfiles(query) {
@@ -163,7 +167,8 @@ export function requestSearchProfiles(query) {
       headers: {
         'Content-Type': 'application/json',
       },
-    }))
+    }),
+  )
 }
 
 export function requestSearchPosts(query, pageId) {
@@ -174,33 +179,41 @@ export function requestSearchPosts(query, pageId) {
       headers: {
         'Content-Type': 'application/json',
       },
-    }))
+    }),
+  )
 }
-
 
 export function requestSupportedList(userId, pageId) {
   return HTTPErrorHandler(
-    fetch(`${url}/users/${userId}/supported?userId=${userId}&pageId=${pageId}&pageSize=${PAGE_SIZE}`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
+    fetch(
+      `${url}/users/${userId}/supported?userId=${userId}&pageId=${pageId}&pageSize=${PAGE_SIZE}`,
+      {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    }))
+    ),
+  )
 }
 
 export function requestSupportingList(userId, pageId) {
   return HTTPErrorHandler(
-    fetch(`${url}/users/${userId}/supporting?userId=${userId}&pageId=${pageId}&pageSize=${PAGE_SIZE}`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
+    fetch(
+      `${url}/users/${userId}/supporting?userId=${userId}&pageId=${pageId}&pageSize=${PAGE_SIZE}`,
+      {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    }))
+    ),
+  )
 }
 
-export function addSupport(addressFrom,addressTo) {
+export function addSupport(addressFrom, addressTo) {
   return HTTPErrorHandler(
     fetch(`${url}/support`, {
       method: 'POST',
@@ -208,12 +221,12 @@ export function addSupport(addressFrom,addressTo) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({addressFrom,addressTo})
-    }))
-
+      body: JSON.stringify({ addressFrom, addressTo }),
+    }),
+  )
 }
 
-export function removeSupport(addressFrom,addressTo) {
+export function removeSupport(addressFrom, addressTo) {
   return HTTPErrorHandler(
     fetch(`${url}/support`, {
       method: 'DELETE',
@@ -221,8 +234,9 @@ export function removeSupport(addressFrom,addressTo) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({addressFrom,addressTo})
-    }))
+      body: JSON.stringify({ addressFrom, addressTo }),
+    }),
+  )
 }
 
 export function getTimelinePosts() {
@@ -233,7 +247,8 @@ export function getTimelinePosts() {
       headers: {
         'Content-Type': 'application/json',
       },
-    }))
+    }),
+  )
 }
 
 export function getDiscoverPosts() {
@@ -244,12 +259,23 @@ export function getDiscoverPosts() {
       headers: {
         'Content-Type': 'application/json',
       },
-    }))
+    }),
+  )
 }
 
+export function getTopRating() {
+  return HTTPErrorHandler(
+    fetch(`${url}/top`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }),
+  )
+}
 
-export function send(addressFrom,addressTo,amount) {
- 
+export function send(addressFrom, addressTo, amount) {
   return HTTPErrorHandler(
     fetch(`${url}/send`, {
       method: 'POST',
@@ -257,49 +283,49 @@ export function send(addressFrom,addressTo,amount) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({addressFrom,addressTo,amount})
-    }))
+      body: JSON.stringify({ addressFrom, addressTo, amount }),
+    }),
+  )
 }
 
-export function getTransactions()
-{
+export function getTransactions() {
   return HTTPErrorHandler(
     fetch(`${url}/transactions`, {
       method: 'GET',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-      }
-    }))
+      },
+    }),
+  )
 }
 
-export function getRewardTransactions()
-{
+export function getRewardTransactions() {
   return HTTPErrorHandler(
     fetch(`${url}/rewardtransactions`, {
       method: 'GET',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-      }
-    }))
+      },
+    }),
+  )
 }
 
-export function getServiceInfo()
-{
+export function getServiceInfo() {
   return HTTPErrorHandler(
     fetch(`${url}/service/info`, {
       method: 'GET',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-      }
-    }))
-} 
+      },
+    }),
+  )
+}
 
-export function claimGenerator(claim)
-{
-  const claimUrl = claim ? 'claimgenerator' : 'unclaimgenerator' 
+export function claimGenerator(claim) {
+  const claimUrl = claim ? 'claimgenerator' : 'unclaimgenerator'
 
   return HTTPErrorHandler(
     fetch(`${url}/${claimUrl}`, {
@@ -307,6 +333,7 @@ export function claimGenerator(claim)
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-      }
-    }))
+      },
+    }),
+  )
 }

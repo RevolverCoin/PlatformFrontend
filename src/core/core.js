@@ -104,7 +104,7 @@ export function handleLogout() {
 }
 
 export function handleErrorMsg(state, data) {
-  return state.set(['error', 'msg'], fromJS(data))
+  return state.setIn(['error', 'msg'], fromJS(data))
 }
 
 export function handleClearErrorsMsg(state) {

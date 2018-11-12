@@ -24,6 +24,7 @@ import SupportedPage from './containers/pages/supported'
 
 import DiscoverPage from './containers/pages/discover'
 import TimelinePage from './containers/pages/timeline'
+import TopRatingPage from './containers/pages/toprating'
 import GeneratorPage from './containers/pages/generator'
 
 import SendPage from './containers/pages/send'
@@ -63,6 +64,7 @@ const App = () => {
 
         <Route path="/timeline" key="timeline" component={TimelinePage} />
         <Route path="/discover" key="discover" component={DiscoverPage} />
+        <Route path="/top" key="top" component={TopRatingPage} />
 
         <Route path="/send" key="send" component={SendPage} />
         <Route path="/reward-report" key="reward-report" component={RewardReportPage} />

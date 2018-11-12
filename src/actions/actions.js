@@ -1,5 +1,4 @@
 import { push } from 'connected-react-router'
-import { fromJS } from 'immutable'
 import * as types from '../constants/ActionType'
 import emailRegExp, { promiseChainify } from '../utils/misc'
 import {
@@ -27,6 +26,7 @@ import {
   removeSupport,
   getTimelinePosts,
   getDiscoverPosts,
+  getTopRating,
   send,
   HTTPErrors,
   getTransactions,
@@ -59,12 +59,11 @@ function handleAPIException(dispatch, error, type) {
 export function getUserInfoAction() {
   return async dispatch => {
     try {
-      const result = await getUserInfo()
-      const userInfo = await result.json()
+      const data = await getUserInfo()
 
       return dispatch({
         type: types.GET_USER_INFO_RESULT,
-        payload: userInfo,
+        payload: data,
       })
     } catch (error) {
       return handleAPIException(dispatch, error, types.GET_USER_INFO_ACTION_FAILURE)
@@ -78,8 +77,7 @@ export function getUserInfoAction() {
 export function requestSearchProfilesAction(query) {
   return async dispatch => {
     try {
-      const response = await requestSearchProfiles(query)
-      const data = await response.json()
+      const data = await requestSearchProfiles(query)
 
       dispatch({ type: types.SEARCH_PROFILES_RESULTS, payload: data })
       return data
@@ -95,8 +93,7 @@ export function requestSearchProfilesAction(query) {
 export function requestSearchPostsAction(query, pageId) {
   return async dispatch => {
     try {
-      const response = await requestSearchPosts(query, pageId)
-      const data = await response.json()
+      const data = await requestSearchPosts(query, pageId)
 
       dispatch({ type: types.SEARCH_POSTS_RESULTS, payload: data })
       return data
@@ -109,8 +106,7 @@ export function requestSearchPostsAction(query, pageId) {
 export function getUserPostsAction(userId, pageId) {
   return async dispatch => {
     try {
-      const response = await getUserPosts(userId, pageId)
-      const data = await response.json()
+      const data = await getUserPosts(userId, pageId)
 
       dispatch({ type: types.USER_POSTS_RESULT, payload: data })
       return data
@@ -126,8 +122,7 @@ export function getUserPostsAction(userId, pageId) {
 export function getVisitedUserInfoAction(userId) {
   return async dispatch => {
     try {
-      const response = await getVisitedUserInfo(userId)
-      const data = await response.json()
+      const data = await getVisitedUserInfo(userId)
 
       dispatch({ type: types.USER_PROFILE_RESULT, payload: data })
       return data
@@ -140,22 +135,18 @@ export function getVisitedUserInfoAction(userId) {
 export function requestSupportedListAction(userId, pageId) {
   return async dispatch => {
     try {
-      const response = await requestSupportedList(userId, pageId)
-      const data = await response.json()
+      // const data = await requestSupportedList(userId, pageId)
 
-      let requests = []
-      data.supports.forEach(support => {
-        requests.push(getVisitedUserInfoByAddress(support.addressFrom))
-      })
+      // let requests = []
+      // data.supports.forEach(support => {
+      //   requests.push(getVisitedUserInfoByAddress(support.addressFrom))
+      // })
 
-      const infos = await promiseChainify(requests)
-      const jsonResponses = infos.map(info => info.json())
-      const finalResponses = await promiseChainify(jsonResponses)
+      // const responses = await promiseChainify(requests)  
+      // const result = responses.map(item => ({ ...item.data }))
 
-      const result = finalResponses.map(item => ({ ...item.data }))
-
-      dispatch({ type: types.SUPPORTED_LIST_RESULT, payload: result })
-      return data
+      // dispatch({ type: types.SUPPORTED_LIST_RESULT, payload: result })
+      // return data
     } catch (error) {
       return handleAPIException(dispatch, error)
     }
@@ -165,22 +156,18 @@ export function requestSupportedListAction(userId, pageId) {
 export function requestSupportingListAction(userId, pageId) {
   return async dispatch => {
     try {
-      const response = await requestSupportingList(userId, pageId)
-      const data = await response.json()
+      // const data = await requestSupportingList(userId, pageId)
 
-      let requests = []
-      data.supports.forEach(support => {
-        requests.push(getVisitedUserInfoByAddress(support.addressTo))
-      })
+      // let requests = []
+      // data.supports.forEach(support => {
+      //   requests.push(getVisitedUserInfoByAddress(support.addressTo))
+      // })
 
-      const infos = await promiseChainify(requests)
-      const jsonResponses = infos.map(info => info.json())
-      const finalResponses = await promiseChainify(jsonResponses)
+      // const responses = await promiseChainify(requests)
+      // const result = responses.map(item => ({ ...item.data }))
 
-      const result = finalResponses.map(item => ({ ...item.data }))
-
-      dispatch({ type: types.SUPPORTING_LIST_RESULT, payload: result })
-      return data
+      // dispatch({ type: types.SUPPORTING_LIST_RESULT, payload: result })
+      // return data
     } catch (error) {
       console.log(error)
       return handleAPIException(dispatch, error)
@@ -203,7 +190,6 @@ export function loginAction(data) {
       dispatch({ type: types.LOGIN_ACTION })
 
       return logIn(data)
-        .then(response => response.json())
         .then(body => {
           const converted = convertLoginData(body)
 
@@ -236,6 +222,7 @@ export function logoutAction() {
 }
 
 export function signupAction(data) {
+
   let result = { type: types.SIGNUP_ACTION, data }
   if (
     data.username === '' ||
@@ -252,8 +239,8 @@ export function signupAction(data) {
     return async dispatch => {
       try {
         await dispatch({ type: types.SIGNUP_ACTION })
-        let response = await signUp(data)
-        let body = await response.json()
+        const body      = await signUp(data)
+
         const converted = convertSignupData(body)
 
         await dispatch({ type: types.SIGNUP_ACTION_SUCCESS, payload: converted })
@@ -306,7 +293,6 @@ export function createNewPostAction(data) {
     dispatch({ type: types.CREATE_NEW_POST_ACTION })
 
     return submitPost(data.hexEncode())
-      .then(response => response.json())
       .then(post => {
         const converted = convertNewPost(post)
         return dispatch({
@@ -323,8 +309,7 @@ export function getMyPostsAction(pageId) {
     try {
       dispatch({ type: types.GET_MY_POSTS_ACTION })
 
-      const response = await getMyPosts(pageId)
-      const posts = await response.json()
+      const posts = await getMyPosts(pageId)
       if (posts.data) {
         const converted = convertMyPosts(posts.data)
 
@@ -371,8 +356,7 @@ export function updateProfileInfoAction(data) {
 export function addSupportAction(addressFrom, addressTo, userId) {
   return async dispatch => {
     try {
-      const response = await addSupport(addressFrom, addressTo)
-      const data = await response.json()
+      const data = await addSupport(addressFrom, addressTo)
 
       await dispatch({ type: types.ADD_SUPPORT_RESULT, payload: data })
       await dispatch(getUserInfoAction())
@@ -386,8 +370,7 @@ export function addSupportAction(addressFrom, addressTo, userId) {
 export function removeSupportAction(addressFrom, addressTo, userId) {
   return async dispatch => {
     try {
-      const response = await removeSupport(addressFrom, addressTo)
-      const data = await response.json()
+      const data = await removeSupport(addressFrom, addressTo)
 
       await dispatch({ type: types.REMOVE_SUPPORT_RESULT, payload: data })
       await dispatch(getUserInfoAction())
@@ -404,8 +387,7 @@ export function removeSupportAction(addressFrom, addressTo, userId) {
 export function requestTimelinePostsAction() {
   return async dispatch => {
     try {
-      const result = await getTimelinePosts()
-      const data = await result.json()
+      const data = await getTimelinePosts()
 
       return dispatch({
         type: types.GET_TIMELINE_POSTS_RESULT,
@@ -423,11 +405,29 @@ export function requestTimelinePostsAction() {
 export function requestDiscoverPostsAction() {
   return async dispatch => {
     try {
-      const result = await getDiscoverPosts()
-      const data = await result.json()
+      const data = await getDiscoverPosts()
 
       return dispatch({
         type: types.GET_DISCOVER_POSTS_RESULT,
+        payload: data,
+      })
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}
+
+/******************************************************
+ * requestTopRatingAction
+ ******************************************************/
+export function requestTopRatingAction() {
+  return async dispatch => {
+    try {
+      const data = await getTopRating()
+
+      console.log(data);
+      return dispatch({
+        type: types.GET_TOP_RATING_RESULT,
         payload: data,
       })
     } catch (error) {
@@ -442,8 +442,7 @@ export function requestDiscoverPostsAction() {
 export function sendAction(addressFrom, addressTo, amount) {
   return async dispatch => {
     try {
-      const result = await send(addressFrom, addressTo, amount)
-      const data = await result.json()
+      const data = await send(addressFrom, addressTo, amount)
     } catch (error) {
       return handleAPIException(dispatch, error)
     }
@@ -456,8 +455,7 @@ export function sendAction(addressFrom, addressTo, amount) {
 export function requestTransactionsAction() {
   return async dispatch => {
     try {
-      const result = await getTransactions()
-      const data = await result.json()
+      const data = await getTransactions()
 
       return dispatch({
         type: types.GET_TRANSACTIONS_RESULT,
@@ -475,8 +473,7 @@ export function requestTransactionsAction() {
 export function requestRewardTransactionsAction() {
   return async dispatch => {
     try {
-      const result = await getRewardTransactions()
-      const data = await result.json()
+      const data = await getRewardTransactions()
 
       return dispatch({
         type: types.GET_REWARD_TRANSACTIONS_RESULT,
@@ -494,8 +491,7 @@ export function requestRewardTransactionsAction() {
 function getServiceInfoAction() {
   return async dispatch => {
     try {
-      const result = await getServiceInfo()
-      const data = await result.json()
+      const data = await getServiceInfo()
 
       return dispatch({
         type: types.GET_SERVICE_INFO_RESULT,
@@ -537,8 +533,7 @@ export function stopFetchServiceInfoAction() {
 export function claimGeneratorAction(claim) {
   return async dispatch => {
     try {
-      const result = await claimGenerator(claim)
-      const data = await result.json()
+      const data = await claimGenerator(claim)
 
       dispatch(getUserInfoAction())
     } catch (error) {
@@ -553,8 +548,7 @@ export function claimGeneratorAction(claim) {
 export function getUserInfoByAddressAction(address) {
   return async dispatch => {
     try {
-      const result = await getVisitedUserInfoByAddress(address)
-      const data = await result.json()
+      const data = await getVisitedUserInfoByAddress(address)
 
       dispatch(push(`/posts/${data.data.profile.id}`))
     } catch (error) {
