@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import PropTypes from 'prop-types'
 import Immutable from 'immutable'
@@ -9,15 +8,14 @@ import UserMenu from './UserMenu'
 
 import styled from 'styled-components'
 
-
-
 const Panel = styled.div`
-  background-color:white;
-  text-align:left;
+  background-color: white;
+  text-align: left;
   border: 1px solid #a1a1a1;
 `
-
-
+const UserPostItemContainer = styled.div`
+  border-top: 1px solid #d1d1d1;
+`
 
 class MyPostsBlock extends React.Component {
   constructor(props) {
@@ -62,22 +60,23 @@ class MyPostsBlock extends React.Component {
 
     return (
       <Panel>
-         <UserMenu active='myposts'/>
+        <UserMenu active="myposts" />
         <div className="m-b-sm">
-          <CreateNewPostBlock username={this.props.username} avatar={this.props.avatar}/>
+          <CreateNewPostBlock username={this.props.username} avatar={this.props.avatar} />
           {this.props.userPostsFetchingNewPost === true ? loader : null}
         </div>
         <div>
           
           {this.props.userPostsList.map(post => (
-            <UserPostsItem 
-              username={post.username}
-              avatar={post.avatar} 
-              date={post.timestamp} 
-              key={post.id} 
-              text={post.text} 
-              id={post.id}
-            />
+            <UserPostItemContainer key={post.id}>
+              <UserPostsItem
+                username={post.username}
+                avatar={post.avatar}
+                date={post.timestamp}
+                text={post.text}
+                id={this.props.userId}
+              />
+            </UserPostItemContainer>
           ))}
           {this.props.userPostsFetchingPosts === true ? loader : null}
         </div>

@@ -104,7 +104,7 @@ class UserPostsItem extends React.Component {
   }
 
   render() {
-    const postTime = new Date(this.props.date).toDateString()
+    const postTime = new Date(this.props.date).toLocaleString()
 
     return (
       <Container>

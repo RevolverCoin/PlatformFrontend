@@ -41,6 +41,8 @@ class UserBlock extends React.Component {
           avatar={this.props.avatar}  
           description={this.props.description} 
           address={this.props.address}
+          website={this.props.website}
+          links={this.props.links}
           supports={this.props.supports}
           userId={this.props.userId}
           />

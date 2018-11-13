@@ -22,7 +22,8 @@ import { UrlMatcher } from '../../utils/misc'
 
 const Icon = styled.span`
   color: #bbb;
-  margin-right: 10px;
+  padding-right: 10px;
+  float: left;
 `
 
 const IconVerifiedUser = styled(VerifiedUser)`
@@ -39,7 +40,7 @@ const Wrapper = styled.div`
 `
 const Panel = styled.div`
   background: #fafafa;
-  text-align:left;
+  text-align: left;
   border: 1px solid #a1a1a1;
   text-align: center;
   padding: 20px;
@@ -52,6 +53,12 @@ const Name = styled.div`
 
 const Links = styled.div`
   text-align: left;
+`
+
+const UrlText = styled.div`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `
 
 class AvatarBlock extends React.Component {
@@ -92,12 +99,12 @@ class AvatarBlock extends React.Component {
   }
 
   render() {
-    const links = this.props.userProfileLinks.map( (url, index) => {
+    const links = this.props.userProfileLinks.map((url, index) => {
       return (
         <p key={index}>
           <Icon>{this.parseLink(url)}</Icon>
           <a href={url} target="_blank" rel="noopener noreferrer">
-            {url}
+            <UrlText>{url}</UrlText>
           </a>
         </p>
       )
@@ -107,11 +114,11 @@ class AvatarBlock extends React.Component {
       <Panel>
         <Wrapper className="m-b">
           <Link to="/myposts">
-          {this.props.userProfileAvatar ? (
-            <img src={this.props.userProfileAvatar} width="150" style={{borderRadius: '50%'}} />
-          ) : (
-            <Avatar name={this.props.userProfileUsername} size="150px" round={true} />
-          )}
+            {this.props.userProfileAvatar ? (
+              <img src={this.props.userProfileAvatar} width="150" style={{ borderRadius: '50%' }} />
+            ) : (
+              <Avatar name={this.props.userProfileUsername} size="150px" round={true} />
+            )}
           </Link>
         </Wrapper>
         <Name>
@@ -126,7 +133,7 @@ class AvatarBlock extends React.Component {
                 <Globe size="15" />
               </Icon>
               <a href={this.props.userProfileWebsite} target="_blank" rel="noopener noreferrer">
-                {this.props.userProfileWebsite}
+                <UrlText>{this.props.userProfileWebsite}</UrlText>
               </a>
             </p>
           ) : null}

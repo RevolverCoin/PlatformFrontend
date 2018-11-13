@@ -28,9 +28,6 @@ const Caption = styled.div`
 `
 
 class NetworkStatsBlock extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   componentDidMount() {
     this.props.startFetchServiceInfo()

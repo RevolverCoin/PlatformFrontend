@@ -9,10 +9,12 @@ const mapStateToProps = (state) => {
 
   const username = root && root.getIn(['user', 'profile', 'username']);
   const avatar = root && root.getIn(['user', 'profile', 'avatar']);
+  const userId = root && root.getIn(['user', 'profile', 'id']);
 
   return {
     username, 
     avatar,
+    userId,
     userPostsList: posts && posts.get('postsList'),
     userPostsError: posts && posts.get('error'),
     userPostsFetchingNewPost: posts && posts.get('fetchingNewPost'),

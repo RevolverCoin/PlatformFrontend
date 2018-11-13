@@ -3,6 +3,18 @@ import Avatar from 'react-avatar'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Github,
+  Reddit,
+  Bitcoin,
+} from 'styled-icons/fa-brands'
+import { Globe } from 'styled-icons/fa-solid'
+import { UrlMatcher } from '../../utils/misc'
+
 const Container = styled.div`
   text-align: left;
   padding: 10px;
@@ -42,6 +54,11 @@ const Header = styled.div`
   display: inline-block;
   width: 160px;
 `
+const HeaderLinks = styled.span`
+  float:left;
+  width:160px;
+`
+
 
 const Content = styled.div`
   display: inline-block;
@@ -51,17 +68,29 @@ const Content = styled.div`
   cursor: pointer;
 `
 
-
-const AddressBlock = styled.div`
-
-`
+const AddressBlock = styled.div``
 const ContentAddress = styled(Content)`
-  text-transform:none;
+  text-transform: none;
   text-decoration: none;
   color: #1f363d;
-  cursor:auto;
+  cursor: auto;
+`
+const ContentLink = styled(Content)`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-transform: none;
+  display:block;
 `
 
+const LinksBlock = styled.div`
+  margin: 20px 0;
+`
+const Icon = styled.span`
+  color: #bbb;
+  width: 160px;
+  float: left;
+`
 
 class UserHeaderBlock extends React.Component {
   constructor(props) {
@@ -76,7 +105,40 @@ class UserHeaderBlock extends React.Component {
   }
 
   handleUnsupport() {
-    this.props.removeSupport(this.props.addressMy, this.props.address,this.props.userId)
+    this.props.removeSupport(this.props.addressMy, this.props.address, this.props.userId)
+  }
+
+
+  parseLink(url) {
+    if (UrlMatcher.isUrlYoutube(url)) {
+      return <Youtube size="24" />
+    }
+
+    if (UrlMatcher.isUrlFacebook(url)) {
+      return <Facebook size="24" />
+    }
+
+    if (UrlMatcher.isUrlReddit(url)) {
+      return <Reddit size="24" />
+    }
+
+    if (UrlMatcher.isUrlGithub(url)) {
+      return <Github size="24" />
+    }
+
+    if (UrlMatcher.isUrlInstagram(url)) {
+      return <Instagram size="24" />
+    }
+
+    if (UrlMatcher.isUrlTwitter(url)) {
+      return <Twitter size="24" />
+    }
+
+    if (UrlMatcher.isUrlBitcointalk(url)) {
+      return <Bitcoin size="24" />
+    }
+
+    return <Globe size="24" />
   }
 
   render() {
@@ -111,11 +173,11 @@ class UserHeaderBlock extends React.Component {
       )
     }
 
-      return (
+    return (
       <Container>
         <DescriptionBlock>
           {this.props.avatar ? (
-            <img src={this.props.avatar} width="140" style={{'border-radius': '50%'}} />
+            <img src={this.props.avatar} width="140" style={{ 'border-radius': '50%' }} />
           ) : (
             <Avatar name={this.props.username} size="140" round={true} />
           )}
@@ -126,21 +188,48 @@ class UserHeaderBlock extends React.Component {
           </Info>
         </DescriptionBlock>
 
+        <LinksBlock>
+          <Row>
+            <Icon><Globe size="24" /></Icon>
+            <a href={this.props.website} target="_blank">
+              <ContentLink>{this.props.website}</ContentLink>
+            </a>
+          </Row>
+          {this.props.links && this.props.links.map(link => (
+            <Row>
+              <Icon>{this.parseLink(link)}</Icon>
+              <a href={link} target="_blank">
+                <ContentLink>{link}</ContentLink>
+              </a>
+            </Row>
+          ))}
+        </LinksBlock>
+
         <AddressBlock>
-        <Row>
+          <Row>
             <Header>Address</Header>
-            <ContentAddress><div>{this.props.address}</div></ContentAddress>
+            <ContentAddress>
+              <div>{this.props.address}</div>
+            </ContentAddress>
           </Row>
         </AddressBlock>
 
         <SupportBlock>
           <Row>
             <Header>Supporting</Header>
-            <Content><Link to={`/supports/${this.props.userId}/supporting`}>{supportingCount} Supports</Link></Content>
+            <Content>
+              <Link to={`/supports/${this.props.userId}/supporting`}>
+                {supportingCount} Supports
+              </Link>
+            </Content>
           </Row>
           <Row>
             <Header>Supported</Header>
-            <Content><Link to={`/supports/${this.props.userId}/supported`}>{supportedCount} Supports </Link></Content>
+            <Content>
+              <Link to={`/supports/${this.props.userId}/supported`}>
+                {supportedCount} Supports{' '}
+              </Link>
+            </Content>
           </Row>
           <Row>
             <Header />

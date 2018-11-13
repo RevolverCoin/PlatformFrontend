@@ -33,6 +33,8 @@ class UserPage extends BasePage {
       avatar={this.props.userProfile.avatar}
       description={this.props.userProfile.desc}
       address={this.props.userProfile.address}
+      website={this.props.userProfile.website}
+      links={this.props.userProfile.links}
       userPosts={this.props.userPosts}
       supports={this.props.supports}
       userId={this.props.match.params.userId} 
@@ -62,7 +64,6 @@ function prepareUserProfileData(state)
 {
   const data = state && state.root && state.root.hasIn(['current','userProfile']) && state.root.getIn(['current','userProfile']);
   if (!data) return null;
-
 
   return data.toJS();
 }

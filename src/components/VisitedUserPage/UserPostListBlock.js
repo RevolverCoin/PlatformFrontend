@@ -1,13 +1,9 @@
 import React from 'react'
-import styled from 'styled-components';
 import UserPostsItem from '../../containers/UserPostsItem'
 
 
 
 class UserPostListBlock extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   render() {
 

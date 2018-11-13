@@ -124,6 +124,8 @@ export function getVisitedUserInfoAction(userId) {
     try {
       const data = await getVisitedUserInfo(userId)
 
+      console.log(data);
+
       dispatch({ type: types.USER_PROFILE_RESULT, payload: data })
       return data
     } catch (error) {

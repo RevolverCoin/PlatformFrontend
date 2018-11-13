@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Container from 'muicss/lib/react/container'
 import Row from 'muicss/lib/react/row'
@@ -13,11 +12,7 @@ import { requestTransactionsAction } from '../../actions/actions'
 
 import {toCurrencyAmount} from '../../utils/misc'
 
-const RowHeader = styled(Row)`
-    border: 1px solid #999
-    background-color: #eee;
-    font-weight: bold;
-`
+
 const RowItem = styled(Row)`
   border: 1px solid #999;
   background-color: #f9f9f9;

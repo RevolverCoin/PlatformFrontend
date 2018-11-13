@@ -2,7 +2,6 @@ import React from 'react'
 import request from 'superagent'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Container from 'muicss/lib/react/container'
 import RowMUI from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
 import Form from 'muicss/lib/react/form'
@@ -209,7 +208,6 @@ class ProfileBlock extends React.Component {
 
   handleLinkChange(e) {
     const index = parseInt(e.target.name)
-    console.log(index)
     const links = this.state.links
     links[index] = e.target.value
 
