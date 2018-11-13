@@ -5,8 +5,11 @@ import PropTypes from 'prop-types'
 import Immutable from 'immutable'
 import CreateNewPostBlock from './../containers/CreateNewPostBlock'
 import UserPostsItem from '../containers/UserPostsItem'
+import UserMenu from './UserMenu'
 
 import styled from 'styled-components'
+
+
 
 const Panel = styled.div`
   background-color:white;
@@ -14,22 +17,7 @@ const Panel = styled.div`
   border: 1px solid #a1a1a1;
 `
 
-const Caption = styled.div`
-  background-color: #fafafa;
-  border-bottom: 1px solid #a1a1a1;
-  color: #832e55;
-  text-transform:uppercase;
-  font-size:14px;
-  padding:8px 0 8px 15px;
-`
 
-const Category = styled.div`
-  display: inline-block;
-  padding: 0 5px;
-  margin-right:10px;
-  //font-weight: ${props => (props.active ? 'bold' : 'normal')};
-  color: ${props => (props.active ? '#832e55' : '#333')};
-`
 
 class MyPostsBlock extends React.Component {
   constructor(props) {
@@ -74,18 +62,7 @@ class MyPostsBlock extends React.Component {
 
     return (
       <Panel>
-        <Caption>
-          <Link to='/myposts/'>
-            <Category active>My Posts</Category>
-          </Link>
-          <Link to='/timeline/'>
-            <Category>My Timeline</Category>
-          </Link>
-          
-          <Link to='/discover/'>
-            <Category>Discover</Category>
-          </Link>          
-        </Caption>
+         <UserMenu active='myposts'/>
         <div className="m-b-sm">
           <CreateNewPostBlock username={this.props.username} avatar={this.props.avatar}/>
           {this.props.userPostsFetchingNewPost === true ? loader : null}

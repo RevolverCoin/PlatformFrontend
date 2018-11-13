@@ -72,6 +72,9 @@ export default (state = core.INITIAL_STATE, action) => {
     case types.GET_DISCOVER_POSTS_RESULT:
       return core.handleGetDiscoverPostsResults(state, action.payload)
 
+    case types.GET_TOP_RATING_RESULT:
+      return core.handleGetTopRatingResults(state, action.payload)
+
     case types.GET_TRANSACTIONS_RESULT:
       return core.handleGetTransactionsResults(state, action.payload)
 

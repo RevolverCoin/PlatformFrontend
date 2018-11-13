@@ -56,6 +56,9 @@ export const INITIAL_STATE = fromJS({
   timeline: {
     posts: null
   },
+  top: {
+    data: null
+  },
   current: {
     userProfile: {},
     searchProfiles: null,
@@ -221,6 +224,11 @@ export function handleGetDiscoverPostsResults(state, data)
 {
   return state.setIn(['current', 'discover'], fromJS(data.data))
 }
+
+export function handleGetTopRatingResults(state, data)
+{
+  return state.setIn(['top', 'data'], fromJS(data.data))
+} 
 
 export function handleGetTransactionsResults(state, data)
 {

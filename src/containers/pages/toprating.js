@@ -2,10 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import BasePage from './basepage'
-import UserPostsItem from '../UserPostsItem'
-import { Link } from 'react-router-dom'
+import UserTopListItem from '../UserTopListItem'
+import UserMenu from '../../components/UserMenu'
+
 
 import { requestTopRatingAction } from '../../actions/actions'
 
@@ -15,20 +17,9 @@ const Panel = styled.div`
   border: 1px solid #a1a1a1;
 `
 
-const Caption = styled.div`
-  background-color: #fafafa;
+
+const ItemContainer = styled.div`
   border-bottom: 1px solid #a1a1a1;
-  color: #832e55;
-  text-transform: uppercase;
-  font-size: 14px;
-  padding: 8px 0 8px 15px;
-`
-const Category = styled.div`
-  display: inline-block;
-  padding: 0 5px;
-  margin-right:10px;
-  //font-weight: ${props => (props.active ? 'bold' : 'normal')};
-  color: ${props => (props.active ? '#832e55' : '#333')};
 `
 
 class TopRatingPage extends BasePage {
@@ -37,39 +28,26 @@ class TopRatingPage extends BasePage {
   }
 
   renderPage() {
-    let postsList =
-      this.props.postsResults &&
-      this.props.postsResults.map(post => (
-        <UserPostsItem
-          username={post.userId.username}
-          avatar={post.userId.avatar}
-          date={post.createdAt}
-          key={post._id}
-          text={post.text}
-          id={post.userId._id}
-        />
+    let itemsList =
+      this.props.topList &&
+      this.props.topList.map(item => (
+        <ItemContainer>
+          <UserTopListItem
+            username={item.username}
+            description={item.desc}
+            avatar={item.avatar}
+            key={item._id}
+            supportCount={item.supportCount}
+            address={item.address}
+            id={item._id}
+          />
+        </ItemContainer>
       ))
 
     return (
       <Panel>
-        <Caption>
-          <Link to="/myposts/">
-            <Category>My Posts</Category>
-          </Link>
-          <Link to="/timeline/">
-            <Category>My Timeline</Category>
-          </Link>
-
-          <Link to="/discover/">
-            <Category>Discover</Category>
-          </Link>
-          
-          <Link to="/top">
-            <Category active>Top 100</Category>
-          </Link>
-
-        </Caption>
-        {postsList}
+        <UserMenu active='top'/>
+        {itemsList}
       </Panel>
     )
   }
@@ -80,9 +58,9 @@ TopRatingPage.defaultProps = {}
 TopRatingPage.propTypes = {}
 
 const mapStateToProps = state => {
-  const data = state.root && state.root.getIn(['top100'])
+  const data = state.root && state.root.getIn(['top', 'data'])
   return {
-    postsResults: data && data.toJS(),
+    topList: data && data.toJS(),
   }
 }
 

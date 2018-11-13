@@ -135,18 +135,18 @@ export function getVisitedUserInfoAction(userId) {
 export function requestSupportedListAction(userId, pageId) {
   return async dispatch => {
     try {
-      // const data = await requestSupportedList(userId, pageId)
+      const data = await requestSupportedList(userId, pageId)
 
-      // let requests = []
-      // data.supports.forEach(support => {
-      //   requests.push(getVisitedUserInfoByAddress(support.addressFrom))
-      // })
+      let requests = []
+      data.supports.forEach(support => {
+        requests.push(getVisitedUserInfoByAddress(support.addressFrom))
+      })
 
-      // const responses = await promiseChainify(requests)  
-      // const result = responses.map(item => ({ ...item.data }))
+      const responses = await promiseChainify(requests)  
+      const result = responses.map(item => ({ ...item.data }))
 
-      // dispatch({ type: types.SUPPORTED_LIST_RESULT, payload: result })
-      // return data
+      dispatch({ type: types.SUPPORTED_LIST_RESULT, payload: result })
+      return data
     } catch (error) {
       return handleAPIException(dispatch, error)
     }
@@ -156,18 +156,18 @@ export function requestSupportedListAction(userId, pageId) {
 export function requestSupportingListAction(userId, pageId) {
   return async dispatch => {
     try {
-      // const data = await requestSupportingList(userId, pageId)
+      const data = await requestSupportingList(userId, pageId)
 
-      // let requests = []
-      // data.supports.forEach(support => {
-      //   requests.push(getVisitedUserInfoByAddress(support.addressTo))
-      // })
+      let requests = []
+      data.supports.forEach(support => {
+        requests.push(getVisitedUserInfoByAddress(support.addressTo))
+      })
 
-      // const responses = await promiseChainify(requests)
-      // const result = responses.map(item => ({ ...item.data }))
+      const responses = await promiseChainify(requests)
+      const result = responses.map(item => ({ ...item.data }))
 
-      // dispatch({ type: types.SUPPORTING_LIST_RESULT, payload: result })
-      // return data
+      dispatch({ type: types.SUPPORTING_LIST_RESULT, payload: result })
+      return data
     } catch (error) {
       console.log(error)
       return handleAPIException(dispatch, error)
@@ -425,7 +425,6 @@ export function requestTopRatingAction() {
     try {
       const data = await getTopRating()
 
-      console.log(data);
       return dispatch({
         type: types.GET_TOP_RATING_RESULT,
         payload: data,
