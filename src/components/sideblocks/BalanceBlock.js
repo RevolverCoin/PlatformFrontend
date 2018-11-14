@@ -2,19 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-
-const balanceBlockStyle = {
-  bordered: {
-    borderBottom: '1px solid #e2e2e2',
-    paddingBottom: '20px',
-  },
-  description: {
-    fontSize: '16px',
-  },
-  currency: {
-    fontSize: '18px',
-  },
-}
+import Row from 'muicss/lib/react/row'
+import Col from 'muicss/lib/react/col'
 
 const Panel = styled.div`
   background: white;
@@ -36,54 +25,61 @@ const Caption = styled.div`
   padding: 8px 0 8px 15px;
 `
 
+const RowBalanceName = styled(Row)`
+  text-align:left;
+  font-size:16px;
+  font-weight: bold;
+
+`
+
+const RowBalanceValue = styled(Row)`
+  text-align:left;
+  font-size:14px;
+
+  margin-bottom:10px;
+`
+const SendButtonWrapper = styled.div`
+    border-bottom: 1px solid #e2e2e2;
+    padding-bottom: 20px;
+    margin-top:20px;
+`
+
 const BalanceBlock = props => (
   <div>
     <Caption>Wallet</Caption>
     <Panel>
-      <div>
-        <table className="m-b-md full-width">
-          <tbody>
-            <tr>
-              <td className="mui--text-left">
-                <p style={balanceBlockStyle.description}>Available Balance</p>
-              </td>
-              <td className="mui--text-right">
-                <p style={balanceBlockStyle.currency}>
-                  {Number.parseFloat(props.userBalanceTotal).toPrecision(4)}
-                  <span> XRE</span>
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td className="mui--text-left">
-                <p style={balanceBlockStyle.description}>Locked</p>
-              </td>
-              <td className="mui--text-right">
-                <p style={balanceBlockStyle.currency}>
-                  {Number.parseFloat(props.userBalanceLocked).toPrecision(4)}
-                  <span> XRE</span>
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div style={balanceBlockStyle.bordered}>
-          <Link className="revolver-btn-main" to="/send">
-            Send
+      <RowBalanceName>
+        <Col md="12">Available Balance</Col>
+      </RowBalanceName>
+
+      <RowBalanceValue>
+        <Col md="12">{Number.parseFloat(props.userBalanceTotal).toFixed(4)} XRE</Col>
+      </RowBalanceValue>
+
+      <RowBalanceName>
+        <Col md="12">Locked Balance</Col>
+      </RowBalanceName>
+
+      <RowBalanceValue>
+        <Col md="12">{Number.parseFloat(props.userBalanceLocked).toFixed(4)} XRE</Col>
+      </RowBalanceValue>
+
+      <SendButtonWrapper>
+        <Link className="revolver-btn-main" to="/send">
+          Send
+        </Link>
+      </SendButtonWrapper>
+      <div className="m-t-md">
+        <p className="mui--text-center">
+          <Link className="revolver-btn-main" to="/transactions">
+            Transactions
           </Link>
-        </div>
-        <div className="m-t-md">
-          <p className="mui--text-center">
-            <Link className="revolver-btn-main" to="/transactions">
-              Transactions
-            </Link>
-          </p>
-          <p className="mui--text-center">
-            <Link className="revolver-btn-main" to="/reward-report">
-              Reward Report
-            </Link>
-          </p>
-        </div>
+        </p>
+        <p className="mui--text-center">
+          <Link className="revolver-btn-main" to="/reward-report">
+            Reward Report
+          </Link>
+        </p>
       </div>
     </Panel>
   </div>

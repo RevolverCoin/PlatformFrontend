@@ -18,6 +18,7 @@ const SiteContainer = styled.div`
 const PageContainer = styled(Container)`
     font-family: 'Open Sans', sans-serif;
     margin-top:10px;
+    margin-bottom: 20px;
 `
 const Col = styled(ColMUI)`
     padding-left:10px;

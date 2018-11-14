@@ -14,7 +14,7 @@ const Panel = styled.div`
   border: 1px solid #a1a1a1;
 `
 const UserPostItemContainer = styled.div`
-  border-top: 1px solid #d1d1d1;
+  /* border-top: 1px solid #d1d1d1; */
 `
 
 class MyPostsBlock extends React.Component {

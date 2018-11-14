@@ -17,6 +17,7 @@ import { Share } from 'styled-icons/material'
 const Container = styled.div`
   padding: 5px;
   text-align: left;
+  border-bottom: 1px solid #d1d1d1;
 `
 const LeftColumn = styled.div`
   display: inline-block;

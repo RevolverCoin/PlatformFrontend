@@ -13,6 +13,10 @@ const Panel = styled.div`
   text-align: left;
   border: 1px solid #a1a1a1;
 `
+const NoPostsMessage = styled.div`
+  text-align: center;
+  padding:10px;
+`
 
 class TimelinePage extends BasePage {
   componentDidMount() {
@@ -38,7 +42,9 @@ class TimelinePage extends BasePage {
     return (
       <Panel>
         <UserMenu active="timeline" />
-        {postsList}
+        {postsList && postsList.length > 0 ? postsList : (
+          <NoPostsMessage>No posts available</NoPostsMessage>
+        )}
       </Panel>
     )
   }
