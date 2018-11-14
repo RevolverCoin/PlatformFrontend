@@ -1,11 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import BasePage from './basepage'
-import UserPostsItem from '../UserPostsItem'
-import { Link } from 'react-router-dom'
+import PostItem from '../PostItem'
 import UserMenu from '../../components/UserMenu'
 
 import { requestTimelinePostsAction } from '../../actions/actions'
@@ -25,13 +23,15 @@ class TimelinePage extends BasePage {
     let postsList =
       this.props.postsResults &&
       this.props.postsResults.map(post => (
-        <UserPostsItem
+        <PostItem
           username={post.userId.username}
           avatar={post.userId.avatar}
           date={post.createdAt}
           key={post._id}
           text={post.text}
-          id={post.userId._id}
+          userId={post.userId._id}
+          postId={post._id}
+          likes={post.likes}
         />
       ))
 

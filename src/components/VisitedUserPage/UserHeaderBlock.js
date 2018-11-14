@@ -17,7 +17,7 @@ import { UrlMatcher } from '../../utils/misc'
 
 const Container = styled.div`
   text-align: left;
-  padding: 10px;
+  padding: 20px;
 `
 
 const DescriptionBlock = styled.div``
@@ -52,13 +52,12 @@ const Row = styled.div`
 
 const Header = styled.div`
   display: inline-block;
-  width: 160px;
+  width: 120px;
 `
 const HeaderLinks = styled.span`
-  float:left;
-  width:160px;
+  float: left;
+  width: 120px;
 `
-
 
 const Content = styled.div`
   display: inline-block;
@@ -80,7 +79,7 @@ const ContentLink = styled(Content)`
   overflow: hidden;
   white-space: nowrap;
   text-transform: none;
-  display:block;
+  display: block;
 `
 
 const LinksBlock = styled.div`
@@ -88,7 +87,7 @@ const LinksBlock = styled.div`
 `
 const Icon = styled.span`
   color: #bbb;
-  width: 160px;
+  width: 120px;
   float: left;
 `
 
@@ -107,7 +106,6 @@ class UserHeaderBlock extends React.Component {
   handleUnsupport() {
     this.props.removeSupport(this.props.addressMy, this.props.address, this.props.userId)
   }
-
 
   parseLink(url) {
     if (UrlMatcher.isUrlYoutube(url)) {
@@ -189,20 +187,25 @@ class UserHeaderBlock extends React.Component {
         </DescriptionBlock>
 
         <LinksBlock>
-          <Row>
-            <Icon><Globe size="24" /></Icon>
-            <a href={this.props.website} target="_blank">
-              <ContentLink>{this.props.website}</ContentLink>
-            </a>
-          </Row>
-          {this.props.links && this.props.links.map(link => (
+          {this.props.website ? (
             <Row>
-              <Icon>{this.parseLink(link)}</Icon>
-              <a href={link} target="_blank">
-                <ContentLink>{link}</ContentLink>
+              <Icon>
+                <Globe size="24" />
+              </Icon>
+              <a href={this.props.website} target="_blank">
+                <ContentLink>{this.props.website}</ContentLink>
               </a>
             </Row>
-          ))}
+          ) : null}
+          {this.props.links &&
+            this.props.links.map(link => (
+              <Row>
+                <Icon>{this.parseLink(link)}</Icon>
+                <a href={link} target="_blank">
+                  <ContentLink>{link}</ContentLink>
+                </a>
+              </Row>
+            ))}
         </LinksBlock>
 
         <AddressBlock>

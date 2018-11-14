@@ -337,3 +337,18 @@ export function claimGenerator(claim) {
     }),
   )
 }
+
+export function requestLikePost(postId) {
+  return HTTPErrorHandler(
+    fetch(`${url}/posts/like`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ postId }),
+    }),
+  )
+}
+
+

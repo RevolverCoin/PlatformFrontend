@@ -53,6 +53,7 @@ const Name = styled.div`
 
 const Links = styled.div`
   text-align: left;
+  margin-bottom:15px;
 `
 
 const UrlText = styled.div`
@@ -101,12 +102,12 @@ class AvatarBlock extends React.Component {
   render() {
     const links = this.props.userProfileLinks.map((url, index) => {
       return (
-        <p key={index}>
+        <div key={index}>
           <Icon>{this.parseLink(url)}</Icon>
           <a href={url} target="_blank" rel="noopener noreferrer">
             <UrlText>{url}</UrlText>
           </a>
-        </p>
+        </div>
       )
     })
 
@@ -128,14 +129,14 @@ class AvatarBlock extends React.Component {
 
         <Links>
           {this.props.userProfileWebsite ? (
-            <p>
+            <div>
               <Icon>
                 <Globe size="15" />
               </Icon>
               <a href={this.props.userProfileWebsite} target="_blank" rel="noopener noreferrer">
                 <UrlText>{this.props.userProfileWebsite}</UrlText>
               </a>
-            </p>
+            </div>
           ) : null}
 
           {links}

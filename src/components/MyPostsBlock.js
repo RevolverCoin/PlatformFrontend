@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Immutable from 'immutable'
 import CreateNewPostBlock from './../containers/CreateNewPostBlock'
-import UserPostsItem from '../containers/UserPostsItem'
+import PostItem from '../containers/PostItem'
 import UserMenu from './UserMenu'
 
 import styled from 'styled-components'
@@ -69,12 +69,14 @@ class MyPostsBlock extends React.Component {
           
           {this.props.userPostsList.map(post => (
             <UserPostItemContainer key={post.id}>
-              <UserPostsItem
+              <PostItem
                 username={post.username}
                 avatar={post.avatar}
                 date={post.timestamp}
                 text={post.text}
-                id={this.props.userId}
+                userId={this.props.userId}
+                postId={post.id}
+                likes={post.likes}
               />
             </UserPostItemContainer>
           ))}

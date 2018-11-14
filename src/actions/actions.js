@@ -33,6 +33,7 @@ import {
   getRewardTransactions,
   getServiceInfo,
   claimGenerator,
+  requestLikePost
 } from './../core/api'
 
 let intervalFetchServiceInfo = null
@@ -557,3 +558,27 @@ export function getUserInfoByAddressAction(address) {
     }
   }
 }
+
+
+/******************************************************
+ * requestLikePostAction
+ ******************************************************/
+export function requestLikePostAction(postId) {
+  return async dispatch => {
+    try {
+      const data = await requestLikePost(postId)
+
+      if (data.success) {
+        dispatch({
+          type: types.LIKE_POST_RESULT,
+          payload: data.data,
+        })
+      }
+
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}
+
+

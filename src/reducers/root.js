@@ -83,6 +83,9 @@ export default (state = core.INITIAL_STATE, action) => {
       
     case types.GET_SERVICE_INFO_RESULT:
       return core.handleGetServiceInfoResults(state, action.payload)
+    
+    case types.LIKE_POST_RESULT: 
+      return core.handleLikePostResults(state, action.payload)
       
     default:
       // console.error("Unknown action", action)
