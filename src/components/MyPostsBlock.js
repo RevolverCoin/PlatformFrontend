@@ -2,11 +2,18 @@ import React from 'react'
 
 import PropTypes from 'prop-types'
 import Immutable from 'immutable'
+import styled from 'styled-components'
+
 import CreateNewPostBlock from './../containers/CreateNewPostBlock'
 import PostItem from '../containers/PostItem'
 import UserMenu from './UserMenu'
 
-import styled from 'styled-components'
+import MainButton from './MainButton'
+
+const More = styled.div`
+  text-align: center;
+  margin: 20px 0;
+`
 
 const Panel = styled.div`
   background-color: white;
@@ -20,35 +27,16 @@ const UserPostItemContainer = styled.div`
 class MyPostsBlock extends React.Component {
   constructor(props) {
     super(props)
-    this.handleScroll = this.handleScroll.bind(this)
+    this.onLoadMore = this.onLoadMore.bind(this)
   }
 
   componentDidMount() {
     this.props.clearMyPrevPostsAction()
     this.props.getMyPostsAction(1)
-    window.addEventListener('scroll', this.handleScroll)
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
-  }
-
-  handleScroll() {
-    const windowHeight =
-      'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight
-    const body = document.body
-    const html = document.documentElement
-    const docHeight = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight,
-    )
-    const windowBottom = windowHeight + window.pageYOffset
-    if (windowBottom >= docHeight && this.props.userPostsHasNextPage) {
-      this.props.getMyPostsAction(this.props.userPostsNextPageId)
-    }
+  onLoadMore() {
+    this.props.getMyPostsAction(this.props.userPostsNextPageId)
   }
 
   render() {
@@ -81,6 +69,17 @@ class MyPostsBlock extends React.Component {
             </UserPostItemContainer>
           ))}
           {this.props.userPostsFetchingPosts === true ? loader : null}
+
+
+          {this.props.userPostsHasNextPage ? (
+          <More>
+            <MainButton
+              className="revolver-btn-main"
+              handleAction={this.onLoadMore}
+              text="Load more ..."
+            />
+          </More>
+        ) : null}
         </div>
       </Panel>
     )

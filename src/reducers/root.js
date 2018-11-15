@@ -48,14 +48,20 @@ export default (state = core.INITIAL_STATE, action) => {
     case types.UPDATE_PROFILE_INFO_ACTION_FAILURE:
       return core.handleUpdateProfileInfoActionFailure(state, action.payload)
 
+    case types.CLEAR_SEARCH_RESULTS:
+      return core.handleClearSearchResults(state)
+
     case types.SEARCH_PROFILES_RESULTS:
       return core.handleSearchProfilesResults(state, action.payload)
 
     case types.SEARCH_POSTS_RESULTS:
-    return core.handleSearchPostsResults(state, action.payload)
+      return core.handleSearchPostsResults(state, action.payload)
 
-    case types.USER_POSTS_RESULT:
-      return core.handleUserPostsResults(state, action.payload)
+    case types.CLEAR_VISITED_USER_POSTS:
+      return core.handleClearVisitedUserPosts(state)
+
+    case types.GET_VISITED_USER_POSTS_RESULT:
+      return core.handleVisitedUserPostsResults(state, action.payload)
 
     case types.USER_PROFILE_RESULT:
       return core.handleUserProfileResults(state, action.payload)
@@ -68,7 +74,13 @@ export default (state = core.INITIAL_STATE, action) => {
 
     case types.GET_TIMELINE_POSTS_RESULT:
       return core.handleGetTimelinePostsResults(state, action.payload)
-
+    
+    case types.CLEAR_TIMELINE_POSTS:
+      return core.handleClearTimelinePosts(state)
+      
+    case types.CLEAR_DISCOVER_POSTS:
+      return core.handleClearDiscoverPosts(state)
+    
     case types.GET_DISCOVER_POSTS_RESULT:
       return core.handleGetDiscoverPostsResults(state, action.payload)
 

@@ -5,8 +5,9 @@ import styled from 'styled-components'
 import BasePage from './basepage'
 import PostItem from '../PostItem'
 import UserMenu from '../../components/UserMenu'
+import MainButton from '../../components/MainButton'
 
-import { requestTimelinePostsAction } from '../../actions/actions'
+import { requestTimelinePostsAction, clearTimelinePostsAction } from '../../actions/actions'
 
 const Panel = styled.div`
   background-color: white;
@@ -15,18 +16,32 @@ const Panel = styled.div`
 `
 const NoPostsMessage = styled.div`
   text-align: center;
-  padding:10px;
+  padding: 10px;
+`
+const More = styled.div`
+  text-align: center;
+  margin: 20px 0;
 `
 
 class TimelinePage extends BasePage {
+  constructor(props) {
+    super(props)
+    this.onLoadMore = this.onLoadMore.bind(this)
+  }
+
   componentDidMount() {
-    this.props.requestTimelinePosts(0)
+    this.props.clearTimelinePosts()
+    this.props.requestTimelinePosts(1)
+  }
+
+  onLoadMore() {
+    this.props.requestTimelinePosts(this.props.nextPageId)
   }
 
   renderPage() {
     let postsList =
-      this.props.postsResults &&
-      this.props.postsResults.map(post => (
+      this.props.posts &&
+      this.props.posts.map(post => (
         <PostItem
           username={post.userId.username}
           avatar={post.userId.avatar}
@@ -42,9 +57,21 @@ class TimelinePage extends BasePage {
     return (
       <Panel>
         <UserMenu active="timeline" />
-        {postsList && postsList.length > 0 ? postsList : (
+        {postsList && postsList.length > 0 ? (
+          postsList
+        ) : (
           <NoPostsMessage>No posts available</NoPostsMessage>
         )}
+
+        {this.props.hasNextPage ? (
+          <More>
+            <MainButton
+              className="revolver-btn-main"
+              handleAction={this.onLoadMore}
+              text="Load more ..."
+            />
+          </More>
+        ) : null}
       </Panel>
     )
   }
@@ -55,16 +82,23 @@ TimelinePage.defaultProps = {}
 TimelinePage.propTypes = {}
 
 const mapStateToProps = state => {
-  // get profiles of supporting
-  const data = state.root && state.root.getIn(['timeline', 'posts'])
+
+  const data = state.root && state.root.get('timeline')
   return {
-    postsResults: data && data.toJS(),
+    posts: data && data.get('posts').toJS(),
+    hasNextPage: data && data.get('hasNextPage'),
+    nextPageId: data && data.get('nextPageId'),
   }
+
 }
 
 const mapDispatchToProps = dispatch => ({
-  requestTimelinePosts() {
-    dispatch(requestTimelinePostsAction())
+  requestTimelinePosts(pageId) {
+    dispatch(requestTimelinePostsAction(pageId))
+  },
+
+  clearTimelinePosts() {
+    dispatch(clearTimelinePostsAction())
   },
 })
 

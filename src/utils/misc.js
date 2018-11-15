@@ -1,9 +1,8 @@
 //const emailRexExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-const emailRexExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-export default emailRexExp;
+const emailRexExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+export default emailRexExp
 
-export const urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-
+export const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi
 
 export const promiseChainify = promises =>
   promises.reduce(
@@ -39,32 +38,39 @@ export const toCurrencyAmount = (val, precision) => {
   return Number.parseFloat(val).toPrecision(precision)
 }
 
-
 export const UrlMatcher = {
-  
-  regexYoutube: /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/igm,
-  regexFacebook: /^(http(s)?:\/\/)?(www\.)?facebook.com\/[a-zA-Z0-9(\.\?)?]/igm,
-  regexReddit: /^(http(s)?:\/\/)?(www\.)?reddit.com\/[a-zA-Z0-9(\.\?)?]/igm,
-  regexTwitter: /^(http(s)?:\/\/)?(www\.)?twitter.com\/[a-zA-Z0-9(\.\?)?]/igm,
-  regexBitcointalk: /^(http(s)?:\/\/)?(www\.)?bitcointalk.org\/[a-zA-Z0-9(\.\?)?]/igm,
-  regexInstagram: /^(http(s)?:\/\/)?(www\.)?instagram.com\/[a-zA-Z0-9(\.\?)?]/igm,
-  regexGithub: /^(http(s)?:\/\/)?(www\.)?github.com\/[a-zA-Z0-9(\.\?)?]/igm,
+  regexYoutube: /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/gim,
+  regexFacebook: /^(http(s)?:\/\/)?(www\.)?facebook.com\/[a-zA-Z0-9(\.\?)?]/gim,
+  regexReddit: /^(http(s)?:\/\/)?(www\.)?reddit.com\/[a-zA-Z0-9(\.\?)?]/gim,
+  regexTwitter: /^(http(s)?:\/\/)?(www\.)?twitter.com\/[a-zA-Z0-9(\.\?)?]/gim,
+  regexBitcointalk: /^(http(s)?:\/\/)?(www\.)?bitcointalk.org\/[a-zA-Z0-9(\.\?)?]/gim,
+  regexInstagram: /^(http(s)?:\/\/)?(www\.)?instagram.com\/[a-zA-Z0-9(\.\?)?]/gim,
+  regexGithub: /^(http(s)?:\/\/)?(www\.)?github.com\/[a-zA-Z0-9(\.\?)?]/gim,
 
-  
-  isUrlYoutube(url) {return url.match(this.regexYoutube)},
-  isUrlFacebook(url) {return url.match(this.regexFacebook)},
-  isUrlReddit(url) {return url.match(this.regexReddit)},
-  isUrlTwitter(url) {return url.match(this.regexTwitter)},
-  isUrlBitcointalk(url) {return url.match(this.regexBitcointalk)},
-  isUrlInstagram(url) {return url.match(this.regexInstagram)},
-  isUrlGithub(url) {return url.match(this.regexGithub)},
-
-
+  isUrlYoutube(url) {
+    return url.match(this.regexYoutube)
+  },
+  isUrlFacebook(url) {
+    return url.match(this.regexFacebook)
+  },
+  isUrlReddit(url) {
+    return url.match(this.regexReddit)
+  },
+  isUrlTwitter(url) {
+    return url.match(this.regexTwitter)
+  },
+  isUrlBitcointalk(url) {
+    return url.match(this.regexBitcointalk)
+  },
+  isUrlInstagram(url) {
+    return url.match(this.regexInstagram)
+  },
+  isUrlGithub(url) {
+    return url.match(this.regexGithub)
+  },
 }
 
-
-
-String.prototype.hexEncode = function(){
+String.prototype.hexEncode = function() {
   // var hex, i;
 
   // var result = "";
@@ -74,10 +80,10 @@ String.prototype.hexEncode = function(){
   // }
 
   // return result
-  return this;
+  return this
 }
 
-String.prototype.hexDecode = function(){
+String.prototype.hexDecode = function() {
   // var j;
   // var hexes = this.match(/.{1,4}/g) || [];
   // var back = "";
@@ -86,5 +92,26 @@ String.prototype.hexDecode = function(){
   // }
 
   // return back;
-  return this;
+  return this
+}
+
+export function isWindowBottom() {
+  const body = document.body
+  const html = document.documentElement
+
+  const windowHeight =
+    'innerHeight' in window ? window.innerHeight : html.offsetHeight
+
+  const docHeight = Math.max(
+    body.scrollHeight,
+    body.offsetHeight,
+    html.clientHeight,
+    html.scrollHeight,
+    html.offsetHeight,
+  )
+  const customOffset = 5
+  
+  const windowBottom = windowHeight + window.pageYOffset + customOffset 
+
+  return (windowBottom >= docHeight)
 }

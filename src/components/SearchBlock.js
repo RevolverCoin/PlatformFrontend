@@ -1,12 +1,12 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled from 'styled-components'
 import UserListItem from '../containers/pages/VisitedUserPage/UserListItem'
 import PostItem from '../containers/PostItem'
-
+import MainButton from './MainButton'
 
 const Panel = styled.div`
-  background-color:white;
-  text-align:left;
+  background-color: white;
+  text-align: left;
   border: 1px solid #a1a1a1;
 `
 
@@ -14,11 +14,19 @@ const Caption = styled.div`
   background-color: #fafafa;
   border-bottom: 1px solid #a1a1a1;
   color: #832e55;
-  text-transform:uppercase;
-  font-size:14px;
-  padding:8px 0 8px 15px;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 8px 0 8px 15px;
 `
 
+const More = styled.div`
+  text-align: center;
+  margin: 20px 0;
+`
+const NothingFoundMessage = styled.div`
+  text-align: center;
+  padding: 10px;
+`
 
 class SearchBlock extends React.Component {
   constructor(props) {
@@ -26,36 +34,64 @@ class SearchBlock extends React.Component {
   }
 
   render() {
-
-
-    let searchProfilesList = this.props.searchProfilesResults && this.props.searchProfilesResults.map( (user) => (
-      <UserListItem  username={user.username} description={user.desc} avatar={user.avatar} key={user.id} id={user.id}/>
-    ))
-
-    let searchPostsList = this.props.searchPostsResults && this.props.searchPostsResults.map( (post) => (
-      <PostItem  
-        username={post.user.username} 
-        date={post.timestamp} 
-        key={post.id} 
-        text={post.text} 
-        userId={post.user.id} 
-        avatar={post.user.avatar}
-        postId={post.id}
-        likes={post.likes}
+    let searchProfilesList =
+      this.props.searchProfilesResults &&
+      this.props.searchProfilesResults.map(user => (
+        <UserListItem
+          username={user.username}
+          description={user.desc}
+          avatar={user.avatar}
+          key={user.id}
+          id={user.id}
         />
-    ))
+      ))
 
-    if (!searchProfilesList) searchProfilesList = [];
-    if (!searchPostsList) searchPostsList = [];
-
-    const searchList = searchProfilesList.concat(searchPostsList)
-    
+    let searchPostsList =
+      this.props.searchPostsResults &&
+      this.props.searchPostsResults.map(post => (
+        <PostItem
+          username={post.user.username}
+          date={post.timestamp}
+          key={post.id}
+          text={post.text}
+          userId={post.user.id}
+          avatar={post.user.avatar}
+          postId={post.id}
+          likes={post.likes}
+        />
+      ))
 
     return (
       <Panel>
         <Caption>Search results</Caption>
+
+        {!searchProfilesList &&  !searchPostsList ? (
+           <NothingFoundMessage>Nothing found</NothingFoundMessage>
+        ) : null}
         
-        {searchList}
+        {searchProfilesList ? searchProfilesList : null}
+        
+        {this.props.hasNextPageProfiles ? (
+          <More>
+            <MainButton
+              className="revolver-btn-main"
+              handleAction={this.props.loadMoreProfiles}
+              text="Load more ..."
+            />
+          </More>
+        ) : null}
+        
+        {searchPostsList ? searchPostsList : null}
+
+        {this.props.hasNextPagePosts ? (
+          <More>
+            <MainButton
+              className="revolver-btn-main"
+              handleAction={this.props.loadMorePosts}
+              text="Load more ..."
+            />
+          </More>
+        ) : null}
 
       </Panel>
     )

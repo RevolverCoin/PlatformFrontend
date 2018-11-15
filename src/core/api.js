@@ -6,7 +6,7 @@ export const HTTPErrors = {
 }
 
 /**  100 posts per page */
-const PAGE_SIZE = 100
+const PAGE_SIZE = 4
 
 /**
  * Wrapper for all HTTP calls that handles HTTP errors and passes as a promise reject
@@ -159,9 +159,9 @@ export function updateProfileInfo(data) {
   )
 }
 
-export function requestSearchProfiles(query) {
+export function requestSearchProfiles(query,pageId) {
   return HTTPErrorHandler(
-    fetch(`${url}/profile/search?query=${query}`, {
+    fetch(`${url}/profile/search?query=${query}&pageId=${pageId}&pageSize=${PAGE_SIZE}`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -239,9 +239,9 @@ export function removeSupport(addressFrom, addressTo) {
   )
 }
 
-export function getTimelinePosts() {
+export function getTimelinePosts(pageId) {
   return HTTPErrorHandler(
-    fetch(`${url}/timeline`, {
+    fetch(`${url}/timeline?pageId=${pageId}&pageSize=${PAGE_SIZE}`, {
       method: 'GET',
       credentials: 'include',
       headers: {
@@ -251,9 +251,9 @@ export function getTimelinePosts() {
   )
 }
 
-export function getDiscoverPosts() {
+export function getDiscoverPosts(pageId) {
   return HTTPErrorHandler(
-    fetch(`${url}/discover`, {
+    fetch(`${url}/discover?pageId=${pageId}&pageSize=${PAGE_SIZE}`, {
       method: 'GET',
       credentials: 'include',
       headers: {

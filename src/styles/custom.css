@@ -440,6 +440,7 @@ p {
   cursor: pointer;
   transition: all 0.1s ease-in-out;
   text-decoration: none;
+  outline: none;
 }
 
 .revolver-btn-main:hover

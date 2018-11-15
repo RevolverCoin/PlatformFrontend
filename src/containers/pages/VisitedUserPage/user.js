@@ -7,19 +7,24 @@ import PropTypes from 'prop-types'
 import BasePage from '../basepage'
 import UserBlock from './UserBlock'
 
-import { getUserPostsAction, getVisitedUserInfoAction } from '../../../actions/actions'
-
+import { 
+  getVisitedUserPostsAction, 
+  getVisitedUserInfoAction,
+  clearVisitedUserPostsAction
+} from '../../../actions/actions'
 
 class UserPage extends BasePage {
-
   componentDidMount() {
     // load posts
-    const userId = this.props.match.params.userId;
+    const userId = this.props.match.params.userId
 
     if (userId === this.props.myId) {
       this.props.redirectToMyPosts()
     } else {
-      this.props.getUserPosts(userId, 0)
+
+      this.props.clearVisitedUserPosts();
+
+      this.props.getVisitedUserPosts(userId, 1)
 
       // load profile
       this.props.getVisitedUserInfo(userId)
@@ -29,20 +34,21 @@ class UserPage extends BasePage {
   renderPage() {
     return (
       <UserBlock
-      username={this.props.userProfile.username}
-      avatar={this.props.userProfile.avatar}
-      description={this.props.userProfile.desc}
-      address={this.props.userProfile.address}
-      website={this.props.userProfile.website}
-      links={this.props.userProfile.links}
-      userPosts={this.props.userPosts}
-      supports={this.props.supports}
-      userId={this.props.match.params.userId} 
-    />
+        username={this.props.userProfile.username}
+        avatar={this.props.userProfile.avatar}
+        description={this.props.userProfile.desc}
+        address={this.props.userProfile.address}
+        website={this.props.userProfile.website}
+        links={this.props.userProfile.links}
+        userPosts={this.props.userPosts}
+        hasNextPage={this.props.hasNextPage}
+        nextPageId={this.props.nextPageId}
+        supports={this.props.supports}
+        userId={this.props.match.params.userId}
+      />
     )
   }
 }
-
 
 UserPage.defaultProps = {
   getUserPosts: null,
@@ -52,51 +58,61 @@ UserPage.propTypes = {
   getUserPosts: PropTypes.func,
 }
 
-function prepareUserPostsData(state)
-{
-  const data = state && state.root && state.root.hasIn(['current','posts']) && state.root.getIn(['current','posts']);
-  if (!data) return null;
+function prepareUserProfileData(state) {
+  const data =
+    state &&
+    state.root &&
+    state.root.hasIn(['visitedUser', 'profile']) &&
+    state.root.getIn(['visitedUser', 'profile'])
+  if (!data) return null
 
-  return data.toJS().posts;
+  return data.toJS()
 }
 
-function prepareUserProfileData(state)
-{
-  const data = state && state.root && state.root.hasIn(['current','userProfile']) && state.root.getIn(['current','userProfile']);
-  if (!data) return null;
-
-  return data.toJS();
+function prepareSupportsData(state) {
+  const data =
+    state &&
+    state.root &&
+    state.root.hasIn(['visitedUser', 'supports']) &&
+    state.root.getIn(['visitedUser', 'supports'])
+  if (!data) return null
+  return data.toJS()
 }
 
-function prepareSupportsData(state)
-{
-  const data = state && state.root && state.root.hasIn(['current','supports']) && state.root.getIn(['current','supports']);
-  if (!data) return null;
-  return data.toJS();
-}
+const mapStateToProps = state => {
+  const posts = state.root && state.root.getIn(['visitedUser', 'posts'])
 
-const mapStateToProps = (state) => {
-   return {
-     myId: state && state.root && state.root.getIn(['user','profile','id']),
-     userPosts: prepareUserPostsData(state),
-     userProfile: prepareUserProfileData(state),
-     supports: prepareSupportsData(state)
+  return {
+    myId: state.root && state.root.getIn(['user', 'profile', 'id']),
+    userPosts: posts && posts.get('posts').toJS(),
+    hasNextPage: posts && posts.get('hasNextPage'),
+    nextPageId: posts && posts.get('nextPageId'),
+    userProfile: prepareUserProfileData(state),
+    supports: prepareSupportsData(state),
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  getUserPosts(userId, pageId) {
-    dispatch(getUserPostsAction(userId, pageId))
+  
+  clearVisitedUserPosts()
+  {
+    dispatch(clearVisitedUserPostsAction())
+  },
+
+  getVisitedUserPosts(userId, pageId) {
+    dispatch(getVisitedUserPostsAction(userId, pageId))
   },
 
   getVisitedUserInfo(userId) {
     dispatch(getVisitedUserInfoAction(userId))
   },
 
-  redirectToMyPosts()
-  {
+  redirectToMyPosts() {
     dispatch(push('/myposts'))
-  }
+  },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(UserPage)

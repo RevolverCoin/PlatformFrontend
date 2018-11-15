@@ -55,18 +55,39 @@ export const INITIAL_STATE = fromJS({
   },
   timeline: {
     posts: [],
+    hasNextPage: false,
+    nextPageId: 1,    
   },
   discover: {
     posts: [],
+    hasNextPage: false,
+    nextPageId: 1,
   },
   top: {
     data: null,
   },
+  visitedUser: {
+    posts: {
+      posts: [],
+      hasNextPage: false,
+      nextPageId: 1,
+    },
+    profile: {},
+    supports: {},
+  },
+  search: {
+    searchProfiles: {
+      profiles: [],
+      hasNextPage: false,
+      nextPageId: 1,
+    },
+    searchPosts: {
+      posts: [],
+      hasNextPage: false,
+      nextPageId: 1,
+    },
+  },
   current: {
-    userProfile: {},
-    searchProfiles: null,
-    searchPosts: [],
-    posts: [],
     supports: {},
     supportList: null,
     data: null,
@@ -187,21 +208,42 @@ export function handleUpdateProfileInfoActionFailure(state, err) {
   return state.setIn(['error', 'msg'], `Cannot update profile info, ${err}`)
 }
 
-export function handleSearchProfilesResults(state, data) {
-  return state.setIn(['current', 'searchProfiles'], fromJS(data.data))
-}
-export function handleSearchPostsResults(state, data) {
-  return state.setIn(['current', 'searchPosts'], fromJS(data.data))
+export function handleClearSearchResults(state) {
+  return state
+    .setIn(['search', 'searchProfiles', 'profiles'], List())
+    .setIn(['search', 'searchPosts', 'posts'], List())
 }
 
-export function handleUserPostsResults(state, data) {
-  return state.setIn(['current', 'posts'], fromJS(data.data))
+export function handleSearchProfilesResults(state, data) {
+  return state
+    .updateIn(['search', 'searchProfiles', 'profiles'], profiles => profiles.concat(fromJS(data.data.users)))
+    .setIn(['search', 'searchProfiles', 'hasNextPage'], data.data.hasNextPage)
+    .setIn(['search', 'searchProfiles', 'nextPageId'], data.data.nextPageId)
+
+  
+}
+export function handleSearchPostsResults(state, data) {
+  return state
+    .updateIn(['search', 'searchPosts', 'posts'], posts => posts.concat(fromJS(data.data.posts)))
+    .setIn(['search', 'searchPosts', 'hasNextPage'], data.data.hasNextPage)
+    .setIn(['search', 'searchPosts', 'nextPageId'], data.data.nextPageId)
+}
+
+export function handleClearVisitedUserPosts(state) {
+  return state.setIn(['visitedUser', 'posts', 'posts'], List())
+}
+
+export function handleVisitedUserPostsResults(state, data) {
+  return state
+    .updateIn(['visitedUser', 'posts', 'posts'], posts => posts.concat(fromJS(data.data.posts)))
+    .setIn(['visitedUser', 'posts', 'hasNextPage'], data.data.hasNextPage)
+    .setIn(['visitedUser', 'posts', 'nextPageId'], data.data.nextPageId)
 }
 
 export function handleUserProfileResults(state, data) {
   return state
-    .setIn(['current', 'userProfile'], fromJS(data.data.profile))
-    .setIn(['current', 'supports'], fromJS(data.data.supports))
+    .setIn(['visitedUser', 'profile'], fromJS(data.data.profile))
+    .setIn(['visitedUser', 'supports'], fromJS(data.data.supports))
 }
 
 export function handleSupportedListResults(state, data) {
@@ -212,19 +254,26 @@ export function handleSupportingListResults(state, data) {
   return state.setIn(['current', 'supportList'], fromJS(data))
 }
 
-/*
- * id
- * text
- * timestamp
- */
-export function handleGetTimelinePostsResults(state, data) {
+export function handleClearTimelinePosts(state) {
+  return state.setIn(['timeline', 'posts'], List())
+}
 
-  console.log('timeline', data.data)
-  return state.setIn(['timeline', 'posts'], fromJS(data.data))
+export function handleGetTimelinePostsResults(state, data) {
+  return state
+    .updateIn(['timeline', 'posts'], posts => posts.concat(fromJS(data.data.posts)))
+    .setIn(['timeline', 'hasNextPage'], data.data.hasNextPage)
+    .setIn(['timeline', 'nextPageId'], data.data.nextPageId)
+}
+
+export function handleClearDiscoverPosts(state) {
+  return state.setIn(['discover', 'posts'], List())
 }
 
 export function handleGetDiscoverPostsResults(state, data) {
-  return state.setIn(['discover', 'posts'], fromJS(data.data))
+  return state
+    .updateIn(['discover', 'posts'], posts => posts.concat(fromJS(data.data.posts)))
+    .setIn(['discover', 'hasNextPage'], data.data.hasNextPage)
+    .setIn(['discover', 'nextPageId'], data.data.nextPageId)
 }
 
 export function handleGetTopRatingResults(state, data) {
@@ -260,11 +309,10 @@ export function handleGetServiceInfoResults(state, data) {
  * @param {*} data
  */
 export function handleLikePostResults(state, data) {
-  
   const updatePosts = posts => {
     // find index of posts that we want to update
     const index = posts.findIndex(item => item.get('_id') === data._id)
-    
+
     // update likes if post was found
     return index < 0 ? posts : posts.setIn([index, 'likes'], data.likes)
   }
@@ -273,7 +321,6 @@ export function handleLikePostResults(state, data) {
   return state
     .updateIn(['timeline', 'posts'], updatePosts)
     .updateIn(['discover', 'posts'], updatePosts)
-    .updateIn(['current', 'posts'], updatePosts)
-    .updateIn(['current', 'searchPosts'], updatePosts)
-
+    .updateIn(['visitedUser', 'posts', 'posts'], updatePosts)
+    .updateIn(['search', 'searchPosts'], updatePosts)
 }

@@ -49,7 +49,12 @@ class UserBlock extends React.Component {
 
         <PostsCaption> Posts </PostsCaption>
         
-        <UserPostListBlock userPosts={this.props.userPosts} username={this.props.username} />
+        <UserPostListBlock 
+          userPosts={this.props.userPosts}
+          hasNextPage={this.props.hasNextPage}
+          nextPageId={this.props.nextPageId}           
+          username={this.props.username}
+          userId={this.props.userId} />
       </Panel>
     )
   }

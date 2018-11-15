@@ -72,13 +72,18 @@ export function getUserInfoAction() {
   }
 }
 
+export function clearSearchResultsAction()
+{
+  return {type: types.CLEAR_SEARCH_RESULTS}
+}
+
 /**
  * requestSearchProfilesAction
  */
-export function requestSearchProfilesAction(query) {
+export function requestSearchProfilesAction(query, pageId) {
   return async dispatch => {
     try {
-      const data = await requestSearchProfiles(query)
+      const data = await requestSearchProfiles(query, pageId)
 
       dispatch({ type: types.SEARCH_PROFILES_RESULTS, payload: data })
       return data
@@ -104,12 +109,20 @@ export function requestSearchPostsAction(query, pageId) {
   }
 }
 
-export function getUserPostsAction(userId, pageId) {
+
+export function clearVisitedUserPostsAction() {
+  return {
+      type: types.CLEAR_VISITED_USER_POSTS,
+  }
+}
+
+
+export function getVisitedUserPostsAction(userId, pageId) {
   return async dispatch => {
     try {
       const data = await getUserPosts(userId, pageId)
 
-      dispatch({ type: types.USER_POSTS_RESULT, payload: data })
+      dispatch({ type: types.GET_VISITED_USER_POSTS_RESULT, payload: data })
       return data
     } catch (error) {
       return handleAPIException(dispatch, error)
@@ -385,12 +398,12 @@ export function removeSupportAction(addressFrom, addressTo, userId) {
 }
 
 /******************************************************
- * requestTimelinePostsAction
+ * Timeline
  ******************************************************/
-export function requestTimelinePostsAction() {
+export function requestTimelinePostsAction(pageId) {
   return async dispatch => {
     try {
-      const data = await getTimelinePosts()
+      const data = await getTimelinePosts(pageId)
 
       return dispatch({
         type: types.GET_TIMELINE_POSTS_RESULT,
@@ -401,14 +414,26 @@ export function requestTimelinePostsAction() {
     }
   }
 }
+export function clearTimelinePostsAction() {
+  return {
+      type: types.CLEAR_TIMELINE_POSTS,
+  }
+}
 
 /******************************************************
- * requestDiscoverPostsAction
+ * Discover
  ******************************************************/
-export function requestDiscoverPostsAction() {
+
+export function clearDiscoverPostsAction() {
+  return {
+      type: types.CLEAR_DISCOVER_POSTS,
+  }
+}
+
+ export function requestDiscoverPostsAction(pageId) {
   return async dispatch => {
     try {
-      const data = await getDiscoverPosts()
+      const data = await getDiscoverPosts(pageId)
 
       return dispatch({
         type: types.GET_DISCOVER_POSTS_RESULT,

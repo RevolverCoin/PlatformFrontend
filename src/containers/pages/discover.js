@@ -1,31 +1,44 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 import BasePage from './basepage'
 import PostItem from '../PostItem'
-import { Link } from 'react-router-dom'
 import UserMenu from '../../components/UserMenu'
+import MainButton from '../../components/MainButton'
 
-import { requestDiscoverPostsAction } from '../../actions/actions'
+import { requestDiscoverPostsAction, clearDiscoverPostsAction } from '../../actions/actions'
+
 
 const Panel = styled.div`
-  background-color:white;
-  text-align:left;
+  background-color: white;
+  text-align: left;
   border: 1px solid #a1a1a1;
+`
+const More = styled.div`
+  text-align: center;
+  margin: 20px 0;
 `
 
 class DiscoverPage extends BasePage {
+  constructor(props) {
+    super(props)
+    this.onLoadMore = this.onLoadMore.bind(this)
+  }
+
   componentDidMount() {
-    this.props.requestDiscoverPosts(0)
+    this.props.clearDiscoverPosts()
+    this.props.requestDiscoverPosts(1)
+  }
+
+  onLoadMore() {
+    this.props.requestDiscoverPosts(this.props.nextPageId)
   }
 
   renderPage() {
-
     let postsList =
-      this.props.postsResults &&
-      this.props.postsResults.map(post => (
+      this.props.posts &&
+      this.props.posts.map(post => (
         <PostItem
           username={post.userId.username}
           avatar={post.userId.avatar}
@@ -39,10 +52,20 @@ class DiscoverPage extends BasePage {
       ))
 
     return (
-        <Panel>
-        <UserMenu active='discover'/>
+      <Panel>
+        <UserMenu active="discover" />
         {postsList}
-      </Panel>        
+
+        {this.props.hasNextPage ? (
+          <More>
+            <MainButton
+              className="revolver-btn-main"
+              handleAction={this.onLoadMore}
+              text="Load more ..."
+            />
+          </More>
+        ) : null}
+      </Panel>
     )
   }
 }
@@ -53,17 +76,21 @@ DiscoverPage.propTypes = {}
 
 const mapStateToProps = state => {
   // get profiles of supporting
-  const data = state.root && state.root.getIn(['discover', 'posts'])
-  if (!data) return {}
+  const data = state.root && state.root.get('discover')
 
   return {
-    postsResults: data.toJS()
+    posts: data && data.get('posts').toJS(),
+    hasNextPage: data && data.get('hasNextPage'),
+    nextPageId: data && data.get('nextPageId'),
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  requestDiscoverPosts() {
-    dispatch(requestDiscoverPostsAction())
+  clearDiscoverPosts() {
+    dispatch(clearDiscoverPostsAction())
+  },
+  requestDiscoverPosts(pageId) {
+    dispatch(requestDiscoverPostsAction(pageId))
   },
 })
 
