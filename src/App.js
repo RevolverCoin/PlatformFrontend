@@ -5,18 +5,19 @@ import './styles/custom.css'
 import './styles/fonts.css'
 import './styles/media.css'
 
-import LoginPage from './containers/pages/login'
-import SignupPage from './containers/pages/signup'
-import MyPostsPage from './containers/pages/myposts'
-import FrontPage from './containers/pages/front'
-import NotFoundPage from './containers/pages/404'
+import LoginPage from './containers/pages/guest/login'
+import SignupPage from './containers/pages/guest/signup'
+import FrontPage from './containers/pages/guest/front'
+import NotFoundPage from './containers/pages/guest/404'
+import ForgotPassword from './containers/pages/guest/forgotpassword'
+
 import UserPage from './containers/pages/VisitedUserPage/user'
 import UserPageByAddress from './containers/pages/VisitedUserPage/UserByAddress'
-
 import UserSupportedListPage from './containers/pages/VisitedUserPage/UserSupportedList'
 import UserSupportingListPage from './containers/pages/VisitedUserPage/UserSupportingList'
 
 
+import MyPostsPage from './containers/pages/myposts'
 import ProfilePage from './containers/pages/profile'
 import SearchPage from './containers/pages/search'
 import SupportingPage from './containers/pages/supporting'
@@ -73,6 +74,8 @@ const App = () => {
 
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignupPage} />
+        <Route exact path="/forgotpassword" component={ForgotPassword} />
+        
         <Route component={NotFoundPage} />
       </Switch>
     </div>

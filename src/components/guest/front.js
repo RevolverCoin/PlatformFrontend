@@ -5,16 +5,18 @@ import Container from 'muicss/lib/react/container'
 import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
 import { Link } from 'react-router-dom'
-import './../styles/front.css'
-import supportsThumb from './../img/supports-thumb.png'
-import rewardsThumb from './../img/rewards-thumb.png'
-import fansThumb from './../img/fans-thumb.png'
-import nodesImg from './../img/nodes.png'
-import HeaderBlock from './../containers/sideblocks/HeaderBlock'
-import FooterBlock from './sideblocks/FooterBlock'
+
+import '../../styles/front.css'
+import supportsThumb from '../../img/supports-thumb.png'
+import rewardsThumb from '../../img/rewards-thumb.png'
+import fansThumb from '../../img/fans-thumb.png'
+import nodesImg from '../../img/nodes.png'
+
+import HeaderBlock from '../../containers/sideblocks/HeaderBlock'
+import FooterBlock from '../sideblocks/FooterBlock'
 
 const ComingSoon = styled.div`
-  margin-top:30px
+  margin-top:30px;
   font-size: 30px;
   color:#ffdf49;
 `
@@ -24,7 +26,7 @@ const BannerText =styled.div`
 `
 
 const FrontPage = props => (
-  <Container fluid className="front-page-wrapper">
+  <Container fluid className="guest-page-wrapper">
     <HeaderBlock />
 
     <Container fluid className="front-banner">

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import FrontPage from '../../components/front'
+import FrontPage from '../../../components/guest/front'
 
 const mapStateToProps = state => ({
 })

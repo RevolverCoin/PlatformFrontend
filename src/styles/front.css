@@ -5,11 +5,11 @@ body {
   overflow-x: hidden;
 }
 
-.front-page-wrapper {
+.guest-page-wrapper {
   font-family: DosisSemiBold, 'Open Sans', sans-serif;
 }
 
-.mui-container-fluid.front-page-wrapper {
+.mui-container-fluid.guest-page-wrapper {
   padding: 0;
   background: url('./../img/main-bg.png') no-repeat;
   background-position: center;

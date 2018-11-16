@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import SignupPage from '../../components/signup'
-import { signupAction, clearErrorsAction } from '../../actions/actions'
+import SignupPage from '../../../components/guest/signup'
+import { signupAction, clearErrorsAction } from '../../../actions/actions'
 
 const mapStateToProps = state => {
   return ({

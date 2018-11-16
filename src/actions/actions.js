@@ -33,13 +33,16 @@ import {
   getRewardTransactions,
   getServiceInfo,
   claimGenerator,
-  requestLikePost
+  requestLikePost,
+  forgotPassword
 } from './../core/api'
 
 let intervalFetchServiceInfo = null
 const periodFetchServiceInfo = 5000
 
 function handleAPIException(dispatch, error, type) {
+  dispatch({ type: types.API_CALL_STOP_LOADING })
+
   if (error === HTTPErrors.Unauthorized) {
     dispatch(push('/login'))
   }
@@ -191,25 +194,28 @@ export function requestSupportingListAction(userId, pageId) {
   }
 }
 
-/**
+/********************************************************************
  * Login action
- */
+ ********************************************************************/
 
 export function loginAction(data) {
-  let result = { type: types.LOGIN_ACTION, data }
+  let result = {}
   if (data.email === '' || data.password === '') {
     result = { type: types.ERROR_ACTION, payload: 'All fields must not be empty!' }
   } else if (!emailRegExp.test(data.email)) {
     result = { type: types.ERROR_ACTION, payload: 'Email is not valid!' }
   } else {
     return dispatch => {
-      dispatch({ type: types.LOGIN_ACTION })
+      dispatch({ type: types.API_CALL_START_LOADING })
 
       return logIn(data)
         .then(body => {
+          dispatch({ type: types.API_CALL_STOP_LOADING })
+
           const converted = convertLoginData(body)
 
           dispatch({ type: types.LOGIN_ACTION_SUCCESS, payload: converted })
+          
 
           localStorage.setItem('isLogged', true)
           dispatch(push('/'))
@@ -217,12 +223,16 @@ export function loginAction(data) {
         .catch(err => {
           console.log(err)
           dispatch({ type: types.LOGIN_ACTION_FAILURE })
+          dispatch({ type: types.API_CALL_STOP_LOADING })
         })
     }
   }
   return result
 }
 
+/********************************************************************
+ * Logout action
+ ********************************************************************/
 export function logoutAction() {
   return dispatch =>
     logOut()
@@ -237,9 +247,47 @@ export function logoutAction() {
       })
 }
 
+/********************************************************************
+ * Forgot Password action
+ ********************************************************************/
+export function clearForgotPasswordStatusAction()
+{
+  return {type: types.CLEAR_FORGOT_PASSWORD_STATUS}
+}
+
+export function forgotPasswordAction(email)
+{
+  return async dispatch => {
+    try {
+      dispatch({ type: types.API_CALL_START_LOADING })
+      
+      const data = await forgotPassword(email)
+      
+      dispatch({ type: types.API_CALL_STOP_LOADING })
+
+      if (data.success) 
+        return dispatch({
+          type: types.REQUEST_FORGOT_PASSWORD_SUCCESS
+        })
+      else 
+      return dispatch({
+        type: types.REQUEST_FORGOT_PASSWORD_FAILURE
+      })
+    
+
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+
+}
+
+/********************************************************************
+ * Signup action
+ ********************************************************************/
 export function signupAction(data) {
 
-  let result = { type: types.SIGNUP_ACTION, data }
+  let result = { }
   if (
     data.username === '' ||
     data.email === '' ||
@@ -254,12 +302,14 @@ export function signupAction(data) {
   } else {
     return async dispatch => {
       try {
-        await dispatch({ type: types.SIGNUP_ACTION })
+        dispatch({ type: types.API_CALL_START_LOADING })
         const body      = await signUp(data)
 
         const converted = convertSignupData(body)
 
         await dispatch({ type: types.SIGNUP_ACTION_SUCCESS, payload: converted })
+        
+        dispatch({ type: types.API_CALL_STOP_LOADING })
 
         localStorage.setItem('isLogged', true)
         dispatch(push('/'))

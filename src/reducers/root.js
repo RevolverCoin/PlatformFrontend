@@ -3,16 +3,23 @@ import * as core from '../core/core'
 
 export default (state = core.INITIAL_STATE, action) => {
   switch (action.type) {
-    case types.LOGIN_ACTION:
-      return core.handleLogIn(state)
+    case types.API_CALL_START_LOADING:
+      return core.handleApiCallStartLoading(state)
+    case types.API_CALL_STOP_LOADING:
+      return core.handleApiCallStopLoading(state)
+
     case types.LOGIN_ACTION_SUCCESS:
       return core.handleLogInSuccess(state, action.payload)
     case types.LOGIN_ACTION_FAILURE:
       return core.handleLogInFailure(state)
     case types.LOGOUT_ACTION:
       return core.handleLogout(state)
-    case types.SIGNUP_ACTION:
-      return core.handleSignUp(state)
+    case types.REQUEST_FORGOT_PASSWORD_SUCCESS:
+      return core.handleRequestForgotPasswordSuccess(state)
+    case types.REQUEST_FORGOT_PASSWORD_FAILURE:
+      return core.handleRequestForgotPasswordFailure(state)
+    case types.CLEAR_FORGOT_PASSWORD_STATUS:
+      return core.handleClearForgotPasswordStatus(state)
     case types.SIGNUP_ACTION_SUCCESS:
       return core.handleSignUpSuccess(state, action.payload)
     case types.SIGNUP_ACTION_FAILURE:
@@ -74,13 +81,13 @@ export default (state = core.INITIAL_STATE, action) => {
 
     case types.GET_TIMELINE_POSTS_RESULT:
       return core.handleGetTimelinePostsResults(state, action.payload)
-    
+
     case types.CLEAR_TIMELINE_POSTS:
       return core.handleClearTimelinePosts(state)
-      
+
     case types.CLEAR_DISCOVER_POSTS:
       return core.handleClearDiscoverPosts(state)
-    
+
     case types.GET_DISCOVER_POSTS_RESULT:
       return core.handleGetDiscoverPostsResults(state, action.payload)
 
@@ -90,15 +97,15 @@ export default (state = core.INITIAL_STATE, action) => {
     case types.GET_TRANSACTIONS_RESULT:
       return core.handleGetTransactionsResults(state, action.payload)
 
-    case types.GET_REWARD_TRANSACTIONS_RESULT: 
+    case types.GET_REWARD_TRANSACTIONS_RESULT:
       return core.handleGetRewardTransactionsResults(state, action.payload)
-      
+
     case types.GET_SERVICE_INFO_RESULT:
       return core.handleGetServiceInfoResults(state, action.payload)
-    
-    case types.LIKE_POST_RESULT: 
+
+    case types.LIKE_POST_RESULT:
       return core.handleLikePostResults(state, action.payload)
-      
+
     default:
       // console.error("Unknown action", action)
       return state

@@ -1,8 +1,17 @@
 import { fromJS, List } from 'immutable'
 
 export const INITIAL_STATE = fromJS({
+  global: {
+    apiCallLoading: false
+  },
   error: {
     msg: null,
+  },
+  guest: {
+    forgotPassword: {
+      // can be [null, 'success', 'failed']
+      status: null  
+    }
   },
   stats: {
     blockHeight: null,
@@ -34,8 +43,6 @@ export const INITIAL_STATE = fromJS({
       website: null,
       links: [],
 
-      // flag to show loading during logging in
-      isLoading: false,
       // flag to store success auth
       isLogged: false,
     },
@@ -94,41 +101,53 @@ export const INITIAL_STATE = fromJS({
   },
 })
 
-export function handleLogIn(state) {
-  return state.setIn(['user', 'profile', 'isLoading'], true)
+export function handleApiCallStartLoading(state) {
+  return state.setIn(['global', 'apiCallLoading'], true)
 }
+export function handleApiCallStopLoading(state) {
+  return state.setIn(['global', 'apiCallLoading'], false)
+}
+
 
 export function handleLogInSuccess(state, data) {
   return state
     .setIn(['user', 'profile', 'isLogged'], data.get('success'))
-    .setIn(['user', 'profile', 'isLoading'], false)
 }
 
 export function handleLogInFailure(state) {
   return state
-    .setIn(['user', 'profile', 'isLoading'], false)
     .setIn(['error', 'msg'], 'Current user does not exist')
 }
 
-export function handleSignUp(state) {
-  return state.setIn(['user', 'profile', 'isLoading'], true)
-}
+
 
 export function handleSignUpSuccess(state, data) {
   return state
     .setIn(['user', 'profile', 'isLogged'], data.get('success'))
     .setIn(['user', 'profile', 'id'], data.getIn(['data', 'id']))
-    .setIn(['user', 'profile', 'isLoading'], false)
 }
 
 export function handleSignUpFailure(state) {
   return state
-    .setIn(['user', 'profile', 'isLoading'], false)
     .setIn(['error', 'msg'], 'Server does not respond or this user already exists, try again')
 }
 
 export function handleLogout() {
   return INITIAL_STATE
+}
+
+export function handleRequestForgotPasswordSuccess(state)
+{
+  return state.setIn(['guest', 'forgotPassword', 'status'], 'success')
+}
+
+export function handleRequestForgotPasswordFailure(state)
+{
+  return state.setIn(['guest', 'forgotPassword', 'status'], 'failure')
+}
+export function handleClearForgotPasswordStatus(state)
+{
+  return state.setIn(['guest', 'forgotPassword', 'status'], null)
 }
 
 export function handleErrorMsg(state, data) {
