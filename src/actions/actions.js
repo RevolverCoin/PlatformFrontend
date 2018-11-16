@@ -34,7 +34,8 @@ import {
   getServiceInfo,
   claimGenerator,
   requestLikePost,
-  forgotPassword
+  forgotPassword,
+  resetPassword
 } from './../core/api'
 
 let intervalFetchServiceInfo = null
@@ -281,6 +282,36 @@ export function forgotPasswordAction(email)
   }
 
 }
+
+export function resetPasswordAction(password, code)
+{
+  return async dispatch => {
+    try {
+      dispatch({ type: types.API_CALL_START_LOADING })
+      
+      const data = await resetPassword(password, code)
+      
+      dispatch({ type: types.API_CALL_STOP_LOADING })
+
+      if (data.success) 
+        return dispatch({
+          type: types.REQUEST_FORGOT_PASSWORD_SUCCESS
+        })
+      else 
+      return dispatch({
+        type: types.REQUEST_FORGOT_PASSWORD_FAILURE
+      })
+    
+
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+
+}
+
+
+
 
 /********************************************************************
  * Signup action

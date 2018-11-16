@@ -96,9 +96,22 @@ export function forgotPassword(email)
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(email),
+    body: JSON.stringify({email}),
   }).then(res => res.json())
 }
+
+export function resetPassword(password, code)
+{
+  return fetch(`${url}/setpwd`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({code, password}),
+  }).then(res => res.json())
+}
+
 
 // TODO pass to backend only email and confirmPassword for now
 export function signUp({ username, email, password, passwordConfirm }) {

@@ -39,7 +39,7 @@ class ForgotPassword extends BaseFormPage {
   onResetClick(e) {
     e.preventDefault()
     this.props.clearForgotPasswordStatus();
-    this.props.forgotPassword({ email: this.state.email })
+    this.props.forgotPassword(this.state.email)
   }
 
   handleInputChange(e) {
@@ -88,7 +88,7 @@ ForgotPassword.propTypes = {}
 const mapStateToProps = state => {
  
   return {
-    status: state.root && state.root.getIn(['guest','forgotPassword','status']),
+    status: state.root && state.root.getIn(['guest','resetPassword','status']),
     apiCallLoading: state.root && state.root.getIn(['global','apiCallLoading'])
   }
 }

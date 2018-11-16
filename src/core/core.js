@@ -8,7 +8,7 @@ export const INITIAL_STATE = fromJS({
     msg: null,
   },
   guest: {
-    forgotPassword: {
+    resetPassword: {
       // can be [null, 'success', 'failed']
       status: null  
     }
@@ -138,16 +138,16 @@ export function handleLogout() {
 
 export function handleRequestForgotPasswordSuccess(state)
 {
-  return state.setIn(['guest', 'forgotPassword', 'status'], 'success')
+  return state.setIn(['guest', 'resetPassword', 'status'], 'success')
 }
 
 export function handleRequestForgotPasswordFailure(state)
 {
-  return state.setIn(['guest', 'forgotPassword', 'status'], 'failure')
+  return state.setIn(['guest', 'resetPassword', 'status'], 'failure')
 }
 export function handleClearForgotPasswordStatus(state)
 {
-  return state.setIn(['guest', 'forgotPassword', 'status'], null)
+  return state.setIn(['guest', 'resetPassword', 'status'], null)
 }
 
 export function handleErrorMsg(state, data) {
