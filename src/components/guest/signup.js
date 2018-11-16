@@ -13,6 +13,13 @@ const AlreadyHaveAccount = styled.p`
   font-size: 16px;
   margin-top:5px;
 `
+const SuccessMessage = styled.p`
+  color: #3b9068;
+`
+const FailureMessage = styled.p`
+  color: #c9341d;
+`
+
 
 class SignupPage extends BaseFormPage {
   constructor(props) {
@@ -97,20 +104,28 @@ class SignupPage extends BaseFormPage {
         <AlreadyHaveAccount>
           Already have an account? <Link to="/login">Sign in</Link>
         </AlreadyHaveAccount>
-        <p className="mui--text-danger">{this.props.errorMsg ? this.props.errorMsg : ''}</p>
+       
+        {this.props.status && this.props.status === 'success' ? (
+             <SuccessMessage>
+              Verification code was sent to your email. 
+              </SuccessMessage>
+          ) : this.props.status && this.props.status === 'failure' ? (
+            <FailureMessage> 
+              Error occurred during signup.
+            </FailureMessage>
+          ): null
+          }
+
+
       </div>
     )
   }
 }
 
 SignupPage.defaultProps = {
-  errorMsg: '',
 }
 
 SignupPage.propTypes = {
-  signupAction: PropTypes.func.isRequired,
-  clearErrorsAction: PropTypes.func.isRequired,
-  errorMsg: PropTypes.string,
 }
 
 export default SignupPage

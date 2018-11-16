@@ -11,6 +11,14 @@ export const INITIAL_STATE = fromJS({
     resetPassword: {
       // can be [null, 'success', 'failed']
       status: null  
+    },
+    verifyEmail: {
+      // can be [null, 'success', 'failed']
+      status: null
+    },
+    signUp: {
+      // can be [null, 'success', 'failed']
+      status: null
     }
   },
   stats: {
@@ -119,17 +127,22 @@ export function handleLogInFailure(state) {
     .setIn(['error', 'msg'], 'Current user does not exist')
 }
 
+export function handleRequestVerifyEmailFailure(state)
+{
+  return state.setIn(['guest', 'verifyEmail', 'status'], 'failure')
+}
 
+export function handleRequestVerifyEmailSuccess(state)
+{
+  return state.setIn(['guest', 'verifyEmail', 'status'], 'success')
+}
 
-export function handleSignUpSuccess(state, data) {
-  return state
-    .setIn(['user', 'profile', 'isLogged'], data.get('success'))
-    .setIn(['user', 'profile', 'id'], data.getIn(['data', 'id']))
+export function handleSignUpSuccess(state) {
+  return state.setIn(['guest', 'signUp', 'status'], 'success')
 }
 
 export function handleSignUpFailure(state) {
-  return state
-    .setIn(['error', 'msg'], 'Server does not respond or this user already exists, try again')
+  return state.setIn(['guest', 'signUp', 'status'], 'failure')
 }
 
 export function handleLogout() {

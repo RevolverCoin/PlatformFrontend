@@ -12,6 +12,12 @@ export default (state = core.INITIAL_STATE, action) => {
       return core.handleLogInSuccess(state, action.payload)
     case types.LOGIN_ACTION_FAILURE:
       return core.handleLogInFailure(state)
+
+    case types.REQUEST_VERIFY_EMAIL_SUCCESS:
+      return core.handleRequestVerifyEmailSuccess(state)
+    case types.REQUEST_VERIFY_EMAIL_FAILURE:
+      return core.handleRequestVerifyEmailFailure(state)
+
     case types.LOGOUT_ACTION:
       return core.handleLogout(state)
     case types.REQUEST_FORGOT_PASSWORD_SUCCESS:
@@ -21,7 +27,7 @@ export default (state = core.INITIAL_STATE, action) => {
     case types.CLEAR_FORGOT_PASSWORD_STATUS:
       return core.handleClearForgotPasswordStatus(state)
     case types.SIGNUP_ACTION_SUCCESS:
-      return core.handleSignUpSuccess(state, action.payload)
+      return core.handleSignUpSuccess(state)
     case types.SIGNUP_ACTION_FAILURE:
       return core.handleSignUpFailure(state)
     case types.ERROR_ACTION:

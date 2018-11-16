@@ -11,6 +11,7 @@ import FrontPage from './containers/pages/guest/front'
 import NotFoundPage from './containers/pages/guest/404'
 import ForgotPassword from './containers/pages/guest/forgotpassword'
 import ChangePassword from './containers/pages/guest/resetpassword'
+import VerifyEmail from './containers/pages/guest/verifyemail'
 
 
 import UserPage from './containers/pages/VisitedUserPage/user'
@@ -78,6 +79,7 @@ const App = () => {
         <Route exact path="/signup" component={SignupPage} />
         <Route exact path="/forgotpassword" component={ForgotPassword} />
         <Route exact path="/changepassword" component={ChangePassword} />
+        <Route exact path="/verifyemail" component={VerifyEmail} />
         
         
         <Route component={NotFoundPage} />

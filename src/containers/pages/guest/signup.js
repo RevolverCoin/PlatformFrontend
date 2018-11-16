@@ -4,7 +4,7 @@ import { signupAction, clearErrorsAction } from '../../../actions/actions'
 
 const mapStateToProps = state => {
   return ({
-  errorMsg: state.root && state.root.getIn(['error', 'msg']),
+  status: state.root && state.root.getIn(['guest','signUp','status'])
 })}
 
 const mapDispatchToProps = dispatch => ({

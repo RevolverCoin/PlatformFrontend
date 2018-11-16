@@ -35,7 +35,8 @@ import {
   claimGenerator,
   requestLikePost,
   forgotPassword,
-  resetPassword
+  resetPassword,
+  verifyEmail
 } from './../core/api'
 
 let intervalFetchServiceInfo = null
@@ -232,6 +233,36 @@ export function loginAction(data) {
 }
 
 /********************************************************************
+ * Verify Email action
+ ********************************************************************/
+export function verifyEmailAction(code) {
+  return async dispatch => {
+    try {
+      dispatch({ type: types.API_CALL_START_LOADING })
+      
+      const data = await verifyEmail(code)
+      
+      dispatch({ type: types.API_CALL_STOP_LOADING })
+
+      if (data.success) 
+        return dispatch({
+          type: types.REQUEST_VERIFY_EMAIL_SUCCESS
+        })
+      else 
+      return dispatch({
+        type: types.REQUEST_VERIFY_EMAIL_FAILURE
+      })
+    
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}
+
+
+
+
+/********************************************************************
  * Logout action
  ********************************************************************/
 export function logoutAction() {
@@ -334,17 +365,13 @@ export function signupAction(data) {
     return async dispatch => {
       try {
         dispatch({ type: types.API_CALL_START_LOADING })
-        const body      = await signUp(data)
+        await signUp(data)
 
-        const converted = convertSignupData(body)
-
-        await dispatch({ type: types.SIGNUP_ACTION_SUCCESS, payload: converted })
+        // if signup is not successful - exception will be thrown
+        await dispatch({ type: types.SIGNUP_ACTION_SUCCESS })
         
         dispatch({ type: types.API_CALL_STOP_LOADING })
 
-        localStorage.setItem('isLogged', true)
-        dispatch(push('/'))
-        dispatch(getUserInfoAction())
       } catch (error) {
         return handleAPIException(dispatch, error, types.SIGNUP_ACTION_FAILURE)
       }

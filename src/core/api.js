@@ -88,6 +88,18 @@ export function logIn(data) {
   }).then(res => res.json())
 }
 
+export function verifyEmail(code)
+{
+  return fetch(`${url}/users/verify`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({code}),
+  }).then(res => res.json())
+}
+
 export function forgotPassword(email)
 {
   return fetch(`${url}/resetpwd`, {
