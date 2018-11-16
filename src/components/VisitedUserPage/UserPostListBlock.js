@@ -26,13 +26,13 @@ class UserPostListBlock extends React.Component {
       this.props.userPosts &&
       this.props.userPosts.map(post => (
         <PostItem
-          key={post.id}
+          key={post._id}
           username={post.user.username}
           avatar={post.user.avatar}
           text={post.text}
           date={post.timestamp}
           userId={post.user.id}
-          postId={post.id}
+          postId={post._id}
           likes={post.likes}
         />
       ))

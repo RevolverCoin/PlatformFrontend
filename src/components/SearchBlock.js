@@ -52,11 +52,11 @@ class SearchBlock extends React.Component {
         <PostItem
           username={post.user.username}
           date={post.timestamp}
-          key={post.id}
+          key={post._id}
           text={post.text}
           userId={post.user.id}
           avatar={post.user.avatar}
-          postId={post.id}
+          postId={post._id}
           likes={post.likes}
         />
       ))
@@ -65,7 +65,7 @@ class SearchBlock extends React.Component {
       <Panel>
         <Caption>Search results</Caption>
 
-        {!searchProfilesList &&  !searchPostsList ? (
+        {searchProfilesList.length === 0 && searchPostsList.length === 0 ? (
            <NothingFoundMessage>Nothing found</NothingFoundMessage>
         ) : null}
         

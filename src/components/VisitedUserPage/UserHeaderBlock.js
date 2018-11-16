@@ -198,8 +198,8 @@ class UserHeaderBlock extends React.Component {
             </Row>
           ) : null}
           {this.props.links &&
-            this.props.links.map(link => (
-              <Row>
+            this.props.links.map((link, index) => (
+              <Row key={index}>
                 <Icon>{this.parseLink(link)}</Icon>
                 <a href={link} target="_blank">
                   <ContentLink>{link}</ContentLink>

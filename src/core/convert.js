@@ -24,7 +24,7 @@ export function convertMyPosts(data) {
       avatar: post.user.avatar,
       username: post.user.username,
       timestamp: post.timestamp,
-      id: post.id,
+      _id: post._id,
     })),
   }
 }
@@ -35,7 +35,7 @@ export function convertNewPost(data) {
     username: data.data.user.username,
     avatar: data.data.user.avatar,
     timestamp: data.data.timestamp,
-    id: data.data.id,
+    _id: data.data._id,
     userId: data.data.userId,
   }
 }

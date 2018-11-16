@@ -56,14 +56,14 @@ class MyPostsBlock extends React.Component {
         <div>
           
           {this.props.userPostsList.map(post => (
-            <UserPostItemContainer key={post.id}>
+            <UserPostItemContainer key={post._id}>
               <PostItem
                 username={post.username}
                 avatar={post.avatar}
                 date={post.timestamp}
                 text={post.text}
                 userId={this.props.userId}
-                postId={post.id}
+                postId={post._id}
                 likes={post.likes}
               />
             </UserPostItemContainer>

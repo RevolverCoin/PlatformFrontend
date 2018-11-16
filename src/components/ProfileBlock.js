@@ -369,7 +369,7 @@ class ProfileBlock extends React.Component {
                   id="edit-website"
                   placeholder={this.props.data.website}
                   onChange={this.handleInputChange}
-                  value={this.state.website}
+                  value={this.state.website ? this.state.website : ''}
                 />
               </Col>
             </Row>

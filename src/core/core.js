@@ -322,5 +322,5 @@ export function handleLikePostResults(state, data) {
     .updateIn(['timeline', 'posts'], updatePosts)
     .updateIn(['discover', 'posts'], updatePosts)
     .updateIn(['visitedUser', 'posts', 'posts'], updatePosts)
-    .updateIn(['search', 'searchPosts'], updatePosts)
+    .updateIn(['search', 'searchPosts', 'posts'], updatePosts)
 }
