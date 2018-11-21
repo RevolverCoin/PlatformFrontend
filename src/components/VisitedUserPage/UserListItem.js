@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Avatar from 'react-avatar'
 import { Link } from 'react-router-dom'
+import sanitize from 'sanitize-html'
 
 const Container = styled.div`
   padding: 20px;
@@ -31,7 +32,10 @@ const UserName = styled.span`
   font-size: 15px;
 `
 
-const Desc = styled.p``
+const Description = styled.p`
+  word-wrap: break-word;
+  white-space: pre-wrap;
+`
 
 const StyledLink = styled(Link)`
   color: #1f363d;
@@ -60,7 +64,7 @@ class UserListItem extends React.Component {
               <UserName>{this.props.username}</UserName>
             </StyledLink>
           </Header>
-          <Desc>{this.props.description}</Desc>
+          <Description dangerouslySetInnerHTML={{__html: this.props.description? sanitize(this.props.description): ''}}/>
         </RightColumn>
       </Container>
     )

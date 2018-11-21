@@ -2,6 +2,7 @@ import React from 'react'
 import Avatar from 'react-avatar'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import sanitize from 'sanitize-html'
 
 import {
   Facebook,
@@ -40,7 +41,10 @@ const Username = styled.h2`
   margin-bottom: 10px;
 `
 
-const Description = styled.p``
+const Description = styled.p`
+  word-wrap: break-word;
+  white-space: pre-wrap;
+`
 
 const SupportBlock = styled.div`
   margin-top: 20px;
@@ -89,6 +93,11 @@ const Icon = styled.span`
   color: #bbb;
   width: 120px;
   float: left;
+`
+const SupportDescription = styled.p`
+  color: #1f363d;
+  margin-left:120px;
+  font-style: italic;
 `
 
 class UserHeaderBlock extends React.Component {
@@ -182,7 +191,8 @@ class UserHeaderBlock extends React.Component {
 
           <Info>
             <Username>{this.props.username}</Username>
-            <Description>{this.props.description}</Description>
+            <Description dangerouslySetInnerHTML={{__html: this.props.description? sanitize(this.props.description): ''}}/>
+
           </Info>
         </DescriptionBlock>
 
@@ -230,13 +240,16 @@ class UserHeaderBlock extends React.Component {
             <Header>Supported</Header>
             <Content>
               <Link to={`/supports/${this.props.userId}/supported`}>
-                {supportedCount} Supports{' '}
+                {supportedCount} Supports
               </Link>
             </Content>
           </Row>
           <Row>
             <Header />
-            <Content>{SupportingButton}</Content>
+            <Content>
+              {SupportingButton}
+            </Content>
+            {!supported ? <SupportDescription>Support costs 1 XRE</SupportDescription> : ''} 
           </Row>
         </SupportBlock>
       </Container>

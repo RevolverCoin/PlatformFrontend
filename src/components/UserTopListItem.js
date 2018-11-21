@@ -2,10 +2,12 @@ import React from 'react'
 import Avatar from 'react-avatar'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import sanitize from 'sanitize-html'
 
 const Container = styled.div`
   text-align: left;
   padding: 20px;
+  position: relative;
 `
 
 const DescriptionBlock = styled.div``
@@ -49,6 +51,11 @@ const ContentAddress = styled(Content)`
   color: #1f363d;
   cursor: auto;
 `
+const Index = styled.div`
+  position: absolute;
+  top: 40px;
+  right: 30px;
+`
 
 class UserTopListItem extends React.Component {
   constructor(props) {
@@ -58,6 +65,9 @@ class UserTopListItem extends React.Component {
   render() {
     return (
       <Container>
+
+        <Index>#{this.props.index+1}</Index>
+
         <DescriptionBlock>
           <Link to={'/posts/' + this.props.id}>
             {this.props.avatar ? (
@@ -68,7 +78,7 @@ class UserTopListItem extends React.Component {
           </Link>
           <Info>
             <Username>{this.props.username}</Username>
-            <Description>{this.props.description}</Description>
+            <Description dangerouslySetInnerHTML={{__html: this.props.description? sanitize(this.props.description): ''}}/>
           </Info>
         </DescriptionBlock>
 

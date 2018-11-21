@@ -62,6 +62,11 @@ const UrlText = styled.div`
   white-space: nowrap;
 `
 
+const Description = styled.p`
+  word-wrap: break-word;
+  white-space: pre-wrap;
+`
+
 class AvatarBlock extends React.Component {
   constructor(props) {
     super(props)
@@ -125,7 +130,7 @@ class AvatarBlock extends React.Component {
         <Name>
           {this.props.userProfileUsername} <IconVerifiedUser size="15px" />
         </Name>
-        <p>{this.props.userProfileDescription}</p>
+        <Description>{this.props.userProfileDescription}</Description>
 
         <Links>
           {this.props.userProfileWebsite ? (

@@ -60,7 +60,7 @@ class GeneratorPage extends BasePage {
             {this.props.type === 'Generator' ? (
               <div>
                 <p>
-                  Generator cost: 10.0000 XRE <br />
+                  Generator cost: 100 XRE <br />
                   Funds will be unlocked and returned back to your balance
                 </p>
                 <MainButton className="revolver-btn-main" handleAction={this.onUnclaim} text="Unclaim Generator"/>
@@ -68,7 +68,7 @@ class GeneratorPage extends BasePage {
             ) : (
               <div>
                 <p>
-                  Generator cost: 10.0000 XRE <br />
+                  Generator cost: 100 XRE <br />
                   These funds will be locked until you Unclaim Generator
                 </p>
                 <MainButton className="revolver-btn-main" handleAction={this.onClaim} text="Claim Generator" />

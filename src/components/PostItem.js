@@ -137,19 +137,19 @@ class PostItem extends React.Component {
     this.processVideo(text)
   }
 
-  onLikeClick()
-  {
+  onLikeClick() {
     this.props.requestLikePost(this.props.postId)
   }
 
   render() {
     const postTime = new Date(this.props.date).toLocaleString()
 
-    const likes = typeof this.props.likes === 'undefined'? 0 : this.props.likes.length
+    const likes = typeof this.props.likes === 'undefined' ? 0 : this.props.likes.length
     const comments = 0
 
     // true if there is like for this post from actor
-    const likeFromMe = likes > 0 && typeof this.props.likes.find(item=>item === this.props.myId) !== 'undefined';
+    const likeFromMe =
+      likes > 0 && typeof this.props.likes.find(item => item === this.props.myId) !== 'undefined'
 
     const LikeControl = this.props.myId === this.props.userId ? Disabled : Enabled
 
@@ -175,7 +175,13 @@ class PostItem extends React.Component {
             <Text>{this.state.text}</Text>
           </Linkify>
 
-          {this.state.imageUrl ? <img src={this.state.imageUrl} width="100%" /> : ''}
+          {this.state.imageUrl ? (
+            <a href={this.state.imageUrl} target="_blank">
+              <img src={this.state.imageUrl} width="100%" />
+            </a>
+          ) : (
+            ''
+          )}
 
           {this.state.videoUrl ? <iframe width="400" height="300" src={this.state.videoUrl} /> : ''}
         </RightColumn>
@@ -201,7 +207,9 @@ class PostItem extends React.Component {
             <Row>
               <Col md="4">
                 <LikeControl active={likeFromMe}>
-                  <span onClick={this.onLikeClick}><ThumbsUp size="20"/> Like</span>
+                  <span onClick={this.onLikeClick}>
+                    <ThumbsUp size="20" /> Like
+                  </span>
                 </LikeControl>
               </Col>
               <Col md="4">

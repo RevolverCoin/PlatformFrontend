@@ -451,27 +451,7 @@ p {
 } 
 
 
-/* .revolver-btn-main {
-background: #3c79a0;
-
-color: #FFFFFF;
-font-family: Open Sans;
-font-size: 14px;
-font-weight: 100;
-padding: 5px 15px;
-text-decoration: none;
-display: inline-block;
-cursor: pointer;
-text-transform: uppercase;
-border-radius: 4px;
-  }
-  
-  .revolver-btn-main:hover {
-  background: #12283D;
-  background-image: -webkit-linear-gradient(top, #12283D, #304969);
-  background-image: -moz-linear-gradient(top, #12283D, #304969);
-  background-image: -ms-linear-gradient(top, #12283D, #304969);
-  background-image: -o-linear-gradient(top, #12283D, #304969);
-  background-image: linear-gradient(to bottom, #12283D, #304969);
-  text-decoration: none;
-  } */
+.g-recaptcha
+{
+  display:inline-block;
+}

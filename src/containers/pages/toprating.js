@@ -30,7 +30,7 @@ class TopRatingPage extends BasePage {
   renderPage() {
     let itemsList =
       this.props.topList &&
-      this.props.topList.map(item => (
+      this.props.topList.map((item, index) => (
         <ItemContainer key={item._id}>
           <UserTopListItem
             username={item.username}
@@ -39,6 +39,7 @@ class TopRatingPage extends BasePage {
             supportCount={item.supportCount}
             address={item.address}
             id={item._id}
+            index={index}
           />
         </ItemContainer>
       ))

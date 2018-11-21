@@ -201,7 +201,7 @@ class ProfileBlock extends React.Component {
    * max: 150 chars
    */
   handleTextAreaChange(e) {
-    if (e.target.value.length > 150) return
+    if (e.target.value.length > 1000) return
 
     this.setState({ [e.target.name]: e.target.value })
   }

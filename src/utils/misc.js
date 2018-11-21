@@ -5,7 +5,8 @@ export default emailRexExp
 export const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi
 
 // at least 6 chars, at least one lowercase, uppercase and digit are required, spaces are not allowed 
-export const passwordRegex = /(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])\S*$/g
+export const passwordRegex = /^[A-Za-z0-9#$^+=!*_@%&]*$/
+//export const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
 
 export const promiseChainify = promises =>
   promises.reduce(
