@@ -2,7 +2,7 @@ import { fromJS, List } from 'immutable'
 
 export const INITIAL_STATE = fromJS({
   global: {
-    apiCallLoading: false
+    apiCallLoading: false,
   },
   error: {
     msg: null,
@@ -10,16 +10,33 @@ export const INITIAL_STATE = fromJS({
   guest: {
     resetPassword: {
       // can be [null, 'success', 'failed']
-      status: null  
+      status: null,
     },
     verifyEmail: {
       // can be [null, 'success', 'failed']
-      status: null
+      status: null,
     },
     signUp: {
       // can be [null, 'success', 'failed']
-      status: null
-    }
+      status: null,
+    },
+  },
+  public: {
+    user: {
+      supports:{
+        supported: null,
+        supporting: null,
+      },
+      profile: {
+        id: null,
+        avatar: null,
+        username: null,
+        description: null,
+        address: null,
+        website: null,
+        links: [],
+      },
+    },
   },
   stats: {
     blockHeight: null,
@@ -71,7 +88,7 @@ export const INITIAL_STATE = fromJS({
   timeline: {
     posts: [],
     hasNextPage: false,
-    nextPageId: 1,    
+    nextPageId: 1,
   },
   discover: {
     posts: [],
@@ -116,24 +133,19 @@ export function handleApiCallStopLoading(state) {
   return state.setIn(['global', 'apiCallLoading'], false)
 }
 
-
 export function handleLogInSuccess(state, data) {
-  return state
-    .setIn(['user', 'profile', 'isLogged'], data.get('success'))
+  return state.setIn(['user', 'profile', 'isLogged'], data.get('success'))
 }
 
 export function handleLogInFailure(state) {
-  return state
-    .setIn(['error', 'msg'], 'Current user does not exist')
+  return state.setIn(['error', 'msg'], 'Current user does not exist')
 }
 
-export function handleRequestVerifyEmailFailure(state)
-{
+export function handleRequestVerifyEmailFailure(state) {
   return state.setIn(['guest', 'verifyEmail', 'status'], 'failure')
 }
 
-export function handleRequestVerifyEmailSuccess(state)
-{
+export function handleRequestVerifyEmailSuccess(state) {
   return state.setIn(['guest', 'verifyEmail', 'status'], 'success')
 }
 
@@ -149,17 +161,14 @@ export function handleLogout() {
   return INITIAL_STATE
 }
 
-export function handleRequestForgotPasswordSuccess(state)
-{
+export function handleRequestForgotPasswordSuccess(state) {
   return state.setIn(['guest', 'resetPassword', 'status'], 'success')
 }
 
-export function handleRequestForgotPasswordFailure(state)
-{
+export function handleRequestForgotPasswordFailure(state) {
   return state.setIn(['guest', 'resetPassword', 'status'], 'failure')
 }
-export function handleClearForgotPasswordStatus(state)
-{
+export function handleClearForgotPasswordStatus(state) {
   return state.setIn(['guest', 'resetPassword', 'status'], null)
 }
 
@@ -248,11 +257,11 @@ export function handleClearSearchResults(state) {
 
 export function handleSearchProfilesResults(state, data) {
   return state
-    .updateIn(['search', 'searchProfiles', 'profiles'], profiles => profiles.concat(fromJS(data.data.users)))
+    .updateIn(['search', 'searchProfiles', 'profiles'], profiles =>
+      profiles.concat(fromJS(data.data.users)),
+    )
     .setIn(['search', 'searchProfiles', 'hasNextPage'], data.data.hasNextPage)
     .setIn(['search', 'searchProfiles', 'nextPageId'], data.data.nextPageId)
-
-  
 }
 export function handleSearchPostsResults(state, data) {
   return state
@@ -356,3 +365,11 @@ export function handleLikePostResults(state, data) {
     .updateIn(['visitedUser', 'posts', 'posts'], updatePosts)
     .updateIn(['search', 'searchPosts', 'posts'], updatePosts)
 }
+
+export function handlePublicUserInfoResults(state, data) {
+  return state
+    .setIn(['public', 'user', 'profile'], fromJS(data.data.profile))
+    .setIn(['public', 'user', 'profile', 'description'], data.data.profile.desc)
+    .setIn(['public', 'user', 'supports'], fromJS(data.data.supports))
+}
+

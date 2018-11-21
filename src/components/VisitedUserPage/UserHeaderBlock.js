@@ -96,7 +96,7 @@ const Icon = styled.span`
 `
 const SupportDescription = styled.p`
   color: #1f363d;
-  margin-left:120px;
+  margin-left: 120px;
   font-style: italic;
 `
 
@@ -191,8 +191,11 @@ class UserHeaderBlock extends React.Component {
 
           <Info>
             <Username>{this.props.username}</Username>
-            <Description dangerouslySetInnerHTML={{__html: this.props.description? sanitize(this.props.description): ''}}/>
-
+            <Description
+              dangerouslySetInnerHTML={{
+                __html: this.props.description ? sanitize(this.props.description) : '',
+              }}
+            />
           </Info>
         </DescriptionBlock>
 
@@ -231,26 +234,35 @@ class UserHeaderBlock extends React.Component {
           <Row>
             <Header>Supporting</Header>
             <Content>
-              <Link to={`/supports/${this.props.userId}/supporting`}>
-                {supportingCount} Supports
-              </Link>
+              {!this.props.public ? (
+                <Link to={`/supports/${this.props.userId}/supporting`}>
+                  {supportingCount} Supports
+                </Link>
+              ) : (
+                <div>{supportingCount} Supports</div>
+              )}
             </Content>
           </Row>
           <Row>
             <Header>Supported</Header>
             <Content>
-              <Link to={`/supports/${this.props.userId}/supported`}>
-                {supportedCount} Supports
-              </Link>
+              {!this.props.public ? (
+                <Link to={`/supports/${this.props.userId}/supported`}>
+                  {supportedCount} Supports
+                </Link>
+              ) : (
+                <div>{supportedCount} Supports</div>
+              )}
             </Content>
           </Row>
-          <Row>
-            <Header />
-            <Content>
-              {SupportingButton}
-            </Content>
-            {!supported ? <SupportDescription>Support costs 1 XRE</SupportDescription> : ''} 
-          </Row>
+
+          {!this.props.public ? (
+            <Row>
+              <Header />
+              <Content>{SupportingButton}</Content>
+              {!supported ? <SupportDescription>Support costs 1 XRE</SupportDescription> : ''}
+            </Row>
+          ) : null}
         </SupportBlock>
       </Container>
     )

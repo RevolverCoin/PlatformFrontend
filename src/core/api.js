@@ -388,4 +388,12 @@ export function requestLikePost(postId) {
   )
 }
 
-
+export function requestPublicUserInfo(userId) {
+  return fetch(`${url}/public/users/${userId}`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  }).then(res => res.json())
+}
