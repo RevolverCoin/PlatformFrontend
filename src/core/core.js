@@ -36,6 +36,14 @@ export const INITIAL_STATE = fromJS({
         website: null,
         links: [],
       },
+      post: {
+        text: '',
+        timestamp:null,
+        _id: null,
+        likes: [],
+        comments: [],
+        userId: null,
+      }
     },
   },
   stats: {
@@ -371,5 +379,10 @@ export function handlePublicUserInfoResults(state, data) {
     .setIn(['public', 'user', 'profile'], fromJS(data.data.profile))
     .setIn(['public', 'user', 'profile', 'description'], data.data.profile.desc)
     .setIn(['public', 'user', 'supports'], fromJS(data.data.supports))
+}
+
+export function handlePublicUserPostResults(state, data) {
+  return state
+    .setIn(['public', 'user', 'post'], fromJS(data.data))
 }
 

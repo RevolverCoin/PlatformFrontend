@@ -37,7 +37,8 @@ import {
   forgotPassword,
   resetPassword,
   verifyEmail,
-  requestPublicUserInfo
+  requestPublicUserInfo,
+  requestPublicUserPost
 } from './../core/api'
 
 let intervalFetchServiceInfo = null
@@ -716,7 +717,7 @@ export function requestLikePostAction(postId) {
 }
 
 /******************************************************
- * requestLikePostAction
+ * requestPublicUserInfoAction
  ******************************************************/
 export function requestPublicUserInfoAction(userId) {
   return async dispatch => {
@@ -728,6 +729,29 @@ export function requestPublicUserInfoAction(userId) {
           type: types.PUBLIC_USER_INFO_RESULT,
           payload: data,
         })
+      }
+
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}
+
+/******************************************************
+ * requestPublicUserPostAction
+ ******************************************************/
+export function requestPublicUserPostAction(postId) {
+  return async dispatch => {
+    try {
+      const data = await requestPublicUserPost(postId)
+
+      if (data.success) {
+        dispatch({
+          type: types.PUBLIC_USER_POST_RESULT,
+          payload: data,
+        })
+
+        dispatch(requestPublicUserInfoAction(data.data.userId))
       }
 
     } catch (error) {

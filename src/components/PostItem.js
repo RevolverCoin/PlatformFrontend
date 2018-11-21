@@ -151,7 +151,7 @@ class PostItem extends React.Component {
     const likeFromMe =
       likes > 0 && typeof this.props.likes.find(item => item === this.props.myId) !== 'undefined'
 
-    const LikeControl = this.props.myId === this.props.userId ? Disabled : Enabled
+    const LikeControl = (this.props.myId === this.props.userId) || this.props.public ? Disabled : Enabled
 
     return (
       <Container>
@@ -203,6 +203,8 @@ class PostItem extends React.Component {
             </SocialStats>
           ) : null}
 
+
+                
           <SocialControls>
             <Row>
               <Col md="4">

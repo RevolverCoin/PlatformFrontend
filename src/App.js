@@ -14,6 +14,8 @@ import ChangePassword from './containers/pages/guest/resetpassword'
 import VerifyEmail from './containers/pages/guest/verifyemail'
 
 import PublicUserPage from './containers/pages/public/PublicUserPage'
+import PublicPostPage from './containers/pages/public/PublicPostPage'
+
 
 import UserPage from './containers/pages/VisitedUserPage/user'
 import UserPageByAddress from './containers/pages/VisitedUserPage/UserByAddress'
@@ -82,7 +84,8 @@ const App = () => {
         <Route exact path="/changepassword" component={ChangePassword} />
         <Route exact path="/verifyemail" component={VerifyEmail} />
         
-        <Route exact path="/public/user/:userId" component={PublicUserPage} />
+        <Route exact path="/public/user/:userId"  key='public-user' component={PublicUserPage} />
+        <Route exact path="/public/post/:postId" key='public-post' component={PublicPostPage} />
         
         <Route component={NotFoundPage} />
       </Switch>

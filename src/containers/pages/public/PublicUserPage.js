@@ -30,13 +30,18 @@ class PublicUserPage extends PublicBasePage {
 
   componentDidMount()
   {
-    const pathArray = window.location.pathname.split('/');
-    if (!pathArray.length) 
-      return;
-    const id = pathArray[pathArray.length-1]
-
-    this.props.requestPublicUserInfo(id)
+    const userId = this.props.match.params.userId
+    this.props.requestPublicUserInfo(userId)
   }
+
+  componentWillReceiveProps(newProps) 
+  {
+    if (this.props.match.params.userId !== newProps.match.params.userId) {
+      const userId = newProps.match.params.userId
+      this.props.requestPublicUserInfo(userId)
+    }
+  }
+
 
   renderPage() {
     return (
@@ -72,9 +77,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  requestPublicUserInfo(id)
+  requestPublicUserInfo(userId)
   {
-    dispatch(requestPublicUserInfoAction(id))
+    dispatch(requestPublicUserInfoAction(userId))
   }
 })
 

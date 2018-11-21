@@ -397,3 +397,14 @@ export function requestPublicUserInfo(userId) {
     }
   }).then(res => res.json())
 }
+
+export function requestPublicUserPost(postId) {
+  return fetch(`${url}/public/post/${postId}`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  }).then(res => res.json())
+}
+

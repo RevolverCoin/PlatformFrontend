@@ -5,6 +5,8 @@ import Container from 'muicss/lib/react/container'
 import Row from 'muicss/lib/react/row'
 import ColMUI from 'muicss/lib/react/col'
 import AsideBlock from './AsideBlock'
+import TopBlock from './TopBlock'
+
 import HeaderBlock from '../../sideblocks/HeaderBlock'
 import FooterBlock from '../../../components/sideblocks/FooterBlock'
 
@@ -48,6 +50,7 @@ class PublicBasePage extends React.Component {
                             </div>
                         </Col>
                         <Col md="3" sm="12">
+                            <TopBlock />
                         </Col>
                     </Row>
                 </PageContainer>
