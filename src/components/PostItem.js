@@ -77,6 +77,7 @@ const SocialControls = styled.div`
 
 const Disabled = styled.div`
   color: #ccc;
+  cursor: default;
 `
 
 const Enabled = styled.div`
@@ -151,7 +152,11 @@ class PostItem extends React.Component {
     const likeFromMe =
       likes > 0 && typeof this.props.likes.find(item => item === this.props.myId) !== 'undefined'
 
-    const LikeControl = (this.props.myId === this.props.userId) || this.props.public ? Disabled : Enabled
+    const myPost = this.props.myId === this.props.userId
+
+    const LikeControl = myPost || this.props.public ? Disabled : Enabled
+
+
 
     return (
       <Container>
@@ -203,32 +208,30 @@ class PostItem extends React.Component {
             </SocialStats>
           ) : null}
 
+            <SocialControls>
+              <Row>
+                <Col md="4">
+                  <LikeControl active={likeFromMe}>
+                    <span onClick={!myPost && !this.props.public && this.onLikeClick}>
+                      <ThumbsUp size="20" /> Like
+                    </span>
+                  </LikeControl>
+                </Col>
+                <Col md="4">
+                  <Disabled>
+                    <Comment size="20" /> Comment
+                  </Disabled>
+                </Col>
 
-                
-          <SocialControls>
-            <Row>
-              <Col md="4">
-                <LikeControl active={likeFromMe}>
-                  <span onClick={this.onLikeClick}>
-                    <ThumbsUp size="20" /> Like
-                  </span>
-                </LikeControl>
-              </Col>
-              <Col md="4">
-                <Disabled>
-                  <Comment size="20" /> Comment
-                </Disabled>
-              </Col>
+                <Col md="4">
+                  <Disabled>
+                    <Share size="20" /> Share
+                  </Disabled>
+                </Col>
+              </Row>
 
-              <Col md="4">
-                <Disabled>
-                  <Share size="20" /> Share
-                </Disabled>
-              </Col>
-            </Row>
-
-            <div style={{ clear: 'both' }} />
-          </SocialControls>
+              <div style={{ clear: 'both' }} />
+            </SocialControls>
         </SocialBlock>
       </Container>
     )

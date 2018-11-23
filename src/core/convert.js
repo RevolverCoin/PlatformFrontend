@@ -24,6 +24,7 @@ export function convertMyPosts(data) {
       avatar: post.user.avatar,
       username: post.user.username,
       timestamp: post.timestamp,
+      likes: post.likes,
       _id: post._id,
     })),
   }
