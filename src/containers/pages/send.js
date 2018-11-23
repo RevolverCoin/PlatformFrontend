@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import Container from 'muicss/lib/react/container'
+import styled from 'styled-components'
+import ContainerMUI from 'muicss/lib/react/container'
 import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
-import Panel from 'muicss/lib/react/panel'
 import Form from 'muicss/lib/react/form'
-import Input from 'muicss/lib/react/input'
+import InputMUI from 'muicss/lib/react/input'
 import MainButton from './../../components/MainButton'
+import PagePanel from '../../components/PagePanel'
 
 import { sendAction } from './../../actions/actions'
 
@@ -16,14 +16,37 @@ import BasePage from './basepage'
 const MessageType = {
   none: 'none',
   sent: 'sent',
+  errorNotEnoughAmount: 'errorNotEnoughAmount',
+  errorIncorrectAmount: 'errorIncorrectAmount',
+  errorCannotSendToMyself: 'errorCannotSendToMyself',
+  errorAddressEmpty: 'errorAddressEmpty',
+  errorAmountEmpty: 'errorAmountEmpty'
 }
+
+const Container = styled(ContainerMUI)`
+  margin-top: 30px;
+  label {
+    line-height: 18px;
+    text-align: center;
+  }
+`
+const Header = styled.div`
+  margin-top: 15px;
+`
+const Message = styled.p`
+  margin: 10px 0;
+  color: ${props => props.error ? 'red' : 'green'  };
+`
+const Input = styled(InputMUI)`
+`
+
 
 class SendPage extends BasePage {
   constructor(props) {
     super(props)
     this.state = {
       addressTo: '',
-      amount: '',
+      amount: 0,
       message: MessageType.none,
     }
 
@@ -41,26 +64,52 @@ class SendPage extends BasePage {
   }
 
   onSend() {
-    if (this.state.amount > 0) {
+
+    let message = MessageType.none
+
+    if (!this.state.amount || this.state.amount==='0')  {
+      message = MessageType.errorIncorrectAmount
+      console.log(111)
+    } else if (this.state.amount > this.props.availableAmount)  {
+      message = MessageType.errorNotEnoughAmount
+    } else if (this.state.addressTo === this.props.addressFrom)  {
+      message = MessageType.errorCannotSendToMyself
+    } else if (!this.state.addressTo || !this.state.addressTo.trim())  {
+      message = MessageType.errorAddressEmpty
+    } 
+ 
+    console.log(message)
+    this.setState({ message })
+
+    if (message === MessageType.none) {
       this.props.send(this.props.addressFrom, this.state.addressTo, this.state.amount)
       this.setState({ message: MessageType.sent })
-    }
+    } 
   }
 
   renderPage() {
+    
+    // TODO: implement message mapping 
     let message = null
-    if (this.state.message === MessageType.sent) {
+    if (this.state.message === MessageType.sent) 
       message = 'Amount has been sent'
-    }
+    else if (this.state.message === MessageType.errorIncorrectAmount)
+      message = 'Incorrect amount to send'
+    else if (this.state.message === MessageType.errorNotEnoughAmount) 
+      message = 'Not enough XRE'
+    else if (this.state.message === MessageType.errorCannotSendToMyself) 
+      message = 'Cannot send to myself'
+    else if (this.state.message === MessageType.errorAddressEmpty) 
+      message = 'Incorrect address'
+
 
     return (
-      <Panel>
+      <PagePanel caption='Send'>
         <Form>
-          <Container className="edit-profile-block">
-            <legend className="mui--text-left">Send</legend>
+          <Container>
             <Row>
               <Col md="3" className="mui--text-left">
-                <label htmlFor="address">Address</label>
+                <Header>Address</Header>
               </Col>
               <Col md="9">
                 <Input
@@ -75,11 +124,12 @@ class SendPage extends BasePage {
             </Row>
             <Row>
               <Col md="3" className="mui--text-left">
-                <label htmlFor="amount">Amount</label>
+                <Header>Amount</Header>
               </Col>
               <Col md="9">
                 <Input
                   name="amount"
+                  type='number'
                   id="amount"
                   label="Required"
                   placeholder={this.state.amount}
@@ -89,23 +139,36 @@ class SendPage extends BasePage {
               </Col>
             </Row>
 
-            <MainButton className="revolver-btn-main" handleAction={this.onSend} text="Send" />
-
-            
+            <Row>
+              <Col md="3" className="mui--text-left" />
+              <Col md="9">
+                <MainButton className="revolver-btn-main" handleAction={this.onSend} text="Send" />
+              </Col>
+            </Row>
+            <Row>
+              <Col md="3" className="mui--text-left" />
+              <Col md="9">
+                <Message error={this.state.message !== MessageType.sent}>{message}</Message>
+              </Col>
+            </Row>
           </Container>
         </Form>
-        <p>{message}</p>
-      </Panel>
+      </PagePanel>
     )
   }
 }
 
 const mapStateToProps = state => {
   const { root } = state
-  const address =
-    root.hasIn(['user', 'profile', 'address']) && root.getIn(['user', 'profile', 'address'])
+  const addressFrom =
+    root && root.hasIn(['user', 'profile', 'address']) && root.getIn(['user', 'profile', 'address'])
 
-  return { addressFrom : address }
+  const availableAmount = root && root.getIn(['user', 'balance', 'total'])
+
+  return { 
+    addressFrom, 
+    availableAmount
+  }
 }
 
 const mapDispatchToProps = dispatch => ({

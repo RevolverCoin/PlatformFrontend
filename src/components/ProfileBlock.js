@@ -198,7 +198,7 @@ class ProfileBlock extends React.Component {
 
   /*
    * handleTextAreaChange
-   * max: 150 chars
+   * max: 1000 chars
    */
   handleTextAreaChange(e) {
     if (e.target.value.length > 1000) return
@@ -271,7 +271,7 @@ class ProfileBlock extends React.Component {
   render() {
     const links = this.state.links.map((url, index) => {
       return (
-        <Row key={url + index}>
+        <Row key={index}>
           {/* <Col md="2" className="mui--text-left"><LabelForInput>Link #{index}</LabelForInput></Col> */}
           <Col md="3" className="mui--text-left">
             <LinkIcon>{this.parseLink(url)}</LinkIcon>

@@ -260,7 +260,7 @@ class UserHeaderBlock extends React.Component {
             <Row>
               <Header />
               <Content>{SupportingButton}</Content>
-              {!supported ? <SupportDescription>Support costs 1 XRE</SupportDescription> : ''}
+              {!supported ? <SupportDescription>Support locks 1 XRE </SupportDescription> : ''}
             </Row>
           ) : null}
         </SupportBlock>

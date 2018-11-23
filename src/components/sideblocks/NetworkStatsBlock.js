@@ -84,7 +84,7 @@ class NetworkStatsBlock extends React.Component {
 
               <tr>
                 <td className="mui--text-left">
-                  <p>Ago</p>
+                  <p>Age</p>
                 </td>
                 <td className="mui--text-right">
                   <p>{blockTimeAgo}</p>

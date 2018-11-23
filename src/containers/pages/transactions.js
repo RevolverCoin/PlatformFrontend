@@ -25,12 +25,16 @@ const RowItem = styled(Row)`
 const ColHeader = styled(Col)`
   border-right: 1px solid #999;
 `
-const ColItem = styled(Col)``
+const ColItem = styled(Col)`
+  font-weight: ${ props=> props.type ? 'bold' : 'normal'};
+`
 
 class TransactionsPage extends BasePage {
   constructor(props) {
     super(props)
     this.state = {}
+
+    this.parseItemType = this.parseItemType.bind(this)
   }
 
   componentDidMount() {
@@ -40,12 +44,46 @@ class TransactionsPage extends BasePage {
     this.props.requestTransactions()
   }
 
+  parseItemType(item)
+  {
+    if (item.type === 'txSupport') {
+      if (item.amount === 0)
+        return 'Remove support'
+      else 
+      return 'Add support'
+    }
+
+    if (item.type === 'txReward') {
+      return 'Reward'
+    }
+
+    if (item.type === 'txClaimGenerator') {
+      if (item.addressFrom === null)
+        return 'Claim Generator' 
+      else 
+        return 'Unclaim Generator'
+    }
+    if (item.type === 'txNormal') {
+      if (item.addressFrom === this.props.userAddress)
+        return 'Send'
+      else
+        return 'Receive'
+    }
+
+    return 'Unknown'
+  }
+
+
   renderPage() {
     const data =
       this.props.data &&
       this.props.data.map(item => (
         <RowItem key={item.id}>
           <Container>
+          <Row>
+              <ColHeader md="2">Type</ColHeader>
+              <ColItem md="10" type>{this.parseItemType(item)}</ColItem>
+            </Row>
             <Row>
               <ColHeader md="2">Block</ColHeader>
               <ColItem md="10">{item.blockHeight}</ColItem>
@@ -66,6 +104,7 @@ class TransactionsPage extends BasePage {
               <ColHeader md="2">Amount</ColHeader>
               <ColItem md="10">{toCurrencyAmount(item.amount, 8)}</ColItem>
             </Row>
+
           </Container>
         </RowItem>
       ))
@@ -87,9 +126,13 @@ class TransactionsPage extends BasePage {
 
 const mapStateToProps = state => {
   const { root } = state
-  const data = root.getIn(['current', 'data'])
-  console.log(data && data.toJS())
-  return { data: data && data.toJS().data }
+  const data = root && root.getIn(['current', 'data'])
+  const userAddress = root && root.getIn(['user', 'profile', 'userAddress'])
+
+  return { 
+    data: data && data.toJS().data, 
+    userAddress 
+  }
 }
 
 const mapDispatchToProps = dispatch => ({
