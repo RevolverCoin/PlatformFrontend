@@ -100,6 +100,18 @@ const SupportDescription = styled.p`
   font-style: italic;
 `
 
+const InternalAccount = styled.div`
+  border: 1px dotted #049;
+  color: #049;
+  padding: 8px;
+  span {
+    font-weight: bold;
+  }
+`
+const ClearFloat = styled.div`
+  clear:both;
+`
+
 class UserHeaderBlock extends React.Component {
   constructor(props) {
     super(props)
@@ -220,7 +232,7 @@ class UserHeaderBlock extends React.Component {
               </Row>
             ))}
         </LinksBlock>
-
+        <ClearFloat/>  
         <AddressBlock>
           <Row>
             <Header>Address</Header>
@@ -264,6 +276,18 @@ class UserHeaderBlock extends React.Component {
             </Row>
           ) : null}
         </SupportBlock>
+
+        {this.props.internal && (
+          <InternalAccount>
+            <span>Note</span> <br />
+            This account was automatically created by Revolver team, to transfer ownership please
+            contact us at
+            <a href="mailto:info@revolvercoin.org" target="_blank">
+              {' '}
+              info@revolvercoin.org
+            </a>
+          </InternalAccount>
+        )}
       </Container>
     )
   }

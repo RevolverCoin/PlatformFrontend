@@ -61,7 +61,7 @@ const Caption = styled.div`
   text-align: left;
   border: 1px solid #a1a1a1;
   border-bottom:none;
-  background: #fafafa;
+  background: #f1f1f1;
   font-size: 14px;
   color: #832e55;
   padding:8px 0 8px 15px;
@@ -82,6 +82,16 @@ const AddLink = styled.div`
 const LinkIcon = styled.div`
   color: #999;
   margin-top: 4px;
+`
+
+const Disclaimer = styled.div`
+  text-align: left;
+  color: rgb(125, 0, 15);
+  border: 1px solid rgb(230, 150, 150);
+  padding:4px;
+  span {
+    font-weight: bold;
+  }
 `
 
 class ProfileBlock extends React.Component {
@@ -356,8 +366,14 @@ class ProfileBlock extends React.Component {
               </Col>
               <Col md="9">
                 <p className="mui--text-left">{this.props.data.address}</p>
+              
+                <Disclaimer>
+                  <span>Important!</span> This is a SIM NET address. It is not a valid address for XRE Network. 
+                  Please do not try to send any real XRE to this address.  
+                </Disclaimer>
               </Col>
             </Row>
+            
 
             <Row>
               <Col md="3" className="mui--text-left">

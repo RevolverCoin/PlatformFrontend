@@ -62,6 +62,21 @@ const DivSearch = styled.div`
 const SubmitInput = styled.input`
   display: none;
 `
+const LogoContainer = styled.div`
+  position:relative;
+`
+
+const BetaBadge = styled.div`
+  position:absolute;
+  top:23px;
+  left: 170px;
+  color: white;
+  background: rgb(125,0,15);
+  padding: 2px 7px 2px;
+  border-radius: 10px;
+  font-size:12px;
+  text-transform: uppercase;
+`
 
 class HeaderBlock extends React.Component {
 
@@ -107,8 +122,8 @@ class HeaderBlock extends React.Component {
           <Row>
             <Col className="mui--text-left" md="8">
               <Link to="/">
-                <div>
-
+                <LogoContainer>
+                  <BetaBadge>alpha</BetaBadge>
                   <div className="header-top-logo-wrap">
                     <LogoImg src={logo} alt="revolver logo" />
                   </div>
@@ -117,7 +132,7 @@ class HeaderBlock extends React.Component {
                     <p>Support Hub</p>
                   </div>
 
-                </div>
+                </LogoContainer>
               </Link>
 
             </Col>

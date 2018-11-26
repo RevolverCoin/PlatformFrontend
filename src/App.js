@@ -14,14 +14,13 @@ import ChangePassword from './containers/pages/guest/resetpassword'
 import VerifyEmail from './containers/pages/guest/verifyemail'
 
 import PublicUserPage from './containers/pages/public/PublicUserPage'
-import PublicPostPage from './containers/pages/public/PublicPostPage'
-
-
 import UserPage from './containers/pages/VisitedUserPage/user'
+
+import UserPostPageSelector from './containers/pages/userPostPageSelector'
+
 import UserPageByAddress from './containers/pages/VisitedUserPage/UserByAddress'
 import UserSupportedListPage from './containers/pages/VisitedUserPage/UserSupportedList'
 import UserSupportingListPage from './containers/pages/VisitedUserPage/UserSupportingList'
-
 
 import MyPostsPage from './containers/pages/myposts'
 import ProfilePage from './containers/pages/profile'
@@ -39,29 +38,35 @@ import RewardReportPage from './containers/pages/rewardreport'
 import TransactionsPage from './containers/pages/transactions'
 
 const App = () => {
-
-  const loggedIn = localStorage.getItem('isLogged');
+  const loggedIn = localStorage.getItem('isLogged')
 
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/" render={() => (
-          loggedIn ? (
-            <Redirect to="/myposts" />
-          ) : (
-              <FrontPage />
-            )
-        )} />
+        <Route
+          exact
+          path="/"
+          render={() => (loggedIn ? <Redirect to="/myposts" /> : <FrontPage />)}
+        />
 
         <Route path="/myposts" key="my-posts" component={MyPostsPage} />
         <Route path="/profile" key="profile" component={ProfilePage} />
-        
-        <Route path="/posts/:userId" key="user-posts" component={UserPage} />
-        <Route path="/address/:address" key="user-posts-by-address" component={UserPageByAddress} />
-        
-        <Route path="/supports/:userId/supported" key="user-supported" component={UserSupportedListPage} />
-        <Route path="/supports/:userId/supporting" key="user-supporting" component={UserSupportingListPage} />
 
+        <Route path="/posts/:userId" key="user-posts" component={UserPage} />
+        <Route path="/post/:postId" key="user-post" component={UserPostPageSelector} />
+
+        <Route path="/address/:address" key="user-posts-by-address" component={UserPageByAddress} />
+
+        <Route
+          path="/supports/:userId/supported"
+          key="user-supported"
+          component={UserSupportedListPage}
+        />
+        <Route
+          path="/supports/:userId/supporting"
+          key="user-supporting"
+          component={UserSupportingListPage}
+        />
 
         <Route path="/search" key="search" component={SearchPage} />
 
@@ -76,22 +81,26 @@ const App = () => {
         <Route path="/send" key="send" component={SendPage} />
         <Route path="/reward-report" key="reward-report" component={RewardReportPage} />
         <Route path="/transactions" key="transactions" component={TransactionsPage} />
-        
 
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignupPage} />
         <Route exact path="/forgotpassword" component={ForgotPassword} />
         <Route exact path="/changepassword" component={ChangePassword} />
         <Route exact path="/verifyemail" component={VerifyEmail} />
-        
-        <Route exact path="/public/user/:userId"  key='public-user' component={PublicUserPage} />
-        <Route exact path="/public/post/:postId" key='public-post' component={PublicPostPage} />
-        
+
+        <Route exact path="/public/user/:userId" key="public-user" component={PublicUserPage} />
+
+        <Route
+          exact
+          path="/public/post/:postId"
+          key="public-post"
+          component={UserPostPageSelector}
+        />
+
         <Route component={NotFoundPage} />
       </Switch>
     </div>
   )
 }
-
 
 export default App

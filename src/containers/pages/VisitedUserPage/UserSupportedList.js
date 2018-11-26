@@ -3,19 +3,12 @@ import { connect } from 'react-redux'
 import styled from 'styled-components';
 
 import BasePage from './../basepage'
-
+import PagePanel from '../../../components/PagePanel'
 
 import UserListItem from './UserListItem'
 
 import { requestSupportedListAction } from '../../../actions/actions'
 
-
-
-const Panel = styled.div`
-  background-color:white;
-  text-align:left;
-  border: 1px solid #a1a1a1;
-`
 
 
 class UserSupportedListPage extends BasePage {
@@ -39,12 +32,12 @@ class UserSupportedListPage extends BasePage {
     ))
 
     return (
-        <Panel>
+        <PagePanel caption='Supported List'>
             {supportedList && supportedList.length > 0 ? supportedList : (
                 <p>No supports</p>
             )}
 
-        </Panel>
+        </PagePanel>
     )
   }
 }

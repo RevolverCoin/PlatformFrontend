@@ -35,6 +35,7 @@ export const INITIAL_STATE = fromJS({
         address: null,
         website: null,
         links: [],
+        internal:false,
       },
       post: {
         text: '',

@@ -9,10 +9,12 @@ import HeaderBlock from '../../containers/sideblocks/HeaderBlock'
 import FooterBlock from '../../components/sideblocks/FooterBlock'
 
 import NetworkStatsBlock from '../../containers/sideblocks/NetworkStatsBlock'
-
+import backImage from '../../img/main-bg.png'
 
 const SiteContainer = styled.div`
-    background: #e3e3e3;
+    background: url(${backImage}) no-repeat;
+    background-position: center;
+    background-size: cover;
 `
 
 const PageContainer = styled(Container)`

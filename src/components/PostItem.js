@@ -83,6 +83,12 @@ const Disabled = styled.div`
 const Enabled = styled.div`
   color: ${props => (props.active ? '#2a60af' : '#333')};
 `
+const ShareLink = styled.a`
+  color:#333;
+  :hover {
+    text-decoration: none;
+  }
+` 
 
 class PostItem extends React.Component {
   constructor(props) {
@@ -212,7 +218,7 @@ class PostItem extends React.Component {
               <Row>
                 <Col md="4">
                   <LikeControl active={likeFromMe}>
-                    <span onClick={!myPost && !this.props.public && this.onLikeClick}>
+                    <span onClick={!myPost && !this.props.public ? this.onLikeClick : undefined}>
                       <ThumbsUp size="20" /> Like
                     </span>
                   </LikeControl>
@@ -224,9 +230,7 @@ class PostItem extends React.Component {
                 </Col>
 
                 <Col md="4">
-                  <Disabled>
-                    <Share size="20" /> Share
-                  </Disabled>
+                  <ShareLink href={'/public/post/' + this.props.postId} target='_blank'><Share size="20" /> Share</ShareLink>
                 </Col>
               </Row>
 

@@ -21,7 +21,7 @@ const Caption = styled.div`
   margin: 0;
   text-align: left;
   border: 1px solid #a1a1a1;
-  background: #fafafa;
+  background: #f1f1f1;
   font-size: 14px;
   color: #832e55;
   padding: 8px 0 8px 15px;

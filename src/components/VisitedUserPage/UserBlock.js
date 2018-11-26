@@ -11,7 +11,7 @@ const Panel = styled.div`
 `
 
 const PostsCaption = styled.div`
-  background-color: #fafafa;
+  background-color: #f1f1f1;
   border-top: 1px solid #a1a1a1;
   border-bottom: 1px solid #a1a1a1;
   color: #832e55;
@@ -45,6 +45,7 @@ class UserBlock extends React.Component {
           links={this.props.links}
           supports={this.props.supports}
           userId={this.props.userId}
+          internal={this.props.internal}
           />
 
         <PostsCaption> Posts </PostsCaption>

@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   }
 `
 const Panel = styled.div`
-  background: #fafafa;
+  background: #f1f1f1;
   text-align: left;
   border: 1px solid #a1a1a1;
   text-align: center;
@@ -36,7 +36,7 @@ const Caption = styled.div`
   text-align: left;
   border: 1px solid #a1a1a1;
   border-bottom: none;
-  background: #fafafa;
+  background: #f1f1f1;
   font-size: 14px;
   color: #832e55;
   padding: 8px 0 8px 15px;

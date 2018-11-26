@@ -441,6 +441,7 @@ p {
   transition: all 0.1s ease-in-out;
   text-decoration: none;
   outline: none;
+  text-align: center;
 }
 
 .revolver-btn-main:hover

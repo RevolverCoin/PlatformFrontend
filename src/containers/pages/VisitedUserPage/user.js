@@ -40,6 +40,7 @@ class UserPage extends BasePage {
         address={this.props.userProfile.address}
         website={this.props.userProfile.website}
         links={this.props.userProfile.links}
+        internal={this.props.userProfile.internal}
         userPosts={this.props.userPosts}
         hasNextPage={this.props.hasNextPage}
         nextPageId={this.props.nextPageId}

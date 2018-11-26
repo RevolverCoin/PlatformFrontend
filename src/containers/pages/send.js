@@ -20,7 +20,9 @@ const MessageType = {
   errorIncorrectAmount: 'errorIncorrectAmount',
   errorCannotSendToMyself: 'errorCannotSendToMyself',
   errorAddressEmpty: 'errorAddressEmpty',
-  errorAmountEmpty: 'errorAmountEmpty'
+  errorAmountEmpty: 'errorAmountEmpty',
+  errorNotSIMAddress: 'errorNotSIMAddress',
+
 }
 
 const Container = styled(ContainerMUI)`
@@ -76,9 +78,10 @@ class SendPage extends BasePage {
       message = MessageType.errorCannotSendToMyself
     } else if (!this.state.addressTo || !this.state.addressTo.trim())  {
       message = MessageType.errorAddressEmpty
+    } else if (!this.state.addressTo.startsWith('SIM'))  {
+      message = MessageType.errorNotSIMAddress
     } 
  
-    console.log(message)
     this.setState({ message })
 
     if (message === MessageType.none) {
@@ -101,6 +104,8 @@ class SendPage extends BasePage {
       message = 'Cannot send to myself'
     else if (this.state.message === MessageType.errorAddressEmpty) 
       message = 'Incorrect address'
+    else if (this.state.message === MessageType.errorNotSIMAddress) 
+      message = 'Incorrect address. You can send to SIM address only!'
 
 
     return (

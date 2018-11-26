@@ -9,7 +9,7 @@ import UserHeaderBlock from '../VisitedUserPage/UserHeaderBlock'
 import {requestPublicUserInfoAction} from '../../../actions/actions'
 
 const PostsCaption = styled.div`
-  background-color: #fafafa;
+  background-color: #f1f1f1;
   border-top: 1px solid #a1a1a1;
   border-bottom: 1px solid #a1a1a1;
   color: #832e55;

@@ -10,7 +10,7 @@ import PostItem from '../../PostItem'
 import {requestPublicUserPostAction} from '../../../actions/actions'
 
 const PostsCaption = styled.div`
-  background-color: #fafafa;
+  background-color: #f1f1f1;
   border-top: 1px solid #a1a1a1;
   border-bottom: 1px solid #a1a1a1;
   color: #832e55;
@@ -31,12 +31,7 @@ class PublicPostPage extends PublicBasePage {
 
   componentDidMount()
   {
-    const pathArray = window.location.pathname.split('/');
-    if (!pathArray.length) 
-      return;
-    const postId = pathArray[pathArray.length-1]
-
-    this.props.requestPublicUserPost(postId)
+    this.props.requestPublicUserPost(this.props.postId)
   }
 
   renderPage() {
@@ -82,7 +77,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    requestPublicUserPost(postId)
+  requestPublicUserPost(postId)
   {
     dispatch(requestPublicUserPostAction(postId))
   }

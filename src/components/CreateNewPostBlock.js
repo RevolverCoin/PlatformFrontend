@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components';
 import Textarea from 'muicss/lib/react/textarea'
 import Col from 'muicss/lib/react/col'
 import Container from 'muicss/lib/react/container'
@@ -7,6 +8,10 @@ import PropTypes from 'prop-types'
 import Avatar from 'react-avatar';
 import MainButton from './MainButton'
 
+
+const Img = styled.img`
+  border-radius:50%;
+`
 
 class CreateNewPostBlock extends React.Component {
   constructor(props) {
@@ -42,7 +47,7 @@ class CreateNewPostBlock extends React.Component {
           <form onSubmit={this.onSubmit}>
             <Col md="2">
               {this.props.avatar ? 
-                <img src={this.props.avatar} width='60' style={{'border-radius': '50%'}}/>
+                <Img src={this.props.avatar} width='60'/>
                 :
                 <Avatar name={this.props.username} size='60' round={true} />
               }

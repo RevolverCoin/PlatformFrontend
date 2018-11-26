@@ -10,7 +10,7 @@ const Panel = styled.div`
 `
 
 const Caption = styled.div`
-  background-color: #fafafa;
+  background-color: #f1f1f1;
   border-bottom: 1px solid #a1a1a1;
   color: #832e55;
   text-transform:uppercase;
