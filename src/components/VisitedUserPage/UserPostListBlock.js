@@ -10,6 +10,12 @@ const More = styled.div`
   text-align: center;
   margin: 20px 0;
 `
+const NoPosts = styled.p`
+  text-align:center;
+  font-size:14px;
+  margin-top:10px;
+`
+
 class UserPostListBlock extends React.Component {
 
   constructor(props) {
@@ -39,7 +45,7 @@ class UserPostListBlock extends React.Component {
 
     return (
       <div>
-        {blocks}
+        {blocks && <NoPosts>No posts</NoPosts>}
 
         {this.props.hasNextPage ? (
           <More>

@@ -50,7 +50,7 @@ class UserListItem extends React.Component {
     return (
       <Container>
         <LeftColumn>
-          <Link to={'/posts/' + this.props.id}>
+          <Link to={'/user/' + this.props.id}>
             {this.props.avatar ? (
               <img src={this.props.avatar} width="90" style={{'border-radius': '50%'}} />
             ) : (
@@ -60,7 +60,7 @@ class UserListItem extends React.Component {
         </LeftColumn>
         <RightColumn>
           <Header>
-            <StyledLink to={'/posts/' + this.props.id}>
+            <StyledLink to={'/user/' + this.props.id}>
               <UserName>{this.props.username}</UserName>
             </StyledLink>
           </Header>

@@ -16,7 +16,7 @@ import {
 class UserPage extends BasePage {
   componentDidMount() {
     // load posts
-    const userId = this.props.match.params.userId
+    const userId = this.props.match ? this.props.match.params.userId : this.props.userId 
 
     if (userId === this.props.myId) {
       this.props.redirectToMyPosts()
@@ -45,7 +45,7 @@ class UserPage extends BasePage {
         hasNextPage={this.props.hasNextPage}
         nextPageId={this.props.nextPageId}
         supports={this.props.supports}
-        userId={this.props.match.params.userId}
+        userId={this.props.match ? this.props.match.params.userId : this.props.userId}
       />
     )
   }

@@ -167,7 +167,7 @@ class PostItem extends React.Component {
     return (
       <Container>
         <LeftColumn>
-          <Link to={'/posts/' + this.props.userId}>
+          <Link to={'/user/' + this.props.userId}>
             {this.props.avatar ? (
               <img src={this.props.avatar} width="50" style={{ 'border-radius': '50%' }} />
             ) : (
@@ -177,7 +177,7 @@ class PostItem extends React.Component {
         </LeftColumn>
         <RightColumn>
           <Header>
-            <StyledLink to={'/posts/' + this.props.userId}>
+            <StyledLink to={'/user/' + this.props.userId}>
               <UserName>{this.props.username}</UserName>
             </StyledLink>
             <PostDate>{postTime}</PostDate>

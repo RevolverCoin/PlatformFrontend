@@ -30,15 +30,17 @@ class PublicUserPage extends PublicBasePage {
 
   componentDidMount()
   {
-    const userId = this.props.match.params.userId
+    const userId = this.props.match ? this.props.match.params.userId : this.props.userId
     this.props.requestPublicUserInfo(userId)
   }
 
   componentWillReceiveProps(newProps) 
   {
-    if (this.props.match.params.userId !== newProps.match.params.userId) {
-      const userId = newProps.match.params.userId
-      this.props.requestPublicUserInfo(userId)
+    const prevUserId = this.props.match ? this.props.match.params.userId : this.props.userId
+    const newUserId = newProps.match ? newProps.match.params.userId : newProps.userId
+
+    if (prevUserId !== newUserId) {
+      this.props.requestPublicUserInfo(newUserId)
     }
   }
 
@@ -54,7 +56,7 @@ class PublicUserPage extends PublicBasePage {
           website={this.props.profile.website}
           links={this.props.profile.links}
           supports={this.props.supports}
-          userId={null}
+          userId={this.props.match ? this.props.match.params.userId : this.props.userId}
           public={true}
           />
 

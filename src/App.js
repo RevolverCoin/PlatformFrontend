@@ -13,7 +13,7 @@ import ForgotPassword from './containers/pages/guest/forgotpassword'
 import ChangePassword from './containers/pages/guest/resetpassword'
 import VerifyEmail from './containers/pages/guest/verifyemail'
 
-import PublicUserPage from './containers/pages/public/PublicUserPage'
+import UserPageSelector from './containers/pages/UserPageSelector'
 import UserPage from './containers/pages/VisitedUserPage/user'
 
 import UserPostPageSelector from './containers/pages/userPostPageSelector'
@@ -52,7 +52,7 @@ const App = () => {
         <Route path="/myposts" key="my-posts" component={MyPostsPage} />
         <Route path="/profile" key="profile" component={ProfilePage} />
 
-        <Route path="/posts/:userId" key="user-posts" component={UserPage} />
+        <Route path="/user/:userId" key="user-posts" component={UserPage} />
         <Route path="/post/:postId" key="user-post" component={UserPostPageSelector} />
 
         <Route path="/address/:address" key="user-posts-by-address" component={UserPageByAddress} />
@@ -88,14 +88,8 @@ const App = () => {
         <Route exact path="/changepassword" component={ChangePassword} />
         <Route exact path="/verifyemail" component={VerifyEmail} />
 
-        <Route exact path="/public/user/:userId" key="public-user" component={PublicUserPage} />
-
-        <Route
-          exact
-          path="/public/post/:postId"
-          key="public-post"
-          component={UserPostPageSelector}
-        />
+        <Route exact path="/public/user/:userId" key="public-user" component={UserPageSelector} />
+        <Route exact path="/public/post/:postId" key="public-post" component={UserPostPageSelector} />
 
         <Route component={NotFoundPage} />
       </Switch>

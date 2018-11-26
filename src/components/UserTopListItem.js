@@ -69,7 +69,7 @@ class UserTopListItem extends React.Component {
         <Index>#{this.props.index+1}</Index>
 
         <DescriptionBlock>
-          <Link to={'/posts/' + this.props.id}>
+          <Link to={'/user/' + this.props.id}>
             {this.props.avatar ? (
               <img src={this.props.avatar} width="80" style={{ 'border-radius': '50%' }} />
             ) : (

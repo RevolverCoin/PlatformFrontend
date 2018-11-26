@@ -687,7 +687,7 @@ export function getUserInfoByAddressAction(address) {
     try {
       const data = await getVisitedUserInfoByAddress(address)
 
-      dispatch(push(`/posts/${data.data.profile.id}`))
+      dispatch(push(`/user/${data.data.profile.id}`))
     } catch (error) {
       return handleAPIException(dispatch, error)
     }

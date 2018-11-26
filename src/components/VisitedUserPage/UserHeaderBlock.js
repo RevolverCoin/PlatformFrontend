@@ -3,6 +3,8 @@ import Avatar from 'react-avatar'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import sanitize from 'sanitize-html'
+import RowMUI from 'muicss/lib/react/row'
+import ColMUI from 'muicss/lib/react/col'
 
 import {
   Facebook,
@@ -14,6 +16,8 @@ import {
   Bitcoin,
 } from 'styled-icons/fa-brands'
 import { Globe } from 'styled-icons/fa-solid'
+import { Share } from 'styled-icons/material'
+
 import { UrlMatcher } from '../../utils/misc'
 
 const Container = styled.div`
@@ -109,7 +113,19 @@ const InternalAccount = styled.div`
   }
 `
 const ClearFloat = styled.div`
-  clear:both;
+  clear: both;
+`
+const SocialBlock = styled.div`
+  border-top: 1px solid #f1f1f1;
+  text-align: center;
+  padding-top:10px;
+`
+const ShareLink = styled.a`
+  color: #333;
+  text-decoration: none;
+  :hover {
+    text-decoration: none;
+  }
 `
 
 class UserHeaderBlock extends React.Component {
@@ -232,7 +248,7 @@ class UserHeaderBlock extends React.Component {
               </Row>
             ))}
         </LinksBlock>
-        <ClearFloat/>  
+        <ClearFloat />
         <AddressBlock>
           <Row>
             <Header>Address</Header>
@@ -276,6 +292,18 @@ class UserHeaderBlock extends React.Component {
             </Row>
           ) : null}
         </SupportBlock>
+
+        <SocialBlock>
+          <RowMUI>
+            <ColMUI md="4" />
+            <ColMUI md="4" />
+            <ColMUI md="4">
+              <ShareLink href={`/public/user/${this.props.userId}`} target="_blank">
+                <Share size="20" /> Share
+              </ShareLink>
+            </ColMUI>
+          </RowMUI>
+        </SocialBlock>
 
         {this.props.internal && (
           <InternalAccount>
