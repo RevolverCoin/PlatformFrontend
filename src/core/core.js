@@ -209,6 +209,7 @@ export function handleGetMyPosts(state) {
 }
 
 export function handleGetMyPostsSuccess(state, data) {
+
   return state
     .updateIn(['user', 'posts', 'postsList'], posts => posts.concat(data.posts))
     .setIn(['user', 'posts', 'fetchingPosts'], false)
@@ -373,6 +374,18 @@ export function handleLikePostResults(state, data) {
     .updateIn(['discover', 'posts'], updatePosts)
     .updateIn(['visitedUser', 'posts', 'posts'], updatePosts)
     .updateIn(['search', 'searchPosts', 'posts'], updatePosts)
+}
+
+/**
+ * Delete Post. Update user posts and remove post with specified id 
+ * @param {*} state State
+ * @param {*} data - post ID 
+ */
+export function handleDeletePostResults(state, data)  {
+
+  const posts = state.getIn(['user', 'posts', 'postsList'])
+  const index = posts.findIndex(item => item.get('_id') === data)
+  return state.deleteIn(['user', 'posts', 'postsList', index])
 }
 
 export function handlePublicUserInfoResults(state, data) {

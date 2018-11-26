@@ -19,14 +19,14 @@ export function convertMyPosts(data) {
     hasNextPage: data.hasNextPage,
     nextPageId: data.nextPageId,
     pageId: data.pageId,
-    posts: List(data.posts).map(post => ({
+    posts: List(data.posts).map(post => (fromJS({
       text: post.text,
       avatar: post.user.avatar,
       username: post.user.username,
       timestamp: post.timestamp,
       likes: post.likes,
       _id: post._id,
-    })),
+    }))),
   }
 }
 

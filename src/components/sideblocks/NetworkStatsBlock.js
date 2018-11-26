@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
+import { Dashboard } from 'styled-icons/octicons'
+
+
 const networkStatsBlockStyles = {
   description: {
     fontSize: '16px',
@@ -60,7 +63,7 @@ class NetworkStatsBlock extends React.Component {
 
     return (
       <div>
-        <Caption>Network stats</Caption>
+        <Caption><Dashboard size="16"/> Network stats</Caption>
         <Panel>
           <table className="m-b-md full-width">
             <tbody>

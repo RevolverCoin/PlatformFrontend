@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import PostItem from '../components/PostItem'
 
-import {requestLikePostAction} from '../actions/actions'
+import {requestLikePostAction, requestDeletePostAction} from '../actions/actions'
 
 
 const mapStateToProps = state => {
@@ -14,7 +14,12 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
     requestLikePost(postId) {
         dispatch(requestLikePostAction(postId))
+    },
+
+    requestDeletePost(postId) {
+        dispatch(requestDeletePostAction(postId))
     }
 })
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostItem)

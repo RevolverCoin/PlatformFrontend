@@ -5,6 +5,9 @@ import styled from 'styled-components'
 import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
 
+import { Wallet } from 'styled-icons/fa-solid'
+
+
 const Panel = styled.div`
   background: white;
   text-align: left;
@@ -46,7 +49,7 @@ const SendButtonWrapper = styled.div`
 
 const BalanceBlock = props => (
   <div>
-    <Caption>Wallet</Caption>
+    <Caption><Wallet size="16"/> Wallet</Caption>
     <Panel>
       <RowBalanceName>
         <Col md="12">Available Balance</Col>

@@ -12,7 +12,7 @@ import { promiseChainify, testImage, urlRegex } from '../utils/misc'
 
 import { ThumbsUp } from 'styled-icons/feather'
 import { Comment } from 'styled-icons/octicons'
-import { Share } from 'styled-icons/material'
+import { Share, Delete } from 'styled-icons/material'
 
 const Container = styled.div`
   padding: 5px;
@@ -28,12 +28,13 @@ const LeftColumn = styled.div`
 
 const RightColumn = styled.div`
   display: inline-block;
-  width: 400px;
+  width: 450px;
   padding: 10px 10px 10px 10px;
 `
 
 const Header = styled.div`
   padding-bottom: 10px;
+  position: relative;
 `
 
 const UserName = styled.span`
@@ -84,11 +85,17 @@ const Enabled = styled.div`
   color: ${props => (props.active ? '#2a60af' : '#333')};
 `
 const ShareLink = styled.a`
-  color:#333;
+  color: #333;
   :hover {
     text-decoration: none;
   }
-` 
+`
+const DeleteControl = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor:pointer;
+`
 
 class PostItem extends React.Component {
   constructor(props) {
@@ -103,6 +110,7 @@ class PostItem extends React.Component {
     if (this.props.text) this.parseText(this.props.text)
 
     this.onLikeClick = this.onLikeClick.bind(this)
+    this.onDeleteClick = this.onDeleteClick.bind(this)
   }
 
   async processImage(text) {
@@ -148,6 +156,11 @@ class PostItem extends React.Component {
     this.props.requestLikePost(this.props.postId)
   }
 
+  onDeleteClick() {
+    const sure = window.confirm('Delete post. Are you sure?')
+    if (sure) this.props.requestDeletePost(this.props.postId)
+  }
+
   render() {
     const postTime = new Date(this.props.date).toLocaleString()
 
@@ -161,8 +174,6 @@ class PostItem extends React.Component {
     const myPost = this.props.myId === this.props.userId
 
     const LikeControl = myPost || this.props.public ? Disabled : Enabled
-
-
 
     return (
       <Container>
@@ -181,6 +192,12 @@ class PostItem extends React.Component {
               <UserName>{this.props.username}</UserName>
             </StyledLink>
             <PostDate>{postTime}</PostDate>
+
+            {myPost && (
+              <DeleteControl onClick={this.onDeleteClick}>
+                <Delete size="14" />
+              </DeleteControl>
+            )}
           </Header>
           <Linkify properties={{ target: '_blank' }}>
             <Text>{this.state.text}</Text>
@@ -194,7 +211,7 @@ class PostItem extends React.Component {
             ''
           )}
 
-          {this.state.videoUrl ? <iframe width="400" height="300" src={this.state.videoUrl} /> : ''}
+          {this.state.videoUrl ? <iframe width="450" height="300" src={this.state.videoUrl} /> : ''}
         </RightColumn>
 
         <SocialBlock>
@@ -214,28 +231,30 @@ class PostItem extends React.Component {
             </SocialStats>
           ) : null}
 
-            <SocialControls>
-              <Row>
-                <Col md="4">
-                  <LikeControl active={likeFromMe}>
-                    <span onClick={!myPost && !this.props.public ? this.onLikeClick : undefined}>
-                      <ThumbsUp size="20" /> Like
-                    </span>
-                  </LikeControl>
-                </Col>
-                <Col md="4">
-                  <Disabled>
-                    <Comment size="20" /> Comment
-                  </Disabled>
-                </Col>
+          <SocialControls>
+            <Row>
+              <Col md="4">
+                <LikeControl active={likeFromMe}>
+                  <span onClick={!myPost && !this.props.public ? this.onLikeClick : undefined}>
+                    <ThumbsUp size="20" /> Like
+                  </span>
+                </LikeControl>
+              </Col>
+              <Col md="4">
+                <Disabled>
+                  <Comment size="20" /> Comment
+                </Disabled>
+              </Col>
 
-                <Col md="4">
-                  <ShareLink href={'/public/post/' + this.props.postId} target='_blank'><Share size="20" /> Share</ShareLink>
-                </Col>
-              </Row>
+              <Col md="4">
+                <ShareLink href={'/public/post/' + this.props.postId} target="_blank">
+                  <Share size="20" /> Share
+                </ShareLink>
+              </Col>
+            </Row>
 
-              <div style={{ clear: 'both' }} />
-            </SocialControls>
+            <div style={{ clear: 'both' }} />
+          </SocialControls>
         </SocialBlock>
       </Container>
     )

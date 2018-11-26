@@ -34,6 +34,7 @@ import {
   getServiceInfo,
   claimGenerator,
   requestLikePost,
+  requestDeletePost,
   forgotPassword,
   resetPassword,
   verifyEmail,
@@ -715,6 +716,29 @@ export function requestLikePostAction(postId) {
     }
   }
 }
+
+/******************************************************
+ * requestDeletePostAction
+ ******************************************************/
+export function requestDeletePostAction(postId) {
+  return async dispatch => {
+    try {
+      const data = await requestDeletePost(postId)
+
+      if (data.success) {
+        dispatch({
+          type: types.DELETE_POST_RESULT,
+          payload: postId,
+        })
+      }
+
+    } catch (error) {
+      return handleAPIException(dispatch, error)
+    }
+  }
+}
+
+
 
 /******************************************************
  * requestPublicUserInfoAction

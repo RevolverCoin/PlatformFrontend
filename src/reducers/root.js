@@ -112,14 +112,15 @@ export default (state = core.INITIAL_STATE, action) => {
     case types.LIKE_POST_RESULT:
       return core.handleLikePostResults(state, action.payload)
 
+    case types.DELETE_POST_RESULT:
+      return core.handleDeletePostResults(state, action.payload)
+
     case types.PUBLIC_USER_INFO_RESULT:
       return core.handlePublicUserInfoResults(state, action.payload)
-    
+
     case types.PUBLIC_USER_POST_RESULT:
       return core.handlePublicUserPostResults(state, action.payload)
 
-      
-    
     default:
       // console.error("Unknown action", action)
       return state

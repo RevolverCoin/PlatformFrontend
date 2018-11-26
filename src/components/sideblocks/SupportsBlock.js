@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 
 import styled from 'styled-components'
 
+import { Hubspot } from 'styled-icons/fa-brands'
+
 
 const supportsBlockStyle = {
   supportsLink: {
@@ -37,7 +39,7 @@ const Caption = styled.div`
 
 const SupportsBlock = props => (
   <div>
-    <Caption>Supports</Caption>
+    <Caption><Hubspot size="16"/> Supports</Caption>
     <Panel>
       <div className="mui--text-left m-b-md">
         <table className="m-b-md full-width">

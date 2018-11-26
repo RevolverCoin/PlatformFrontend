@@ -388,6 +388,21 @@ export function requestLikePost(postId) {
   )
 }
 
+export function requestDeletePost(postId) {
+  return HTTPErrorHandler(
+    fetch(`${url}/posts/delete`, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ postId }),
+    }),
+  )
+}
+
+
+
 export function requestPublicUserInfo(userId) {
   return fetch(`${url}/public/users/${userId}`, {
     method: 'GET',

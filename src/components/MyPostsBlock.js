@@ -96,7 +96,6 @@ MyPostsBlock.propTypes = {
   clearMyPrevPostsAction: PropTypes.func.isRequired,
   getMyPostsAction: PropTypes.func.isRequired,
   username: PropTypes.string,
-  userPostsList: PropTypes.instanceOf(Immutable.List).isRequired,
   userPostsError: PropTypes.object,
   userPostsFetchingNewPost: PropTypes.bool.isRequired,
   userPostsFetchingPosts: PropTypes.bool.isRequired,

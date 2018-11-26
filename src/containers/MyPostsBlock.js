@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
     username, 
     avatar,
     userId,
-    userPostsList: posts && posts.get('postsList'),
+    userPostsList: posts && posts.get('postsList').toJS(),
     userPostsError: posts && posts.get('error'),
     userPostsFetchingNewPost: posts && posts.get('fetchingNewPost'),
     userPostsFetchingPosts: posts && posts.get('fetchingPosts'),
