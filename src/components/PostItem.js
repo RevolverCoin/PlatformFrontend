@@ -18,7 +18,11 @@ const Container = styled.div`
   padding: 5px;
   text-align: left;
   border-bottom: 1px solid #d1d1d1;
-  position:relative;
+  position: relative;
+
+  display: flex;
+  flex-wrap: wrap;
+
 `
 const LeftColumn = styled.div`
   display: inline-block;
@@ -31,6 +35,7 @@ const RightColumn = styled.div`
   display: inline-block;
   width: 450px;
   padding: 10px 10px 10px 10px;
+
 `
 
 const Header = styled.div`
@@ -61,6 +66,8 @@ const SocialBlock = styled.div`
   padding: 5px 0 0;
   border-top: 1px solid #d1d1d1;
   text-align: center;
+  flex:auto;
+
 `
 const SocialStats = styled.div`
   text-align: left;
@@ -95,7 +102,7 @@ const DeleteControl = styled.div`
   position: absolute;
   top: 14px;
   right: 25px;
-  cursor:pointer;
+  cursor: pointer;
 `
 
 class PostItem extends React.Component {
@@ -179,13 +186,6 @@ class PostItem extends React.Component {
 
     return (
       <Container>
-        
-        {myPost && (
-              <DeleteControl onClick={this.onDeleteClick}>
-                <Delete size="14" />
-              </DeleteControl>
-            )}
-
         <LeftColumn>
           <Link to={'/user/' + this.props.userId}>
             {this.props.avatar ? (
@@ -217,6 +217,12 @@ class PostItem extends React.Component {
           {this.state.videoUrl ? <iframe width="450" height="300" src={this.state.videoUrl} /> : ''}
         </RightColumn>
 
+        {myPost && (
+          <DeleteControl onClick={this.onDeleteClick}>
+            <Delete size="14" />
+          </DeleteControl>
+        )}
+        
         <SocialBlock>
           {likes > 0 || comments > 0 ? (
             <SocialStats>
@@ -233,6 +239,7 @@ class PostItem extends React.Component {
               ) : null}
             </SocialStats>
           ) : null}
+              
 
           <SocialControls>
             <Row>
