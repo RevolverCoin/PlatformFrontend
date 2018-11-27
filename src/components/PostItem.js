@@ -116,7 +116,8 @@ class PostItem extends React.Component {
   async processImage(text) {
     let urls = []
     text.replace(urlRegex, url => {
-      urls.push(testImage(url))
+      const httpsUrl = url.replace('http', 'https')
+      urls.push(testImage(httpsUrl))
     })
 
     if (urls.length === 0) return false
@@ -141,7 +142,7 @@ class PostItem extends React.Component {
 
     if (match) {
       const updatedText = text.replace(match[0], '')
-      this.setState({ videoUrl: `http://www.youtube.com/embed/${match[1]}`, text: updatedText })
+      this.setState({ videoUrl: `https://www.youtube.com/embed/${match[1]}`, text: updatedText })
     }
   }
 
