@@ -67,6 +67,11 @@ const Description = styled.p`
   white-space: pre-wrap;
 `
 
+const Delimiter = styled.div`
+  margin: 15px 0;
+  border-top: 1px solid #e2e2e2;
+`
+
 class AvatarBlock extends React.Component {
   constructor(props) {
     super(props)
@@ -150,6 +155,13 @@ class AvatarBlock extends React.Component {
         <Link className="revolver-btn-main" to="/profile">
           Edit
         </Link>
+
+        <Delimiter/>
+        <p className="mui--text-center">
+          <Link className="revolver-btn-main" to="/reward-report">
+            Reward Report
+          </Link>
+        </p>
       </Panel>
     )
   }

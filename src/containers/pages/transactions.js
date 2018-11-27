@@ -4,10 +4,10 @@ import styled from 'styled-components'
 import Container from 'muicss/lib/react/container'
 import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
-import Panel from 'muicss/lib/react/panel'
-import Form from 'muicss/lib/react/form'
 
 import BasePage from './basepage'
+import PagePanel from '../../components/PagePanel'
+
 import { requestTransactionsAction } from '../../actions/actions'
 
 import {toCurrencyAmount} from '../../utils/misc'
@@ -27,6 +27,9 @@ const ColHeader = styled(Col)`
 `
 const ColItem = styled(Col)`
   font-weight: ${ props=> props.type ? 'bold' : 'normal'};
+`
+const Spacer = styled.div`
+  margin: 1px;
 `
 
 class TransactionsPage extends BasePage {
@@ -110,16 +113,14 @@ class TransactionsPage extends BasePage {
       ))
 
     return (
-      <Panel>
-        <Form>
+      <PagePanel caption="Transactions">
           <Container className="mui--text-left">
-            <legend>Transactions</legend>
-            
+            <Spacer/>
+
             {data}
 
           </Container>
-        </Form>
-      </Panel>
+      </PagePanel>
     )
   }
 }

@@ -78,11 +78,7 @@ const BalanceBlock = props => (
             Transactions
           </Link>
         </p>
-        <p className="mui--text-center">
-          <Link className="revolver-btn-main" to="/reward-report">
-            Reward Report
-          </Link>
-        </p>
+
       </div>
     </Panel>
   </div>

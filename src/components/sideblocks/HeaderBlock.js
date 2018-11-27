@@ -78,6 +78,20 @@ const BetaBadge = styled.div`
   text-transform: uppercase;
 `
 
+const SimNetBadge = styled.div`
+  position:absolute;
+  top:23px;
+  left: 230px;
+  color: white;
+  background: #049;
+  padding: 2px 7px 2px;
+  border-radius: 10px;
+  font-size:12px;
+  text-transform: uppercase;
+`
+
+
+
 class HeaderBlock extends React.Component {
 
   constructor(props) {
@@ -124,6 +138,7 @@ class HeaderBlock extends React.Component {
               <Link to="/">
                 <LogoContainer>
                   <BetaBadge>alpha</BetaBadge>
+                  <SimNetBadge>sim net</SimNetBadge>
                   <div className="header-top-logo-wrap">
                     <LogoImg src={logo} alt="revolver logo" />
                   </div>

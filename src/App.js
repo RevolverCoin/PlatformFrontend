@@ -13,7 +13,7 @@ import ForgotPassword from './containers/pages/guest/forgotpassword'
 import ChangePassword from './containers/pages/guest/resetpassword'
 import VerifyEmail from './containers/pages/guest/verifyemail'
 
-import UserPageSelector from './containers/pages/UserPageSelector'
+import UserPageSelector from './containers/pages/userPageSelector'
 import UserPage from './containers/pages/VisitedUserPage/user'
 
 import UserPostPageSelector from './containers/pages/userPostPageSelector'
