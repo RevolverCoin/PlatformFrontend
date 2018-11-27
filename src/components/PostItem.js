@@ -18,6 +18,7 @@ const Container = styled.div`
   padding: 5px;
   text-align: left;
   border-bottom: 1px solid #d1d1d1;
+  position:relative;
 `
 const LeftColumn = styled.div`
   display: inline-block;
@@ -92,8 +93,8 @@ const ShareLink = styled.a`
 `
 const DeleteControl = styled.div`
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 14px;
+  right: 25px;
   cursor:pointer;
 `
 
@@ -116,7 +117,7 @@ class PostItem extends React.Component {
   async processImage(text) {
     let urls = []
     text.replace(urlRegex, url => {
-      const httpsUrl = url.replace('http', 'https')
+      const httpsUrl = url.replace(/^http:\/\//i, 'https://')
       urls.push(testImage(httpsUrl))
     })
 
@@ -178,6 +179,13 @@ class PostItem extends React.Component {
 
     return (
       <Container>
+        
+        {myPost && (
+              <DeleteControl onClick={this.onDeleteClick}>
+                <Delete size="14" />
+              </DeleteControl>
+            )}
+
         <LeftColumn>
           <Link to={'/user/' + this.props.userId}>
             {this.props.avatar ? (
@@ -193,12 +201,6 @@ class PostItem extends React.Component {
               <UserName>{this.props.username}</UserName>
             </StyledLink>
             <PostDate>{postTime}</PostDate>
-
-            {myPost && (
-              <DeleteControl onClick={this.onDeleteClick}>
-                <Delete size="14" />
-              </DeleteControl>
-            )}
           </Header>
           <Linkify properties={{ target: '_blank' }}>
             <Text>{this.state.text}</Text>
