@@ -215,14 +215,14 @@ class PostItem extends React.Component {
           )}
 
           {this.state.videoUrl ? <iframe width="450" height="300" src={this.state.videoUrl} /> : ''}
-        </RightColumn>
+        </RightColumn>  
 
         {myPost && (
           <DeleteControl onClick={this.onDeleteClick}>
             <Delete size="14" />
           </DeleteControl>
         )}
-        
+
         <SocialBlock>
           {likes > 0 || comments > 0 ? (
             <SocialStats>

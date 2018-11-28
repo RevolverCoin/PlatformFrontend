@@ -93,6 +93,7 @@ export const INITIAL_STATE = fromJS({
   },
   rewards: {
     data: null,
+    total: null
   },
   timeline: {
     posts: [],
@@ -336,7 +337,9 @@ export function handleGetTransactionsResults(state, data) {
 }
 
 export function handleGetRewardTransactionsResults(state, data) {
-  return state.setIn(['rewards', 'data'], fromJS(data.data))
+  return state
+    .setIn(['rewards', 'data'], fromJS(data.data.transactions))
+    .setIn(['rewards', 'total'], fromJS(data.data.total))
 }
 
 export function handleGetServiceInfoResults(state, data) {
