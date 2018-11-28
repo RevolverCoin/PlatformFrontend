@@ -43,7 +43,7 @@ class UserPost extends BasePage {
           website={this.props.profile.website}
           links={this.props.profile.links}
           supports={this.props.supports}
-          userId={null}
+          userId={this.props.profile.id}
           public={false}
         />
 

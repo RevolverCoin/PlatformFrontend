@@ -112,7 +112,7 @@ class PostItem extends React.Component {
     this.state = {
       imageUrl: null,
       videoUrl: null,
-      text: this.props.text.hexDecode(),
+      text: this.props.text && this.props.text.hexDecode(),
     }
 
     if (this.props.text) this.parseText(this.props.text)
@@ -120,6 +120,16 @@ class PostItem extends React.Component {
     this.onLikeClick = this.onLikeClick.bind(this)
     this.onDeleteClick = this.onDeleteClick.bind(this)
   }
+
+  componentDidUpdate(prevProps) {
+    
+    if (this.props.text !== prevProps.text) {
+      this.setState({text: this.props.text && this.props.text.hexDecode()})
+      if (this.props.text) 
+        this.parseText(this.props.text)
+    }
+  }
+
 
   async processImage(text) {
     let urls = []

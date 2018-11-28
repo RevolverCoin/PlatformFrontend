@@ -45,7 +45,7 @@ class UserPostListBlock extends React.Component {
 
     return (
       <div>
-        {blocks && <NoPosts>No posts</NoPosts>}
+        {blocks || <NoPosts>No posts</NoPosts>}
 
         {this.props.hasNextPage ? (
           <More>

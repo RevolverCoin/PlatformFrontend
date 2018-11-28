@@ -44,7 +44,7 @@ class PublicPostPage extends PublicBasePage {
             website={this.props.profile.website} 
             links={this.props.profile.links} 
             supports={this.props.supports} 
-            userId={null} 
+            userId={this.props.post.userId} 
             public={true} />
 
         <PostsCaption> Post </PostsCaption>

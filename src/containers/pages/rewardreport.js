@@ -137,7 +137,7 @@ const mapStateToProps = state => {
   const owner = {
     userId: root.getIn(['user', 'profile', 'id']),
     username,
-    image: null && root.getIn(['user', 'profile', 'avatar']),
+    image: root.getIn(['user', 'profile', 'avatar']),
     imageColor: getRandomColor(username),
     imageInitials: defaultInitials(username),
   }
