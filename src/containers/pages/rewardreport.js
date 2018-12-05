@@ -96,7 +96,12 @@ class RewardReportPage extends BasePage {
             return acc + curValue.amount;
           return acc
         }, 0)
+
+        const deltaHeight = this.props.data[0].blockHeight - this.props.data[this.props.data.length-1].blockHeight 
+        
+        estimated = estimated * blocksPerDay / (deltaHeight + 1);  
         estimated = estimated.toPrecision(4)
+
       }
 
 
@@ -150,7 +155,7 @@ const mapStateToProps = state => {
       image: item.avatar,
       to: item.supporting ? true : undefined,
       from: item.supported ? true : undefined, 
-      amount: Number.parseFloat(item.rewardTotal).toPrecision(2),
+      amount: Math.round(item.rewardTotal * 10000) / 10000,
       imageColor: getRandomColor(item.username),
       imageInitials: defaultInitials(item.username)
     }

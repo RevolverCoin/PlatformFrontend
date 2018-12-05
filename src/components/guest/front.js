@@ -36,7 +36,6 @@ const FrontPage = props => (
             <h1>Decentralized</h1>
             <h1>Reward platform</h1>
             <h3>be rewarder by your creations</h3>
-            <ComingSoon>#COMINGSOON</ComingSoon>
           </BannerText>
         </Col>
       </Row>
